@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.entities;
 
+import com.elenabyc.hikingapp.dtos.UserDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,13 +35,16 @@ public class User {
     @JsonManagedReference
     private Set<Review> reviews = new HashSet<>();
 
-//    public User(UserDto userDto) {
-//        if (userDto.getUsername() != null) {
-//            this.username = userDto.getUsername();
-//        }
-//        if (userDto.getPassword() != null) {
-//            this.password = userDto.getPassword();
-//        }
-//    }
+    public User(UserDto userDto) {
+        if (userDto.getUsername() != null) {
+            this.username = userDto.getUsername();
+        }
+        if (userDto.getEmail() != null) {
+            this.username = userDto.getEmail();
+        }
+        if (userDto.getPassword() != null) {
+            this.password = userDto.getPassword();
+        }
+    }
 }
 

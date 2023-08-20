@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.entities;
 
+import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,4 +33,16 @@ public class Trail {
     @OneToMany(mappedBy = "trail", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonManagedReference
     private Set<Review> reviews = new HashSet<>();
+
+    public Trail(TrailDto trailDto) {
+        if (trailDto.getName() != null) {
+            this.name = trailDto.getName();
+        }
+        if (trailDto.getAlias() != null) {
+            this.alias = trailDto.getAlias();
+        }
+        if (trailDto.getImage() != null) {
+            this.image = trailDto.getImage();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.entities;
 
+import com.elenabyc.hikingapp.dtos.ReviewDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,4 +31,13 @@ public class Review {
     @ManyToOne
     @JsonBackReference
     private Trail trail;
+
+    public Review(ReviewDto reviewDto) {
+        if (reviewDto.getBody() != null) {
+            this.body = reviewDto.getBody();
+        }
+        if (reviewDto.getDate() != null) {
+            this.date = reviewDto.getDate();
+        }
+    }
 }

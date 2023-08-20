@@ -20,6 +20,9 @@ public class Review {
     @Column(name = "review_body", columnDefinition = "text")
     private String body;
 
+    @Column(name = "date_created", nullable = false)
+    private String date;
+
     @ManyToOne
     @JsonBackReference
     private User user;

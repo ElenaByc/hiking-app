@@ -33,4 +33,10 @@ public class TrailServiceImpl implements TrailService {
         trailOptional.ifPresent(trail -> response.add(String.valueOf(trail.getId())));
         return response;
     }
+
+    @Override
+    public Optional<TrailDto> getTrailById(Long trailId) {
+        Optional<Trail> trailOptional = trailRepository.findById(trailId);
+        return trailOptional.map(TrailDto::new);
+    }
 }

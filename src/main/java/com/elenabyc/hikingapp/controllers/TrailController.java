@@ -1,0 +1,27 @@
+package com.elenabyc.hikingapp.controllers;
+
+import com.elenabyc.hikingapp.dtos.TrailDto;
+import com.elenabyc.hikingapp.services.TrailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/v1/trails")
+public class TrailController {
+    @Autowired
+    private TrailService trailService;
+
+    @PostMapping("/add")
+    public List<String> addTrail(@RequestBody TrailDto trailDto) {
+        return trailService.addTrail(trailDto);
+    }
+
+    @GetMapping("/{trailId}")
+    public Optional<TrailDto> getTrailById(@PathVariable Long trailId) {
+        return trailService.getTrailById(trailId);
+    }
+
+}

@@ -23,8 +23,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<String> addUser(UserDto userDto) {
         List<String> response = new ArrayList<>();
+        Optional<User> userOptional = userRepository.findByEmail(userDto.getEmail());
+        if (userOptional.isPresent()) {
+            response.add("The email has already been taken");
+            return response;
+        }
         User user = new User(userDto);
         userRepository.saveAndFlush(user);
+        response.add("User added successfully");
         response.add("http://localhost:8080/login.html");
         return response;
     }

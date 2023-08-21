@@ -29,7 +29,7 @@ public class TrailServiceImpl implements TrailService {
             response.add("The trail was added to DB");
             trailOptional = trailRepository.findByAlias(trailDto.getAlias());
         }
-        // return the trail Id
+        // return the trail id
         trailOptional.ifPresent(trail -> response.add(String.valueOf(trail.getId())));
         return response;
     }

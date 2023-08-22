@@ -17,6 +17,10 @@ public class TrailDto implements Serializable {
     private String name;
     private String alias;
     private String image;
+//    private String phone;
+//    private String location;
+//    private String[] openHours;
+
     private Set<ReviewDto> reviewsDto = new HashSet<>();
 
     public TrailDto(Trail trail) {

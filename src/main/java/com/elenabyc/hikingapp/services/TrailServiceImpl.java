@@ -35,7 +35,18 @@ public class TrailServiceImpl implements TrailService {
     }
 
     @Override
+    public List<TrailDto> getTrailsByLocationName(String city) { //}, category, distance, rank) {
+        // Controller -> getAllTrail (location) ->
+        // call YelpService.getTrailByLocationName(city); parse JSON response  -> dtos
+        // categories = hiking
+        // dtos for responses
+        List<TrailDto> list = new ArrayList<>();
+        return list;
+    }
+
+    @Override
     public Optional<TrailDto> getTrailById(Long trailId) {
+//        yelp service
         Optional<Trail> trailOptional = trailRepository.findById(trailId);
         return trailOptional.map(TrailDto::new);
     }

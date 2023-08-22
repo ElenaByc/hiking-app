@@ -11,4 +11,6 @@ public interface TrailService {
     List<String> addTrail(TrailDto trailDto);
 
     Optional<TrailDto> getTrailById(Long trailId);
+
+    List<TrailDto> getTrailsByLocationName(String city);
 }

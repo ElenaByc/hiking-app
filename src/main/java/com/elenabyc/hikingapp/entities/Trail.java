@@ -34,6 +34,9 @@ public class Trail {
     @JsonManagedReference
     private Set<Review> reviews = new HashSet<>();
 
+    @ManyToMany(mappedBy = "savedTrails")
+    private Set<User> users = new HashSet<>();
+
     public Trail(TrailDto trailDto) {
         if (trailDto.getName() != null) {
             this.name = trailDto.getName();

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/trails")
+@RequestMapping("/api/trails")
 public class TrailController {
     @Autowired
     private TrailService trailService;
@@ -22,6 +22,11 @@ public class TrailController {
     @GetMapping("/{trailId}")
     public Optional<TrailDto> getTrailById(@PathVariable Long trailId) {
         return trailService.getTrailById(trailId);
+    }
+
+    @GetMapping("/location/{city}")
+    public List<TrailDto> getTrailsByLocationName(@PathVariable String city) {
+        return trailService.getTrailsByLocationName(city);
     }
 
 }

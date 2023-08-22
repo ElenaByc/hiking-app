@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
         User user = new User(userDto);
         userRepository.saveAndFlush(user);
         response.add("User added successfully");
+        response.add("User id = " + user.getId());
         response.add("http://localhost:8080/login.html");
         return response;
     }

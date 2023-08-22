@@ -35,12 +35,19 @@ public class User {
     @JsonManagedReference
     private Set<Review> reviews = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "saved_trails",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "trail_id"))
+    // JPA creates a new table automatically = I do not need to create SavedTrails entity
+    private Set<Trail> savedTrails = new HashSet<>();
+
     public User(UserDto userDto) {
         if (userDto.getUsername() != null) {
             this.username = userDto.getUsername();
         }
         if (userDto.getEmail() != null) {
-            this.username = userDto.getEmail();
+            this.email = userDto.getEmail();
         }
         if (userDto.getPassword() != null) {
             this.password = userDto.getPassword();

@@ -1,6 +1,7 @@
 package com.elenabyc.hikingapp.services;
 
 import com.elenabyc.hikingapp.dtos.TrailDto;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface TrailService {
 
     Optional<TrailDto> getTrailById(Long trailId);
 
-    List<TrailDto> getTrailsByLocationName(String city);
+    JsonNode getTrailsByLocationName(String city);
 }

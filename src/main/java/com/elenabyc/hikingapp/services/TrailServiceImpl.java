@@ -21,18 +21,21 @@ public class TrailServiceImpl implements TrailService {
     @Autowired
     private YelpAPIService yelpAPIService;
 
+    @Autowired
+    private GoogleAPIService googleAPIService;
+
     @Override
     @Transactional
     public List<String> addTrail(TrailDto trailDto) {
         List<String> response = new ArrayList<>();
-        Optional<Trail> trailOptional = trailRepository.findByAlias(trailDto.getAlias());
+        Optional<Trail> trailOptional = trailRepository.findByAlias(trailDto.getYelpAlias());
         if (trailOptional.isPresent()) {
             response.add("The trail is already in DB");
         } else {
             Trail trail = new Trail(trailDto);
             trailRepository.saveAndFlush(trail);
             response.add("The trail was added to DB");
-            trailOptional = trailRepository.findByAlias(trailDto.getAlias());
+            trailOptional = trailRepository.findByAlias(trailDto.getYelpAlias());
         }
         // return the trail id
         trailOptional.ifPresent(trail -> response.add(String.valueOf(trail.getId())));
@@ -42,6 +45,11 @@ public class TrailServiceImpl implements TrailService {
     @Override
     public JsonNode getTrailsByLocationName(String city) {
         return yelpAPIService.getTrailsByLocationName(city);
+    }
+
+    @Override
+    public JsonNode getTrailDetailsByName(String name) {
+        return googleAPIService.getTrailDetailsByName(name);
     }
 
     @Override

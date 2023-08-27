@@ -15,11 +15,11 @@ import java.util.Set;
 public class TrailDto implements Serializable {
     private Long id;
     private String name;
-    private String alias;
+    private String yelpAlias;
+    private String googlePlaceId;
     private String image;
-//    private String phone;
-//    private String location;
-//    private String[] openHours;
+    private double yelpRating;
+    private double googleRating;
 
     private Set<ReviewDto> reviewsDto = new HashSet<>();
 
@@ -31,7 +31,7 @@ public class TrailDto implements Serializable {
             this.name = trail.getName();
         }
         if (trail.getAlias() != null) {
-            this.alias = trail.getAlias();
+            this.yelpAlias = trail.getAlias();
         }
         if (trail.getImage() != null) {
             this.image = trail.getImage();

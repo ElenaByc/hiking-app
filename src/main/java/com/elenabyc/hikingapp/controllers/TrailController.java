@@ -30,4 +30,10 @@ public class TrailController {
         return trailService.getTrailsByLocationName(city);
     }
 
+    @GetMapping("/details/{name}")
+    public JsonNode getTrailDetailsByName(@PathVariable String name) {
+        return trailService.getTrailDetailsByName(name);
+    }
+
+
 }

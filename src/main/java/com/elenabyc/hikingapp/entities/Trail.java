@@ -41,8 +41,8 @@ public class Trail {
         if (trailDto.getName() != null) {
             this.name = trailDto.getName();
         }
-        if (trailDto.getAlias() != null) {
-            this.alias = trailDto.getAlias();
+        if (trailDto.getYelpAlias() != null) {
+            this.alias = trailDto.getYelpAlias();
         }
         if (trailDto.getImage() != null) {
             this.image = trailDto.getImage();

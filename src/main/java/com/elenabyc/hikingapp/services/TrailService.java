@@ -14,4 +14,6 @@ public interface TrailService {
     Optional<TrailDto> getTrailById(Long trailId);
 
     JsonNode getTrailsByLocationName(String city);
+
+    JsonNode getTrailDetailsByName(String name);
 }

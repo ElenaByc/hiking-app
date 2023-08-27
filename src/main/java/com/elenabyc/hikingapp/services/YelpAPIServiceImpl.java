@@ -45,7 +45,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
             for (JsonNode element : jsonNode.get("businesses")) {
                 TrailDto trailDto = new TrailDto();
                 trailDto.setName(element.get("name").asText());
-                trailDto.setAlias(element.get("alias").asText());
+                trailDto.setYelpAlias(element.get("alias").asText());
                 trailDto.setImage(element.get("image_url").asText());
                 list.add(trailDto);
             }

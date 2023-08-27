@@ -46,6 +46,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 TrailDto trailDto = new TrailDto();
                 trailDto.setName(element.get("name").asText());
                 trailDto.setYelpAlias(element.get("alias").asText());
+                trailDto.setYelpRating(element.get("rating").asDouble());
                 trailDto.setImage(element.get("image_url").asText());
                 list.add(trailDto);
             }

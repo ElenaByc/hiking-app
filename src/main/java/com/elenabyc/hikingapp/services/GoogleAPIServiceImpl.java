@@ -18,7 +18,6 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
     @Value("${google.dev-key}")
     private String GOOGLE_DEV_KEY;
 
-
     @Override
     public JsonNode getTrailDetailsByName(String name) {
         OkHttpClient client = new OkHttpClient();
@@ -38,7 +37,7 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
 
         try {
             Response response = client.newCall(request).execute();
-            System.out.println("response code: " + response.code());
+            System.out.println("Google API response code: " + response.code());
             String responseString = response.body().string();
 
             ObjectMapper objectMapper = new ObjectMapper();
@@ -50,8 +49,8 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                 TrailDto trailDto = new TrailDto();
                 trailDto.setName(element.get("name").asText());
                 trailDto.setGooglePlaceId(element.get("place_id").asText());
-                if (element.get("google_rating") != null) {
-                    trailDto.setGoogleRating(element.get("google_rating").asDouble());
+                if (element.get("rating") != null) {
+                    trailDto.setGoogleRating(element.get("rating").asDouble());
                 }
                 if (element.get("photos") != null) {
                     trailDto.setImage(element.get("photos").get(0).get("photo_reference").asText());

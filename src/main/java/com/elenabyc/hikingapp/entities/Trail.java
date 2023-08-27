@@ -25,7 +25,10 @@ public class Trail {
     private String name;
 
     @Column(name = "yelp_alias", unique = true, nullable = false)
-    private String alias;
+    private String yelpAlias;
+
+    @Column(name = "google_place_id")
+    private String googlePlaceId;
 
     @Column(name = "image_url")
     private String image;
@@ -42,7 +45,10 @@ public class Trail {
             this.name = trailDto.getName();
         }
         if (trailDto.getYelpAlias() != null) {
-            this.alias = trailDto.getYelpAlias();
+            this.yelpAlias = trailDto.getYelpAlias();
+        }
+        if (trailDto.getGooglePlaceId() != null) {
+            this.googlePlaceId = trailDto.getGooglePlaceId();
         }
         if (trailDto.getImage() != null) {
             this.image = trailDto.getImage();

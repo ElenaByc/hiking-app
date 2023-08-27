@@ -18,6 +18,7 @@ public class TrailDto implements Serializable {
     private String yelpAlias;
     private String googlePlaceId;
     private String image;
+    private Coordinates coordinates;
     private double yelpRating;
     private double googleRating;
 
@@ -30,8 +31,11 @@ public class TrailDto implements Serializable {
         if (trail.getName() != null) {
             this.name = trail.getName();
         }
-        if (trail.getAlias() != null) {
-            this.yelpAlias = trail.getAlias();
+        if (trail.getYelpAlias() != null) {
+            this.yelpAlias = trail.getYelpAlias();
+        }
+        if (trail.getGooglePlaceId() != null) {
+            this.googlePlaceId = trail.getGooglePlaceId();
         }
         if (trail.getImage() != null) {
             this.image = trail.getImage();

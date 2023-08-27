@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.services;
 
+import com.elenabyc.hikingapp.dtos.Coordinates;
 import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,6 +48,9 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 trailDto.setName(element.get("name").asText());
                 trailDto.setYelpAlias(element.get("alias").asText());
                 trailDto.setYelpRating(element.get("rating").asDouble());
+                trailDto.setCoordinates(new Coordinates(
+                        element.get("coordinates").get("latitude").asDouble(),
+                        element.get("coordinates").get("longitude").asDouble()));
                 trailDto.setImage(element.get("image_url").asText());
                 list.add(trailDto);
             }

@@ -47,7 +47,7 @@ public class User {
             this.username = userDto.getUsername();
         }
         if (userDto.getEmail() != null) {
-            this.email = userDto.getEmail();
+            this.email = userDto.getEmail().toLowerCase();
         }
         if (userDto.getPassword() != null) {
             this.password = userDto.getPassword();

@@ -13,7 +13,7 @@ public interface TrailService {
 
     Optional<TrailDto> getTrailById(Long trailId);
 
-    JsonNode getTrailsByLocationName(String city);
+    List<TrailDto> getTrailsByLocationName(String city);
 
     JsonNode getTrailDetailsByName(String name);
 }

@@ -28,14 +28,14 @@ public class TrailServiceImpl implements TrailService {
     @Transactional
     public List<String> addTrail(TrailDto trailDto) {
         List<String> response = new ArrayList<>();
-        Optional<Trail> trailOptional = trailRepository.findByAlias(trailDto.getYelpAlias());
+        Optional<Trail> trailOptional = trailRepository.findByYelpAlias(trailDto.getYelpAlias());
         if (trailOptional.isPresent()) {
             response.add("The trail is already in DB");
         } else {
             Trail trail = new Trail(trailDto);
             trailRepository.saveAndFlush(trail);
             response.add("The trail was added to DB");
-            trailOptional = trailRepository.findByAlias(trailDto.getYelpAlias());
+            trailOptional = trailRepository.findByYelpAlias(trailDto.getYelpAlias());
         }
         // return the trail id
         trailOptional.ifPresent(trail -> response.add(String.valueOf(trail.getId())));
@@ -43,7 +43,7 @@ public class TrailServiceImpl implements TrailService {
     }
 
     @Override
-    public JsonNode getTrailsByLocationName(String city) {
+    public List<TrailDto> getTrailsByLocationName(String city) {
         return yelpAPIService.getTrailsByLocationName(city);
     }
 
@@ -54,7 +54,6 @@ public class TrailServiceImpl implements TrailService {
 
     @Override
     public Optional<TrailDto> getTrailById(Long trailId) {
-//        yelp service
         Optional<Trail> trailOptional = trailRepository.findById(trailId);
         return trailOptional.map(TrailDto::new);
     }

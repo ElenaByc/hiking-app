@@ -26,7 +26,7 @@ public class TrailController {
     }
 
     @GetMapping("/location/{city}")
-    public JsonNode getTrailsByLocationName(@PathVariable String city) {
+    public List<TrailDto> getTrailsByLocationName(@PathVariable String city) {
         return trailService.getTrailsByLocationName(city);
     }
 

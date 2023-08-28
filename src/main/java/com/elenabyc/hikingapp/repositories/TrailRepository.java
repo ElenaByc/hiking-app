@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface TrailRepository extends JpaRepository<Trail, Long> {
-    Optional<Trail> findByAlias(String alias);
+    Optional<Trail> findByYelpAlias(String yelpAlias);
 }

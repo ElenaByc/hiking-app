@@ -20,7 +20,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
     private String YELP_DEV_KEY;
 
     @Override
-    public JsonNode getTrailsByLocationName(String city) {
+    public List<TrailDto> getTrailsByLocationName(String city) {
         OkHttpClient client = new OkHttpClient();
         String yelpHikingUrl = String.format(
                 "https://api.yelp.com/v3/businesses/search?location=%s&categories=hiking&sort_by=best_match&limit=50",
@@ -55,8 +55,8 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 list.add(trailDto);
             }
             System.out.println(list);
-
-            return jsonNode;
+            return list;
+//            return jsonNode;
         } catch (IOException e) {
             return null;
         }

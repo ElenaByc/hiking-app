@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'KaushanScript';
+    src: url("../assets/fonts/KaushanScript-Regular.ttf");
+    font-weight: 400;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #82B77C;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+.header__content,
+.main {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+
+.header {
+    /* background-color: #78A1BB; */
+    background-color: #CCEEFF;
+    width: 100%;
+    padding: 10px 20px;
+
+}
+
+.header__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.header__logo img {
+    width: 100px;
+    height: auto;
+}
+
+.header__logo h1 {
+    font-family: 'KaushanScript';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 56px;
+    color: #336699;
+    margin: 0;
+}

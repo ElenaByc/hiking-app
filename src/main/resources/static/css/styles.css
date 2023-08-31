@@ -4,8 +4,35 @@
     font-weight: 400;
 }
 
+@font-face {
+    font-family: 'Raleway';
+    src: url("../assets/fonts/Raleway-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Raleway Italic';
+    src: url("../assets/fonts/Raleway-Italic.ttf");
+    font-weight: 400;
+}
+
+:root {
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-blue-l: #CCEEFF;
+    --color-blue: #336699;
+    --color-green: #82B77C;
+}
+
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-green);
+    font-family: 'Raleway';
+    font-style: normal;
+    font-size: 18px;
 }
 
 *,
@@ -16,13 +43,26 @@ html {
     box-sizing: border-box;
 }
 
-body {
-    background-color: #82B77C;
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'KaushanScript';
+    font-style: normal;
+    font-weight: 400;
+    color: var(--color-white);
+    margin: 0;
 }
 
 a {
     text-decoration: none;
     color: unset;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: var(--color-white);
 }
 
 .header__content,
@@ -31,19 +71,52 @@ a {
     margin: 0 auto;
 }
 
+/* ---------- Buttons ---------- */
+
+.button {
+    font-family: 'Raleway Italic';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: var(--color-blue-l);
+
+    padding: 5px 15px;
+    background-color: var(--color-blue);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 3px rgba(13, 96, 111, 0.16);
+    border: 2px solid var(--color-blue);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.button:hover {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+        0px 2px 3px rgba(13, 96, 111, 0.16),
+        0 0 0 2px var(--color-blue) inset,
+        0 0 0 3px var(--color-blue-l) inset;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+/* ---------- Icons ---------- */
+
+
+/* ---------- Header ---------- */
 
 .header {
-    /* background-color: #78A1BB; */
-    background-color: #CCEEFF;
+    background-color: var(--color-blue-l);
     width: 100%;
-    padding: 10px 20px;
-
 }
 
 .header__content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 60px;
 }
 
 .header__logo {
@@ -58,11 +131,22 @@ a {
 }
 
 .header__logo h1 {
-    font-family: 'KaushanScript';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 48px;
-    line-height: 56px;
-    color: #336699;
+    font-size: 52px;
+    line-height: 58px;
+    color: var(--color-blue);
     margin: 0;
 }
+
+/* ---------- Home Page ---------- */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+}
+
+/* ---------- Search Form ---------- */
+
+/* ---------- Search result ---------- */

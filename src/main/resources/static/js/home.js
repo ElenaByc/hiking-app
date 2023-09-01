@@ -1,18 +1,38 @@
 console.log('HOME PAGE SCRIPT');
 
-console.log(document.cookie);
-const cookieArr = document.cookie.split('; ');
-console.log(cookieArr);
-console.log(cookieArr[0].split('='));
-const userId = cookieArr[0].split('=')[1];
-const userName = cookieArr[1].split('=')[1];
-console.log('User Id  = ', userId);
-console.log('User Name  = ', userName);
-
 const searchForm = document.querySelector('#search-form');
 const loginBtn = document.querySelector('#login');
 
-console.log(loginBtn);
+const handleLogin = () => {
+  window.location.replace('./login.html');
+}
+
+const handleLogout = () => {
+  console.log(document.cookie);
+  const c = document.cookie.split(";");
+  for (let i in c) {
+    document.cookie = /^[^=]+/.exec(c[i])[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+  console.log(document.cookie);
+  loginBtn.removeEventListener('click', handleLogout);
+  loginBtn.innerText = 'Login';
+  loginBtn.addEventListener('click', handleLogin);
+}
+
+console.log(document.cookie);
+const cookieArr = document.cookie.split('; ');
+console.log(cookieArr);
+if (cookieArr.length > 1) {
+  const userId = cookieArr[1].split('=')[1];
+  const userName = cookieArr[0].split('=')[1];
+  console.log('User Id  = ', userId);
+  console.log('User Name  = ', userName);
+  loginBtn.addEventListener('click', handleLogout);
+  loginBtn.innerText = 'Logout';
+} else {
+  loginBtn.addEventListener('click', handleLogin);
+}
+
 
 const headers = {
   'Content-Type': 'application/json'
@@ -35,13 +55,8 @@ const handleSubmit = async (e) => {
 
   if (response.status === 200) {
     console.log(responseArr);
+
   }
 }
 
-const handleLogin = () => {
-  window.location.replace('./login.html');
-}
-
 searchForm.addEventListener('submit', handleSubmit);
-loginBtn.addEventListener('click', handleLogin);
-

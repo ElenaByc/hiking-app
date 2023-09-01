@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> userLogin(UserDto userDto) {
         List<String> response = new ArrayList<>();
-        Optional<User> userOptional = userRepository.findByEmail(userDto.getEmail());
+        Optional<User> userOptional = userRepository.findByEmail(userDto.getEmail().toLowerCase());
         if (userOptional.isPresent()) {
             if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
                 response.add("http://localhost:8080/index.html");

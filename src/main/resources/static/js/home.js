@@ -2,6 +2,7 @@ console.log('HOME PAGE SCRIPT');
 
 const searchForm = document.querySelector('#search-form');
 const loginBtn = document.querySelector('#login');
+const searchResultContainer = document.querySelector('#search-result');
 
 const handleLogin = () => {
   window.location.replace('./login.html');
@@ -55,8 +56,34 @@ const handleSubmit = async (e) => {
 
   if (response.status === 200) {
     console.log(responseArr);
-
+    createTrailsCards(responseArr);
   }
 }
 
+const createTrailsCards = (trails) => {
+  searchResultContainer.innerHTML = ''
+  trails.forEach(trail => {
+    let trailCard = document.createElement("div");
+    trailCard.classList.add("trail-card");
+    trailCard.innerHTML = `
+          <div class="trail-card__img">
+            <img src="${trail.image}" alt="${trail.name} picture">
+          </div>
+          <div class="trail-card__content">
+            <div class="trail-card__info">
+              <h3>${trail.name}</h3>
+              <div>yelpAlias: ${trail.yelpAlias}</div>
+              <div>yelpRating: ${trail.yelpRating}</div>
+            </div>
+            <div class="trail-card__buttons">
+              <button class="button">Learn more</button>
+              <button class="button">Save this trail</button>
+            </div>
+          </div>
+      `
+    searchResultContainer.append(trailCard);
+  });
+}
+
 searchForm.addEventListener('submit', handleSubmit);
+

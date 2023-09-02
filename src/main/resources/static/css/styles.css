@@ -150,3 +150,50 @@ a:hover {
 /* ---------- Search Form ---------- */
 
 /* ---------- Search result ---------- */
+
+.trails-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 40px;
+}
+
+.trail-card {
+    display: flex;
+    flex-direction: row;
+    column-gap: 30px;
+    width: 90%;
+    background-color: var(--color-white);
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 3px rgba(13, 96, 111, 0.16);
+}
+
+.trail-card__img img {
+    width: 400px;
+    height: auto;
+    border-radius: 16px;
+}
+
+.trail-card__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.trail-card__info {
+    width: 100%;
+    padding: 10px;
+}
+
+.trail-card__info h3 {
+    color: var(--color-blue);
+    text-align: center;
+}
+
+.trail-card__buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+}

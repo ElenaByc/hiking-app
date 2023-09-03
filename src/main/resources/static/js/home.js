@@ -73,7 +73,7 @@ const createTrailsCards = (trails) => {
             <div class="trail-card__info">
               <h3>${trail.name}</h3>
               <div>yelpAlias: ${trail.yelpAlias}</div>
-              <div>yelpRating: ${trail.yelpRating}</div>
+              <div>yelpRating: ${trail.yelpRating}&nbsp;&nbsp;Based on ${trail.yelpReviewCount} reviews</div>
             </div>
             <div class="trail-card__buttons">
               <button class="button">Learn more</button>

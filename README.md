@@ -18,6 +18,12 @@
   - JPA / Hibernate
   - PostgreSQL
 - **Frontend**
+  - JavaScript
+  - Bootstrap
+  - AJAX
+  - JSON
+  - HTML5
+  - CSS3
 
 - **APIs**
   - Yelp Fusion API

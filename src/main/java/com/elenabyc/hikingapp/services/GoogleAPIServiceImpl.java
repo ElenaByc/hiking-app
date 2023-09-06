@@ -52,9 +52,41 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                     if (element.get("formatted_address") != null) {
                         trailDto.setAddress(element.get("formatted_address").asText());
                     }
+//                    if (trailDto.getImage() == null && element.get("photos") != null &&
+                    if (element.get("photos") != null &&
+                            element.get("photos").size() > 0) {
+                        String imgRef = element.get("photos").get(0).get("photo_reference").asText();
+                        System.out.println("IMG REF " + imgRef);
+                        trailDto.setImage(getImageByReference(imgRef));
+                    }
                     return;
                 }
             }
+        }
+    }
+
+    @Override
+    public String getImageByReference(String imgRef) {
+        OkHttpClient client = new OkHttpClient();
+        StringBuilder googlePlacePhotosUrl = new StringBuilder();
+        String maxWidth = "?maxwidth=1600";
+        String key = "&key=" + GOOGLE_DEV_KEY;
+
+        googlePlacePhotosUrl.append("https://maps.googleapis.com/maps/api/place/photo");
+        googlePlacePhotosUrl.append(maxWidth);
+        googlePlacePhotosUrl.append("&photo_reference=" + imgRef);
+        googlePlacePhotosUrl.append(key);
+        Request request = new Request.Builder()
+                .url(googlePlacePhotosUrl.toString())
+                .get()
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            System.out.println("IMAGE RESPONSE");
+            System.out.println(response);
+            return response.request().url().toString();
+        } catch (IOException e) {
+            return null;
         }
     }
 

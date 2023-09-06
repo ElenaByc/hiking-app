@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public interface GoogleAPIService {
     void getTrailGooglePlacesData(TrailDto trailDto);
-
+    String getImageByReference(String imgRef);
     JsonNode getTrailDetailsByName(String name);
     JsonNode getTrailDetailsByPlaceId(String googlePlaceId);
 }

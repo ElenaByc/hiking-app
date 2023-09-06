@@ -43,6 +43,7 @@ const baseUrl = '/api/trails';
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  showLoadingSpinner();
   const city = document.querySelector('#city').value;
   const trailName = document.querySelector('#trail-name');
   console.log('url = ', `${baseUrl}/location/${city}`);
@@ -60,8 +61,28 @@ const handleSubmit = async (e) => {
   }
 }
 
+const showLoadingSpinner = () => {
+  searchResultContainer.innerHTML = `
+    <h3 class="loading-header">Loading...</h3>
+    <div class="loading-spinner">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    `;
+}
+
 const createTrailsCards = (trails) => {
-  searchResultContainer.innerHTML = ''
+  searchResultContainer.innerHTML = '';
   trails.forEach(trail => {
     let trailCard = document.createElement("div");
     trailCard.classList.add("trail-card");
@@ -92,7 +113,7 @@ const createTrailsCards = (trails) => {
               <button class="button">Save this trail</button>
             </div>
           </div>
-      `
+      `;
     searchResultContainer.append(trailCard);
   });
 }

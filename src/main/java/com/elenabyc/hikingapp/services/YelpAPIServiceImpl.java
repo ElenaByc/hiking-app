@@ -55,9 +55,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 trailDto.setImage(element.get("image_url").asText());
                 list.add(trailDto);
             }
-            System.out.println(list);
             return list;
-//            return jsonNode;
         } catch (IOException e) {
             return null;
         }

@@ -65,6 +65,12 @@ const createTrailsCards = (trails) => {
   trails.forEach(trail => {
     let trailCard = document.createElement("div");
     trailCard.classList.add("trail-card");
+    let latitude = 0;
+    let longitude = 0;
+    if (trail.googleCoordinates) {
+      latitude = trail.googleCoordinates.latitude;
+      longitude = trail.coordinates.longitude;
+    }
     trailCard.innerHTML = `
           <div class="trail-card__img">
             <img src="${trail.image}" alt="${trail.name} picture">
@@ -72,9 +78,15 @@ const createTrailsCards = (trails) => {
           <div class="trail-card__content">
             <div class="trail-card__info">
               <h3>${trail.name}</h3>
-              <div>yelpAlias: ${trail.yelpAlias}</div>
-              <div>yelpRating: ${trail.yelpRating}&nbsp;&nbsp;Based on ${trail.yelpReviewCount} reviews</div>
-            </div>
+              <div>Yelp Alias: ${trail.yelpAlias}</div>
+              <div>Yelp Rating: ${trail.yelpRating}&nbsp;&nbsp;Based on ${trail.yelpReviewCount} reviews</div>
+              <div>Google Place Id: ${trail.googlePlaceId}</div>
+              <div>Google Places Rating: ${trail.googleRating}&nbsp;&nbsp;Based on ${trail.googleReviewCount} reviews</div>
+              <div>Yelp Coordinates: ${trail.coordinates.latitude}&nbsp;&nbsp;${trail.coordinates.longitude}</div>
+              <div>Google Coordinates: ${latitude}&nbsp;&nbsp;${longitude}</div>
+              <br>
+              <div>Address: ${trail.address}</div>
+              </div>
             <div class="trail-card__buttons">
               <button class="button">Learn more</button>
               <button class="button">Save this trail</button>

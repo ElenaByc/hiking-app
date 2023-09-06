@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.services;
 
+import com.elenabyc.hikingapp.dtos.Coordinates;
 import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,11 +20,50 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
     private String GOOGLE_DEV_KEY;
 
     @Override
-    public JsonNode getTrailDetailsByName(String name) {
+    public void getTrailGooglePlacesData(TrailDto trailDto) {
+        JsonNode googlePlacesAPIResponse;
+        if (trailDto.getGooglePlaceId() != null) {
+            //TODO: get Google Data from Google Place Details API
+        } else { // get Google Data from Google Place Search Place API
+            googlePlacesAPIResponse = getTrailDetailsByName(trailDto.getName());
+            if (googlePlacesAPIResponse == null) {
+                System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");
+                return;
+            }
+            System.out.println(googlePlacesAPIResponse.get("candidates"));
+            System.out.println(googlePlacesAPIResponse.get("candidates").size());
+            double latitude;
+            double longitude;
+            for (JsonNode element : googlePlacesAPIResponse.get("candidates")) {
+                latitude = element.get("geometry").get("location").get("lat").asDouble();
+                longitude = element.get("geometry").get("location").get("lng").asDouble();
+
+                if (Math.abs(latitude - trailDto.getCoordinates().getLatitude()) < 1 &&
+                        Math.abs(longitude - trailDto.getCoordinates().getLongitude()) < 1) {
+                    // correct trail was found
+                    trailDto.setGooglePlaceId(element.get("place_id").asText());
+                    trailDto.setGoogleCoordinates(new Coordinates(latitude, longitude));
+                    if (element.get("rating") != null) {
+                        trailDto.setGoogleRating(element.get("rating").asDouble());
+                    }
+                    if (element.get("user_ratings_total") != null) {
+                        trailDto.setGoogleReviewCount(element.get("user_ratings_total").asInt());
+                    }
+                    if (element.get("formatted_address") != null) {
+                        trailDto.setAddress(element.get("formatted_address").asText());
+                    }
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public JsonNode getTrailDetailsByName(String trailName) {
         OkHttpClient client = new OkHttpClient();
         StringBuilder googleFindPlaceUrl = new StringBuilder();
-        String input = "&input=" + name + "&inputtype=textquery";
-        String fields = "?fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry%2Ctype%2Cphoto%2Cplace_id";
+        String input = "&input=" + trailName + "&inputtype=textquery";
+        String fields = "?fields=formatted_address%2Cname%2Crating%2Cuser_ratings_total%2Cgeometry%2Cphoto%2Cplace_id";
         String key = "&key=" + GOOGLE_DEV_KEY;
 
         googleFindPlaceUrl.append("https://maps.googleapis.com/maps/api/place/findplacefromtext/json");
@@ -37,31 +77,20 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
 
         try {
             Response response = client.newCall(request).execute();
+            System.out.println("Trail name: " + trailName);
             System.out.println("Google API response code: " + response.code());
             String responseString = response.body().string();
-
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(responseString);
-            System.out.println(jsonNode.get("candidates"));
-            System.out.println(jsonNode.get("candidates").size());
-            List<TrailDto> list = new ArrayList<>();
-            for (JsonNode element : jsonNode.get("candidates")) {
-                TrailDto trailDto = new TrailDto();
-                trailDto.setName(element.get("name").asText());
-                trailDto.setGooglePlaceId(element.get("place_id").asText());
-                if (element.get("rating") != null) {
-                    trailDto.setGoogleRating(element.get("rating").asDouble());
-                }
-                if (element.get("photos") != null) {
-                    trailDto.setImage(element.get("photos").get(0).get("photo_reference").asText());
-                }
-                list.add(trailDto);
-            }
-            System.out.println(list);
-
+            System.out.println("Google API response status: " + jsonNode.get("status"));
             return jsonNode;
         } catch (IOException e) {
             return null;
         }
+    }
+
+    @Override
+    public JsonNode getTrailDetailsByPlaceId(String googlePlaceId) {
+        return null;
     }
 }

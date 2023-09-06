@@ -44,7 +44,12 @@ public class TrailServiceImpl implements TrailService {
 
     @Override
     public List<TrailDto> getTrailsByLocationName(String city) {
-        return yelpAPIService.getTrailsByLocationName(city);
+        List<TrailDto> searchResultList = yelpAPIService.getTrailsByLocationName(city);
+        for (TrailDto trailDto: searchResultList) {
+            // TODO check if this trail in DB and if so get its GooglePlacesId
+            googleAPIService.getTrailGooglePlacesData(trailDto);
+        }
+        return searchResultList;
     }
 
     @Override

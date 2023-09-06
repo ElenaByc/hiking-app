@@ -19,6 +19,8 @@ public class TrailDto implements Serializable {
     private String googlePlaceId;
     private String image;
     private Coordinates coordinates;
+    private Coordinates googleCoordinates;
+    private String address;
     private double yelpRating;
     private double googleRating;
     private int yelpReviewCount;

@@ -46,7 +46,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User:" + + this.id + " " + this.username;
+        return "User:" + + this.id + " " + this.username + "\n Saved Trails:" +  this.savedTrails;
     }
     public void addTrail(Trail trail) {
         this.savedTrails.add(trail);

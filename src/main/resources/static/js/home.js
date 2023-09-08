@@ -105,6 +105,10 @@ const handleSaveTrail = async (i) => {
     console.log(response.status);
     const responseArr = await response.json();
     console.log(responseArr);
+    const saveBtn = document.querySelector(`#save-btn-${i}`);
+    saveBtn.innerHTML = 'Saved';
+    // saveBtn.removeEventListener('click', 'handleSaveTrail');
+    saveBtn.disabled = true;
   }
 }
 
@@ -113,8 +117,8 @@ const createTrailsCards = (trails) => {
   trailsArray = [];
   let i = 0;
   trails.forEach(trail => {
-    let trailCard = document.createElement("div");
-    trailCard.classList.add("trail-card");
+    let trailCard = document.createElement('div');
+    trailCard.classList.add('trail-card');
     let latitude = 0;
     let longitude = 0;
     if (trail.googleCoordinates) {
@@ -139,7 +143,7 @@ const createTrailsCards = (trails) => {
               </div>
             <div class="trail-card__buttons">
               <button class="button">Learn more</button>
-              <button class="button" onclick="handleSaveTrail(${i})">Save this trail</button>
+              <button class="button" id="save-btn-${i}" onclick="handleSaveTrail(${i})">Save this trail</button>
             </div>
           </div>
       `;
@@ -147,8 +151,8 @@ const createTrailsCards = (trails) => {
     trailsArray.push(trail);
     i++;
   });
-
-
+  // store search result in local storage 
+  localStorage.setItem("trails", JSON.stringify(trailsArray));
 }
 
 searchForm.addEventListener('submit', handleFormSubmit);

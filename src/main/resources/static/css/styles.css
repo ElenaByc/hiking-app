@@ -91,15 +91,23 @@ a:hover {
     transition: .3s;
 }
 
-.button:hover {
+.button:enabled:hover {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
         0px 2px 3px rgba(13, 96, 111, 0.16),
         0 0 0 2px var(--color-blue) inset,
         0 0 0 3px var(--color-blue-l) inset;
 }
 
-.button:active {
+.button:enabled:active {
     transform: scale(0.98);
+}
+
+button:disabled,
+button[disabled] {
+    background-color: var(--color-green);
+    border: 2px solid var(--color-green);
+    color: var(--color-white);
+    cursor: auto;
 }
 
 /* ---------- Icons ---------- */

@@ -25,7 +25,8 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
         if (trailDto.getGooglePlaceId() != null) {
             //TODO: get Google Data from Google Place Details API
         } else { // get Google Data from Google Place Search Place API
-            googlePlacesAPIResponse = getTrailDetailsByName(trailDto.getName());
+//            googlePlacesAPIResponse = getTrailDetailsByName(trailDto.getName());
+            googlePlacesAPIResponse = getTrailDetailsByName(trailDto.getYelpAlias());
             if (googlePlacesAPIResponse == null) {
                 System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");
                 return;

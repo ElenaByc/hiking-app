@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.dtos;
 
+import com.elenabyc.hikingapp.entities.Trail;
 import com.elenabyc.hikingapp.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class UserDto implements Serializable {
     private String email;
     private String password;
     private Set<ReviewDto> reviewsDto = new HashSet<>();
+    private Set<TrailDto> savedTrailsDto = new HashSet<>();
 
     public UserDto(User user) {
         if (user.getId() != null) {
@@ -31,6 +33,11 @@ public class UserDto implements Serializable {
         }
         if (user.getPassword() != null) {
             this.password = user.getPassword();
+        }
+        if (user.getSavedTrails().size() > 0) {
+            for (Trail trail : user.getSavedTrails()) {
+                this.savedTrailsDto.add(new TrailDto(trail));
+            }
         }
     }
 }

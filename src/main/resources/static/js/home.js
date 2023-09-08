@@ -4,6 +4,17 @@ const searchForm = document.querySelector('#search-form');
 const loginBtn = document.querySelector('#login');
 const searchResultContainer = document.querySelector('#search-result');
 
+const headers = {
+  'Content-Type': 'application/json'
+};
+
+const baseUrl = '/api/trails';
+
+let userId;
+let userName;
+
+let trailsArray = [];
+
 const handleLogin = () => {
   window.location.replace('./login.html');
 }
@@ -18,30 +29,31 @@ const handleLogout = () => {
   loginBtn.removeEventListener('click', handleLogout);
   loginBtn.innerText = 'Login';
   loginBtn.addEventListener('click', handleLogin);
+  userId = null;
+  userName = null;
 }
 
 console.log(document.cookie);
 const cookieArr = document.cookie.split('; ');
 console.log(cookieArr);
-if (cookieArr.length > 1) {
-  const userId = cookieArr[1].split('=')[1];
-  const userName = cookieArr[0].split('=')[1];
-  console.log('User Id  = ', userId);
-  console.log('User Name  = ', userName);
+for (let i = 0; i < cookieArr.length; i++) {
+  if (cookieArr[i].includes('userId')) {
+    userId = cookieArr[i].split('=')[1];
+  }
+  if (cookieArr[i].includes('userName')) {
+    userName = cookieArr[i].split('=')[1];
+  }
+}
+console.log('User Id  = ', userId);
+console.log('User Name  = ', userName);
+if (userId) {
   loginBtn.addEventListener('click', handleLogout);
   loginBtn.innerText = 'Logout';
 } else {
   loginBtn.addEventListener('click', handleLogin);
 }
 
-
-const headers = {
-  'Content-Type': 'application/json'
-};
-
-const baseUrl = '/api/trails';
-
-const handleSubmit = async (e) => {
+const handleFormSubmit = async (e) => {
   e.preventDefault();
   showLoadingSpinner();
   const city = document.querySelector('#city').value;
@@ -53,9 +65,8 @@ const handleSubmit = async (e) => {
   })
     .catch(err => console.error(err.message));
 
-  const responseArr = await response.json();
-
   if (response.status === 200) {
+    const responseArr = await response.json();
     console.log(responseArr);
     createTrailsCards(responseArr);
   }
@@ -81,8 +92,26 @@ const showLoadingSpinner = () => {
     `;
 }
 
+const handleSaveTrail = async (i) => {
+  let trail = trailsArray[i];
+  console.log(trail);
+  const response = await fetch(`${baseUrl}/save/${userId}`, {
+    method: 'POST',
+    body: JSON.stringify(trail),
+    headers: headers
+  })
+    .catch(err => console.error(err.message))
+  if (response.status == 200) {
+    console.log(response.status);
+    const responseArr = await response.json();
+    console.log(responseArr);
+  }
+}
+
 const createTrailsCards = (trails) => {
   searchResultContainer.innerHTML = '';
+  trailsArray = [];
+  let i = 0;
   trails.forEach(trail => {
     let trailCard = document.createElement("div");
     trailCard.classList.add("trail-card");
@@ -110,13 +139,17 @@ const createTrailsCards = (trails) => {
               </div>
             <div class="trail-card__buttons">
               <button class="button">Learn more</button>
-              <button class="button">Save this trail</button>
+              <button class="button" onclick="handleSaveTrail(${i})">Save this trail</button>
             </div>
           </div>
       `;
     searchResultContainer.append(trailCard);
+    trailsArray.push(trail);
+    i++;
   });
+
+
 }
 
-searchForm.addEventListener('submit', handleSubmit);
+searchForm.addEventListener('submit', handleFormSubmit);
 

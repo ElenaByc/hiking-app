@@ -15,9 +15,9 @@ public class TrailController {
     @Autowired
     private TrailService trailService;
 
-    @PostMapping("/add")
-    public List<String> addTrail(@RequestBody TrailDto trailDto) {
-        return trailService.addTrail(trailDto);
+    @PostMapping("/save/{userId}")
+    public List<String> saveTrail(@RequestBody TrailDto trailDto, @PathVariable Long userId) {
+        return trailService.saveTrail(trailDto, userId);
     }
 
     @GetMapping("/{trailId}")

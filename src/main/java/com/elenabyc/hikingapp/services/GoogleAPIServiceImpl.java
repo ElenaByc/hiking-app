@@ -84,7 +84,9 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
             Response response = client.newCall(request).execute();
             System.out.println("IMAGE RESPONSE");
             System.out.println(response);
-            return response.request().url().toString();
+            String imageUrl = response.request().url().toString();
+            response.body().close();
+            return imageUrl;
         } catch (IOException e) {
             return null;
         }

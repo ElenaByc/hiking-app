@@ -1,6 +1,7 @@
 console.log('HOME PAGE SCRIPT');
 
 const searchForm = document.querySelector('#search-form');
+const submitBtn = document.querySelector('#submit-button');
 const loginBtn = document.querySelector('#login');
 const searchResultContainer = document.querySelector('#search-result');
 
@@ -48,13 +49,15 @@ console.log('User Id  = ', userId);
 console.log('User Name  = ', userName);
 if (userId) {
   loginBtn.addEventListener('click', handleLogout);
-  loginBtn.innerText = 'Logout';
+  loginBtn.innerText = 'Log Out';
 } else {
   loginBtn.addEventListener('click', handleLogin);
 }
 
 const handleFormSubmit = async (e) => {
   e.preventDefault();
+  submitBtn.disabled = true;
+  console.log(submitBtn);
   showLoadingSpinner();
   const city = document.querySelector('#city').value;
   const trailName = document.querySelector('#trail-name');
@@ -69,7 +72,11 @@ const handleFormSubmit = async (e) => {
     const responseArr = await response.json();
     console.log(responseArr);
     createTrailsCards(responseArr);
+  } else {
+    console.log('ERROR!!!!!!');
+    searchResultContainer.innerHTML = '';
   }
+  submitBtn.disabled = false;
 }
 
 const showLoadingSpinner = () => {

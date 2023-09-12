@@ -22,6 +22,9 @@
     --color-blue-l: #CCEEFF;
     --color-blue: #336699;
     --color-green: #82B77C;
+    --color-gray: #666666;
+    --color-gray-l: #CCCCCC;
+}
 }
 
 html {
@@ -109,6 +112,15 @@ button[disabled] {
     color: var(--color-white);
     cursor: auto;
 }
+
+button:disabled#submit-button,
+button[disabled]#submit-button {
+    background-color: var(--color-gray-l);
+    border: 2px solid var(--color-gray-l);
+    color: var(--color-gray);
+    cursor: auto;
+}
+
 
 /* ---------- Icons ---------- */
 

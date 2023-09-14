@@ -1,9 +1,8 @@
-console.log('HOME PAGE SCRIPT');
-
 const searchForm = document.querySelector('#search-form');
 const submitBtn = document.querySelector('#submit-button');
 const loginBtn = document.querySelector('#login');
 const searchResultContainer = document.querySelector('#search-result');
+const userMenu = document.querySelector('#user-menu');
 
 const headers = {
   'Content-Type': 'application/json'
@@ -21,15 +20,15 @@ const handleLogin = () => {
 }
 
 const handleLogout = () => {
-  console.log(document.cookie);
   const c = document.cookie.split(";");
   for (let i in c) {
     document.cookie = /^[^=]+/.exec(c[i])[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
   }
-  console.log(document.cookie);
   loginBtn.removeEventListener('click', handleLogout);
   loginBtn.innerText = 'Login';
   loginBtn.addEventListener('click', handleLogin);
+  userMenu.innerHTML = '';
+  userMenu.appendChild(loginBtn);
   userId = null;
   userName = null;
 }
@@ -49,8 +48,10 @@ console.log('User Id  = ', userId);
 console.log('User Name  = ', userName);
 if (userId) {
   loginBtn.addEventListener('click', handleLogout);
-  loginBtn.innerText = 'Log Out';
 } else {
+  userMenu.innerHTML = '';
+  userMenu.appendChild(loginBtn);
+  loginBtn.innerText = 'Log In';
   loginBtn.addEventListener('click', handleLogin);
 }
 
@@ -114,7 +115,6 @@ const handleSaveTrail = async (i) => {
     console.log(responseArr);
     const saveBtn = document.querySelector(`#save-btn-${i}`);
     saveBtn.innerHTML = 'Saved';
-    // saveBtn.removeEventListener('click', 'handleSaveTrail');
     saveBtn.disabled = true;
   }
 }

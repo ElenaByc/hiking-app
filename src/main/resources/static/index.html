@@ -17,29 +17,39 @@
     <header class="header">
         <div class="header__content">
             <a href="./index.html" class="header__logo">
-                <img src="./assets/images/logo.png">
+                <img src="./assets/images/logo.png" alt="logo">
                 <h1>Let's Go Hiking!</h1>
             </a>
-            <div class="user"><button class="button" id="login">Login</button></div>
+            <div id="user-menu" class="dropdown">
+                <div class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Saved Trails</a></li>
+                    <li><a class="dropdown-item" href="#">My Reviews</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><button class="button" id="login">Log Out</button></li>
+                </ul>
+            </div>
         </div>
     </header>
     <main class="main">
         <h2>Main Page</h2>
-        <div class="container-md">
-            <form id="search-form">
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" placeholder="example: Los Angeles CA">
-                </div>
-                <div class="form-group">
-                    <label for="trail-name">Trail Name</label>
-                    <input type="text" class="form-control" id="trail-name" placeholder="example: Hollywood Sign Hike">
-                </div>
-                <div class="mt-1">
-                    <button id="submit-button" type="submit" class="button">Submit</button>
-                </div>
-            </form>
-        </div>
+        <form id="search-form" class="w-75">
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" placeholder="example: Los Angeles CA">
+            </div>
+            <div class="form-group">
+                <label for="trail-name">Trail Name</label>
+                <input type="text" class="form-control" id="trail-name" placeholder="example: Hollywood Sign Hike">
+            </div>
+            <div class="mt-1">
+                <button id="submit-button" type="submit" class="button">Submit</button>
+            </div>
+        </form>
         <div id="search-result" class="trails-container">
 
         </div>
@@ -48,6 +58,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 
+    <!-- <script type="module" src="./js/home.js"></script> -->
     <script src="./js/home.js" type="application/javascript"></script>
 </body>
 

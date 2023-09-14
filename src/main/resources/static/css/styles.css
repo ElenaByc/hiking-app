@@ -84,13 +84,15 @@ a:hover {
     text-align: center;
     color: var(--color-blue-l);
 
+    display: block;
     padding: 5px 15px;
     background-color: var(--color-blue);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 3px rgba(13, 96, 111, 0.16);
     border: 2px solid var(--color-blue);
     border-radius: 10px;
+    margin: 0 auto;
     cursor: pointer;
-    transition: .3s;
+    transition: all 0.3s ease-in-out;
 }
 
 .button:enabled:hover {
@@ -124,6 +126,7 @@ button[disabled]#submit-button {
 /* ---------- Icons ---------- */
 
 
+
 /* ---------- Header ---------- */
 
 .header {
@@ -155,6 +158,27 @@ button[disabled]#submit-button {
     color: var(--color-blue);
     margin: 0;
 }
+
+/* ---------- Dropdown Menu ---------- */
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+.dropdown-toggle {
+    background-image: url(../assets/icons/hiker.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    width: 50px;
+    height: 50px;
+}
+
+/* .dropdown-menu {
+    inset: 50px 0px auto auto;
+    transform: translate3d(0px, 10px, 0px);
+    transition: all 0.3s ease-in-out;
+} */
 
 /* ---------- Home Page ---------- */
 

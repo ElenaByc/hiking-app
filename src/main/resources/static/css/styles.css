@@ -166,12 +166,19 @@ button[disabled]#submit-button {
 }
 
 .dropdown-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 5px;
+}
+
+.user-icon {
     background-image: url(../assets/icons/hiker.svg);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 50px 50px;
-    width: 50px;
-    height: 50px;
+    background-size: 45px 45px;
+    width: 45px;
+    height: 45px;
 }
 
 /* .dropdown-menu {
@@ -180,11 +187,17 @@ button[disabled]#submit-button {
     transition: all 0.3s ease-in-out;
 } */
 
+#user-name {
+    color: var(--color-blue);
+    font-size: 18px;
+}
+
 /* ---------- Home Page ---------- */
 
 .main {
     display: flex;
     flex-direction: column;
+    row-gap: 30px;
     align-items: center;
     padding: 30px;
     width: 100%;
@@ -372,4 +385,8 @@ button[disabled]#submit-button {
     display: flex;
     justify-content: space-between;
     padding: 0 30px;
+}
+
+.trail-card__buttons .button {
+    margin: 0;
 }

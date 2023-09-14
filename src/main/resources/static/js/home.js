@@ -3,6 +3,7 @@ const submitBtn = document.querySelector('#submit-button');
 const loginBtn = document.querySelector('#login');
 const searchResultContainer = document.querySelector('#search-result');
 const userMenu = document.querySelector('#user-menu');
+const userNameEl = document.querySelector('#user-name');
 
 const headers = {
   'Content-Type': 'application/json'
@@ -44,10 +45,11 @@ for (let i = 0; i < cookieArr.length; i++) {
     userName = cookieArr[i].split('=')[1];
   }
 }
-console.log('User Id  = ', userId);
-console.log('User Name  = ', userName);
+console.log('User Id = ', userId);
+console.log('User Name = ', userName);
 if (userId) {
   loginBtn.addEventListener('click', handleLogout);
+  userNameEl.innerText = userName;
 } else {
   userMenu.innerHTML = '';
   userMenu.appendChild(loginBtn);

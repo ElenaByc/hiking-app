@@ -336,6 +336,11 @@ button[disabled]#submit-button {
 
 /* ---------- Search result ---------- */
 
+.notfound-header {
+    line-height: 50px;
+    text-align: center;
+}
+
 .trails-container {
     display: flex;
     flex-direction: column;

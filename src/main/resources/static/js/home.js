@@ -10,11 +10,10 @@ const headers = {
 };
 
 const baseUrl = '/api/trails';
-
 let userId;
 let userName;
-
 let trailsArray = [];
+
 
 const handleLogin = () => {
   window.location.replace('./login.html');
@@ -26,13 +25,14 @@ const handleLogout = () => {
     document.cookie = /^[^=]+/.exec(c[i])[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
   }
   loginBtn.removeEventListener('click', handleLogout);
-  loginBtn.innerText = 'Login';
+  loginBtn.innerText = 'Log In';
   loginBtn.addEventListener('click', handleLogin);
   userMenu.innerHTML = '';
   userMenu.appendChild(loginBtn);
   userId = null;
   userName = null;
 }
+
 
 console.log(document.cookie);
 const cookieArr = document.cookie.split('; ');
@@ -57,10 +57,10 @@ if (userId) {
   loginBtn.addEventListener('click', handleLogin);
 }
 
+
 const handleFormSubmit = async (e) => {
   e.preventDefault();
   submitBtn.disabled = true;
-  console.log(submitBtn);
   showLoadingSpinner();
   const city = document.querySelector('#city').value;
   const trailName = document.querySelector('#trail-name');
@@ -76,30 +76,30 @@ const handleFormSubmit = async (e) => {
     console.log(responseArr);
     createTrailsCards(responseArr);
   } else {
-    console.log('ERROR!!!!!!');
     searchResultContainer.innerHTML = '';
+    const loadingHeader = document.createElement('h3');
+    loadingHeader.classList.add('nothing-header');
+    loadingHeader.innerHTML = `Sorry, nothing was found for city = ${city} <br>
+    Please try again with different search terms`
+    searchResultContainer.appendChild(loadingHeader);
   }
   submitBtn.disabled = false;
 }
 
 const showLoadingSpinner = () => {
-  searchResultContainer.innerHTML = `
-    <h3 class="loading-header">Loading...</h3>
-    <div class="loading-spinner">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-      </div>
-    `;
+  searchResultContainer.innerHTML = '';
+  const loadingHeader = document.createElement('h3');
+  loadingHeader.classList.add('loading-header');
+  searchResultContainer.appendChild(loadingHeader);
+  const spinnerDiv = document.createElement('div');
+  spinnerDiv.classList.add('loading-spinner');
+  let circle;
+  for (let i = 0; i < 12; i++) {
+    circle = document.createElement('div');
+    circle.classList.add('circle');
+    spinnerDiv.appendChild(circle);
+  }
+  searchResultContainer.appendChild(spinnerDiv);
 }
 
 const handleSaveTrail = async (i) => {

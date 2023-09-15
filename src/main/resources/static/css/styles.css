@@ -176,9 +176,9 @@ button[disabled]#submit-button {
     background-image: url(../assets/icons/hiker.svg);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 45px 45px;
-    width: 45px;
-    height: 45px;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
 }
 
 /* .dropdown-menu {

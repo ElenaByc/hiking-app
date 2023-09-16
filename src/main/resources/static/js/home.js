@@ -19,6 +19,17 @@ const handleLogin = () => {
   window.location.replace('./login.html');
 }
 
+const hideSaveBtns = () => {
+  const allSaveBtns = document.querySelectorAll('.save-btn');
+  allSaveBtns.forEach(btn => {
+    btn.style.display = 'none';
+  });
+  const cardsBtnsDivs = document.querySelectorAll('.trail-card__buttons');
+  cardsBtnsDivs.forEach(div => {
+    div.style.justifyContent = 'center';
+  });
+}
+
 const handleLogout = () => {
   const c = document.cookie.split(";");
   for (let i in c) {
@@ -31,6 +42,7 @@ const handleLogout = () => {
   userMenu.appendChild(loginBtn);
   userId = null;
   userName = null;
+  hideSaveBtns();
 }
 
 
@@ -167,6 +179,7 @@ const createTrailCard = (trail, i) => {
   if (userId) {
     const saveTrailBtn = document.createElement('button');
     saveTrailBtn.classList.add('button');
+    saveTrailBtn.classList.add('save-btn');
     saveTrailBtn.innerText = 'Save this trail';
     saveTrailBtn.setAttribute('id', `save-btn-${i}`);
     saveTrailBtn.addEventListener('click', handleSaveTrail);

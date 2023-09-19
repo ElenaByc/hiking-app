@@ -16,6 +16,12 @@
     font-weight: 400;
 }
 
+@font-face {
+    font-family: 'Raleway Bold';
+    src: url("../assets/fonts/Raleway-Bold.ttf");
+    font-weight: 600;
+}
+
 :root {
     --color-black: #000000;
     --color-white: #ffffff;
@@ -181,15 +187,16 @@ button[disabled]#submit-button {
     height: 40px;
 }
 
-/* .dropdown-menu {
-    inset: 50px 0px auto auto;
-    transform: translate3d(0px, 10px, 0px);
-    transition: all 0.3s ease-in-out;
-} */
+.dropdown-item.active, .dropdown-item:active {
+    color: var(--color-blue);
+    background-color: var(--color-white);
+    font-family: 'Raleway Bold';
+}
 
 #user-name {
     color: var(--color-blue);
     font-size: 18px;
+    padding-right: 10px;
 }
 
 /* ---------- Home Page ---------- */

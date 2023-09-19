@@ -1,74 +1,13 @@
 const searchForm = document.querySelector('#search-form');
 const submitBtn = document.querySelector('#submit-button');
-const loginBtn = document.querySelector('#login');
 const searchResultContainer = document.querySelector('#search-result');
-const userMenu = document.querySelector('#user-menu');
-const userNameEl = document.querySelector('#user-name');
 
 const headers = {
   'Content-Type': 'application/json'
 };
 
 const baseUrl = '/api/trails';
-let userId;
-let userName;
 let trailsArray = [];
-
-
-const handleLogin = () => {
-  window.location.replace('./login.html');
-}
-
-const hideSaveBtns = () => {
-  const allSaveBtns = document.querySelectorAll('.save-btn');
-  allSaveBtns.forEach(btn => {
-    btn.style.display = 'none';
-  });
-  const cardsBtnsDivs = document.querySelectorAll('.trail-card__buttons');
-  cardsBtnsDivs.forEach(div => {
-    div.style.justifyContent = 'center';
-  });
-}
-
-const handleLogout = () => {
-  const c = document.cookie.split(";");
-  for (let i in c) {
-    document.cookie = /^[^=]+/.exec(c[i])[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-  }
-  loginBtn.removeEventListener('click', handleLogout);
-  loginBtn.innerText = 'Log In';
-  loginBtn.addEventListener('click', handleLogin);
-  userMenu.innerHTML = '';
-  userMenu.appendChild(loginBtn);
-  userId = null;
-  userName = null;
-  hideSaveBtns();
-}
-
-
-console.log(document.cookie);
-const cookieArr = document.cookie.split('; ');
-console.log(cookieArr);
-for (let i = 0; i < cookieArr.length; i++) {
-  if (cookieArr[i].includes('userId')) {
-    userId = cookieArr[i].split('=')[1];
-  }
-  if (cookieArr[i].includes('userName')) {
-    userName = cookieArr[i].split('=')[1];
-  }
-}
-console.log('User Id = ', userId);
-console.log('User Name = ', userName);
-if (userId) {
-  loginBtn.addEventListener('click', handleLogout);
-  userNameEl.innerText = userName;
-} else {
-  userMenu.innerHTML = '';
-  userMenu.appendChild(loginBtn);
-  loginBtn.innerText = 'Log In';
-  loginBtn.addEventListener('click', handleLogin);
-}
-
 
 const handleFormSubmit = async (e) => {
   e.preventDefault();

@@ -25,6 +25,7 @@ public class TrailDto implements Serializable {
     private double googleRating;
     private int yelpReviewCount;
     private int googleReviewCount;
+    private boolean saved;
 
     private Set<ReviewDto> reviewsDto = new HashSet<>();
 

@@ -25,9 +25,9 @@ public class TrailController {
         return trailService.getTrailById(trailId);
     }
 
-    @GetMapping("/location/{city}")
-    public List<TrailDto> getTrailsByLocationName(@PathVariable String city) {
-        return trailService.getTrailsByLocationName(city);
+    @GetMapping("/location/{city}/{userId}")
+    public List<TrailDto> getTrailsByLocationName(@PathVariable String city, @PathVariable long userId ) {
+        return trailService.getTrailsByLocationName(city, userId);
     }
 
     @GetMapping("/details/{name}")

@@ -12,9 +12,9 @@ public interface TrailService {
     @Transactional
     Trail addTrail(TrailDto trailDto);
     @Transactional
-    List<String> saveTrail(TrailDto trailDto, Long userId);
+    List<String> saveTrail(TrailDto trailDto, long userId);
     Optional<TrailDto> getTrailById(Long trailId);
-    List<TrailDto> getTrailsByLocationName(String city);
+    List<TrailDto> getTrailsByLocationName(String city, long userId);
     JsonNode getTrailDetailsByName(String name);
 
 

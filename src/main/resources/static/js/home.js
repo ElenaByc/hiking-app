@@ -76,8 +76,15 @@ const handleFormSubmit = async (e) => {
   showLoadingSpinner();
   const city = document.querySelector('#city').value;
   const trailName = document.querySelector('#trail-name');
-  console.log('url = ', `${baseUrl}/location/${city}`);
-  const response = await fetch(`${baseUrl}/location/${city}`, {
+
+  let searchUrl;
+  if (userId) {
+    searchUrl = `${baseUrl}/location/${city}/${userId}`;
+  } else {
+    searchUrl = `${baseUrl}/location/${city}/0`;
+  }
+  console.log(searchUrl);
+  const response = await fetch(searchUrl, {
     method: 'GET',
     headers: headers
   })
@@ -129,7 +136,7 @@ const handleSaveTrail = async (e) => {
     const responseArr = await response.json();
     console.log(responseArr);
     const saveBtn = document.querySelector(`#save-btn-${i}`);
-    saveBtn.innerHTML = 'Saved';
+    saveBtn.innerText = 'Saved';
     saveBtn.disabled = true;
   }
 }
@@ -180,9 +187,14 @@ const createTrailCard = (trail, i) => {
     const saveTrailBtn = document.createElement('button');
     saveTrailBtn.classList.add('button');
     saveTrailBtn.classList.add('save-btn');
-    saveTrailBtn.innerText = 'Save this trail';
-    saveTrailBtn.setAttribute('id', `save-btn-${i}`);
-    saveTrailBtn.addEventListener('click', handleSaveTrail);
+    if (trail.saved) {
+      saveTrailBtn.innerText = 'Saved';
+      saveTrailBtn.disabled = true;
+    } else {
+      saveTrailBtn.innerText = 'Save this trail';
+      saveTrailBtn.setAttribute('id', `save-btn-${i}`);
+      saveTrailBtn.addEventListener('click', handleSaveTrail);
+    }
     divBtns.appendChild(saveTrailBtn);
   } else {
     divBtns.style.justifyContent = 'center';
@@ -206,31 +218,4 @@ const createTrailsCards = (trails) => {
   localStorage.setItem("trails", JSON.stringify(trailsArray));
 }
 
-// trailCard.innerHTML = `
-//           <div class="trail-card__img">
-//             <img src="${trail.image}" alt="${trail.name} picture">
-//           </div>
-//           <div class="trail-card__content">
-//             <div class="trail-card__info">
-//               <h3>${trail.name}</h3>
-//               <div>Yelp Alias: ${trail.yelpAlias}</div>
-//               <div>Yelp Rating: ${trail.yelpRating}&nbsp;&nbsp;Based on ${trail.yelpReviewCount} reviews</div>
-//               <div>Google Place Id: ${trail.googlePlaceId}</div>
-//               <div>Google Places Rating: ${trail.googleRating}&nbsp;&nbsp;Based on ${trail.googleReviewCount} reviews</div>
-//               <div>Yelp Coordinates: ${trail.coordinates.latitude}&nbsp;&nbsp;${trail.coordinates.longitude}</div>
-//               <div>Google Coordinates: ${latitude}&nbsp;&nbsp;${longitude}</div>
-//               <br>
-//               <div>Address: ${trail.address}</div>
-//             </div>
-//             <div class="trail-card__buttons">
-//               <button class="button">Learn more</button>
-//               <button class="button" id="save-btn-${i}" onclick="handleSaveTrail(${i})">Save this trail</button>
-//             </div>
-//           </div>
-//       `;
-
-
-
-
 searchForm.addEventListener('submit', handleFormSubmit);
-

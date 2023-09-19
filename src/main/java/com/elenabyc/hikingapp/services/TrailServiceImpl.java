@@ -42,7 +42,7 @@ public class TrailServiceImpl implements TrailService {
     }
 
     @Override
-    public List<String> saveTrail(TrailDto trailDto, Long userId) {
+    public List<String> saveTrail(TrailDto trailDto, long userId) {
         List<String> response = new ArrayList<>();
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
@@ -61,17 +61,26 @@ public class TrailServiceImpl implements TrailService {
     }
 
     @Override
-    public List<TrailDto> getTrailsByLocationName(String city) {
+    public List<TrailDto> getTrailsByLocationName(String city, long userId) {
         List<TrailDto> searchResultList = yelpAPIService.getTrailsByLocationName(city);
         List<TrailDto> searchResultListFinal = new ArrayList<>();
+        Optional<User> userOptional = userRepository.findById(userId);
         for (TrailDto trailDto : searchResultList) {
-//            Optional<Trail> trailOptional = trailRepository.findByYelpAlias(trailDto.getYelpAlias());
+            Optional<Trail> trailOptional = trailRepository.findByYelpAlias(trailDto.getYelpAlias());
 //            trailOptional.ifPresent(trail -> trailDto.setGooglePlaceId(trail.getGooglePlaceId()));
+            if (userOptional.isPresent() && trailOptional.isPresent()) {
+                User user = userOptional.get();
+                Trail trail = trailOptional.get();
+                if (user.getSavedTrails().contains(trail)) {
+                    trailDto.setSaved(true);
+                }
+            }
             googleAPIService.getTrailGooglePlacesData(trailDto);
             // remove trails without Google Places data from search result
             if (trailDto.getGooglePlaceId() != null) {
                 searchResultListFinal.add(trailDto);
             }
+
         }
         return searchResultListFinal;
     }

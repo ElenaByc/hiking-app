@@ -66,5 +66,8 @@ public class Trail {
         if (trailDto.getImage() != null) {
             this.image = trailDto.getImage();
         }
+        if (trailDto.getAddress() != null) {
+            this.address = trailDto.getAddress();
+        }
     }
 }

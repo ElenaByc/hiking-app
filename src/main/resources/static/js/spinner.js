@@ -2,6 +2,7 @@ const showLoadingSpinner = (container) => {
   container.innerHTML = '';
   const loadingHeader = document.createElement('h3');
   loadingHeader.classList.add('loading-header');
+  loadingHeader.innerText = 'Loading';
   container.appendChild(loadingHeader);
   const spinnerDiv = document.createElement('div');
   spinnerDiv.classList.add('loading-spinner');

@@ -187,7 +187,8 @@ button[disabled]#submit-button {
     height: 40px;
 }
 
-.dropdown-item.active, .dropdown-item:active {
+.dropdown-item.active,
+.dropdown-item:active {
     color: var(--color-blue);
     background-color: var(--color-white);
     font-family: 'Raleway Bold';
@@ -388,7 +389,8 @@ button[disabled]#submit-button {
     padding: 10px;
 }
 
-.trail-card__info h3 {
+.trail-card__info h3,
+.trail-card__info h4 {
     color: var(--color-blue);
     text-align: center;
 }

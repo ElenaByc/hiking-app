@@ -12,7 +12,7 @@ let trailsArray = [];
 const handleFormSubmit = async (e) => {
   e.preventDefault();
   submitBtn.disabled = true;
-  showLoadingSpinner();
+  showLoadingSpinner(searchResultContainer);
   const city = document.querySelector('#city').value;
   const trailName = document.querySelector('#trail-name');
 
@@ -42,22 +42,6 @@ const handleFormSubmit = async (e) => {
     searchResultContainer.appendChild(loadingHeader);
   }
   submitBtn.disabled = false;
-}
-
-const showLoadingSpinner = () => {
-  searchResultContainer.innerHTML = '';
-  const loadingHeader = document.createElement('h3');
-  loadingHeader.classList.add('loading-header');
-  searchResultContainer.appendChild(loadingHeader);
-  const spinnerDiv = document.createElement('div');
-  spinnerDiv.classList.add('loading-spinner');
-  let circle;
-  for (let i = 0; i < 12; i++) {
-    circle = document.createElement('div');
-    circle.classList.add('circle');
-    spinnerDiv.appendChild(circle);
-  }
-  searchResultContainer.appendChild(spinnerDiv);
 }
 
 const handleSaveTrail = async (e) => {

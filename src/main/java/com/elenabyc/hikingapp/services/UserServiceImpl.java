@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.services;
 
+import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.elenabyc.hikingapp.dtos.UserDto;
 import com.elenabyc.hikingapp.entities.User;
 import com.elenabyc.hikingapp.repositories.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,5 +54,15 @@ public class UserServiceImpl implements UserService {
             response.add("Username or password incorrect");
         }
         return response;
+    }
+
+    @Override
+    public Set<TrailDto> getSavedTrailsByUserId(long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            UserDto userDto = new UserDto(userOptional.get());
+            return userDto.getSavedTrailsDto();
+        }
+        return null;
     }
 }

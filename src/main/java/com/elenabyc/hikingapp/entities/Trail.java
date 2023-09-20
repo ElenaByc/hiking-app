@@ -35,6 +35,9 @@ public class Trail {
     @Column(name = "image_url")
     private String image;
 
+    @Column(name = "address")
+    private String address;
+
     @OneToMany(mappedBy = "trail", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonManagedReference
@@ -47,8 +50,9 @@ public class Trail {
 
     @Override
     public String toString() {
-        return "Trail:" + + this.id + " " + this.name;
+        return "Trail:" + +this.id + " " + this.name;
     }
+
     public Trail(TrailDto trailDto) {
         if (trailDto.getName() != null) {
             this.name = trailDto.getName();

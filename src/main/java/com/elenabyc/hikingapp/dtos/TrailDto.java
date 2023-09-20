@@ -45,5 +45,8 @@ public class TrailDto implements Serializable {
         if (trail.getImage() != null) {
             this.image = trail.getImage();
         }
+        if (trail.getAddress() != null) {
+            this.address = trail.getAddress();
+        }
     }
 }

@@ -48,14 +48,11 @@ public class TrailServiceImpl implements TrailService {
         if (userOptional.isPresent()) {
             Trail trail = addTrail(trailDto);
             User user = userOptional.get();
-            System.out.println(user);
             user.addTrail(trail);
-            System.out.println(user);
             userRepository.saveAndFlush(user);
             response.add("Trail with id = " + trail.getId() + " was added to the user's Saved Trails list");
         } else {
             response.add("User with id = " + userId + " was not found");
-            return response;
         }
         return response;
     }

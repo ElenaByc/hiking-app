@@ -14,4 +14,7 @@ public interface UserService {
     List<String> userLogin(UserDto userDto);
 
     Set<TrailDto> getSavedTrailsByUserId(long userId);
+
+    @Transactional
+    List<String> removeTrail(long userId, long trailId);
 }

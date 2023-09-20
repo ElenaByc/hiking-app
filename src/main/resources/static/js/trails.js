@@ -6,17 +6,26 @@ const headers = {
 };
 
 const getSavedTrails = async () => {
-  const response = await fetch(`/api/users/saved/${userId}`, {
+  const response = await fetch(`/api/users/trails/${userId}`, {
     method: 'GET',
     headers: headers
   }).catch(err => console.error(err.message));
   const responseArr = await response.json();
-  createSavedTrailsCards(responseArr);
+  if (responseArr.length === 0) {
+    savedTrailsContainer.innerHTML = '';
+    const header = document.createElement('h3');
+    header.classList.add('notfound-header');
+    header.innerHTML = 'There is no trails<br>in your Saved Trails List';
+    savedTrailsContainer.appendChild(header);
+  } else {
+    createSavedTrailsCards(responseArr);
+  }
 }
 
 const createSavedTrailCard = (trail) => {
   let trailCard = document.createElement('div');
   trailCard.classList.add('trail-card');
+
   const divImg = document.createElement('div');
   divImg.classList.add('trail-card__img');
   const img = document.createElement('img');
@@ -56,9 +65,19 @@ const createSavedTrailCard = (trail) => {
   return trailCard;
 }
 
-const handleRemoveTrail = (e) => {
-  console.log(e.target.closest(".trail-card"));
-  e.target.closest(".trail-card").style.display = 'none';
+const handleRemoveTrail = async (e) => {
+  const trailCard = e.target.closest('.trail-card');
+  const trailId = Number(e.target.id.substring(11));
+  console.log(trailId);
+  trailCard.style.display = 'none';
+  const response = await fetch(`/api/users/trails/${userId}/remove/${trailId}`, {
+    method: 'POST',
+    headers: headers
+  })
+    .catch(err => console.error(err.message));
+  console.log(response.status);
+  const responseArr = await response.json();
+  console.log(responseArr);
 }
 
 const createSavedTrailsCards = (trails) => {

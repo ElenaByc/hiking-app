@@ -53,7 +53,7 @@ const handleSaveTrail = async (e) => {
     body: JSON.stringify(trail),
     headers: headers
   })
-    .catch(err => console.error(err.message))
+    .catch(err => console.error(err.message));
   if (response.status == 200) {
     console.log(response.status);
     const responseArr = await response.json();
@@ -93,7 +93,6 @@ const createTrailCard = (trail, i) => {
   <h3>${trail.name}</h3>
   <div>Yelp Alias: ${trail.yelpAlias}</div>
   <div>Yelp Rating: ${trail.yelpRating}&nbsp;&nbsp;Based on ${trail.yelpReviewCount} reviews</div>
-  <div>Google Place Id: ${trail.googlePlaceId}</div>
   <div>Google Places Rating: ${trail.googleRating}&nbsp;&nbsp;Based on ${trail.googleReviewCount} reviews</div>
   <div>Yelp Coordinates: ${trail.coordinates.latitude}&nbsp;&nbsp;${trail.coordinates.longitude}</div>
   <div>Google Coordinates: ${latitude}&nbsp;&nbsp;${longitude}</div>

@@ -65,4 +65,19 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    @Transactional
+    public List<String> removeTrail(long userId, long trailId) {
+        List<String> response = new ArrayList<>();
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.removeTrail(trailId);
+            response.add("Trail with id = " + trailId + " was removed from the user's Saved Trails List");
+        } else {
+            response.add("User with id = " + userId + " was not found");
+        }
+        return response;
+    }
 }

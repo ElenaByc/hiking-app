@@ -30,8 +30,13 @@ public class UserController {
         return userService.userLogin(userDto);
     }
 
-    @GetMapping("/saved/{userId}")
+    @GetMapping("/trails/{userId}")
     public Set<TrailDto> getSavedTrailsByUserId(@PathVariable long userId ) {
         return userService.getSavedTrailsByUserId(userId);
+    }
+
+    @PostMapping("/trails/{userId}/remove/{trailId}")
+    public List<String> removeTrail(@PathVariable long userId, @PathVariable long trailId) {
+        return userService.removeTrail(userId, trailId);
     }
 }

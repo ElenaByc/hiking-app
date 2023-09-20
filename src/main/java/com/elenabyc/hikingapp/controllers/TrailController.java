@@ -34,6 +34,4 @@ public class TrailController {
     public JsonNode getTrailDetailsByName(@PathVariable String name) {
         return trailService.getTrailDetailsByName(name);
     }
-
-
 }

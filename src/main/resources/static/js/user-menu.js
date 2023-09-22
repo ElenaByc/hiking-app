@@ -34,8 +34,12 @@ const handleLogout = () => {
   userMenu.appendChild(loginBtn);
   userId = null;
   userName = null;
-  console.log(window.location);
-  hideSaveBtns();
+  console.log(window.location.href);
+  if (window.location.href.contains('home')) {
+    console.log('Home page!');
+    hideSaveBtns();
+  }
+
 }
 
 const getUser = () => {

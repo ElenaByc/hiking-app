@@ -23,7 +23,8 @@ public class YelpAPIServiceImpl implements YelpAPIService {
     public List<TrailDto> getTrailsByLocationName(String city) {
         OkHttpClient client = new OkHttpClient();
         String yelpHikingUrl = String.format(
-                "https://api.yelp.com/v3/businesses/search?location=%s&categories=hiking&sort_by=best_match&limit=50",
+//                "https://api.yelp.com/v3/businesses/search?location=%s&categories=hiking&sort_by=best_match&limit=50",
+                "https://api.yelp.com/v3/businesses/search?location=%s&categories=hiking&sort_by=best_match&limit=10",
                 city);
         System.out.println(yelpHikingUrl);
         Request request = new Request.Builder()

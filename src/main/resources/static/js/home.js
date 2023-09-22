@@ -103,6 +103,8 @@ const createTrailCard = (trail, i) => {
   divBtns.classList.add('trail-card__buttons');
   const learnMoreBtn = document.createElement('button');
   learnMoreBtn.classList.add('button');
+  learnMoreBtn.setAttribute('data-bs-toggle', 'modal');
+  learnMoreBtn.setAttribute('data-bs-target', '#details');
   learnMoreBtn.innerText = 'Learn more';
   divBtns.appendChild(learnMoreBtn);
   if (userId) {

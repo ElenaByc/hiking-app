@@ -5,20 +5,20 @@
 }
 
 @font-face {
-    font-family: 'Raleway';
-    src: url("../assets/fonts/Raleway-Regular.ttf");
+    font-family: 'Exo2';
+    src: url("../assets/fonts/Exo2-Regular.ttf");
     font-weight: 400;
 }
 
 @font-face {
-    font-family: 'Raleway Italic';
-    src: url("../assets/fonts/Raleway-Italic.ttf");
+    font-family: 'Exo2 Italic';
+    src: url("../assets/fonts/Exo2-Italic.ttf");
     font-weight: 400;
 }
 
 @font-face {
-    font-family: 'Raleway Bold';
-    src: url("../assets/fonts/Raleway-Bold.ttf");
+    font-family: 'Exo2 Bold';
+    src: url("../assets/fonts/Exo2-Bold.ttf");
     font-weight: 600;
 }
 
@@ -38,7 +38,7 @@ html {
 
 body {
     background-color: var(--color-green);
-    font-family: 'Raleway';
+    font-family: 'Exo2';
     font-style: normal;
     font-size: 18px;
 }
@@ -82,7 +82,7 @@ a:hover {
 /* ---------- Buttons ---------- */
 
 .button {
-    font-family: 'Raleway Italic';
+    font-family: 'Exo2 Italic';
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -191,7 +191,7 @@ button[disabled]#submit-button {
 .dropdown-item:active {
     color: var(--color-blue);
     background-color: var(--color-white);
-    font-family: 'Raleway Bold';
+    font-family: 'Exo2 Bold';
 }
 
 #user-name {
@@ -431,4 +431,114 @@ button[disabled]#submit-button {
 
 .trail-card__buttons .button {
     margin: 0;
+}
+
+/* ---------- Modal - Trail Details ---------- */
+
+.modal-title {
+    color: var(--color-blue);
+    width: calc(100% - 35px);
+    text-align: center;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+}
+
+.modal-trail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 30px;
+}
+
+.modal-trail__img {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 16px;
+}
+
+.modal-trail__ratings {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 40%;
+}
+
+.yelp-rating__stars {
+    background-image: url(../assets/images/yelp-4-half.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 102px 18px;
+    width: 102px;
+    height: 18px;
+    margin: 10px 0 8px;
+}
+
+.google-rating__stars {
+    display: flex;
+    column-gap: 3px;
+    margin: 10px 0 8px;
+}
+
+.google-star,
+.google-star-half {
+    background-image: url(../assets/images/maps-star.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.google-star-half {
+    background-image: url(../assets/images/maps-start-half.png);
+}
+
+.yelp-link,
+.google-link {
+    display: flex;
+    align-items: center;
+}
+
+.yelp-link__logo {
+    background-image: url(../assets/icons/yelp-logo.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70px 40px;
+    width: 70px;
+    height: 40px;
+}
+
+.google-link__logo {
+    background-image: url(../assets/icons/maps-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.yelp-link__link {
+    margin-left: 15px;
+    padding-top: 5px;
+}
+
+.google-link__link {
+    margin-left: 10px;
+}
+
+.yelp-link__link:hover,
+.google-link__link:hover {
+    color: var(--color-blue);
+}
+
+.modal-address {
+    display: flex;
+    column-gap: 15px;
 }

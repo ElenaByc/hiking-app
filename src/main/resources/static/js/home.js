@@ -44,6 +44,31 @@ const handleFormSubmit = async (e) => {
   submitBtn.disabled = false;
 }
 
+const populateModal = (trail) => {
+  console.log(trail.name);
+  const title = document.querySelector('.modal-title');
+  const img = document.querySelector('.modal-trail__img');
+  title.innerText = trail.name;
+  img.setAttribute('src', trail.image);
+  img.setAttribute('alt', `${trail.name} picture`);
+}
+
+const getTrailDetails = async (e) => {
+  console.log(e.target.id);
+  const i = Number(e.target.id.substring(9));
+  let trail = trailsArray[i];
+  console.log(trail);
+  console.log(trail.yelpAlias);
+  // await fetch(`${baseUrl}/details/${trail.yelpAlias}`, {
+  //   method: "GET",
+  //   headers: headers
+  // })
+  //   .then(res => res.json())
+  //   .then(data => populateModal(data))
+  //   .catch(err => console.error(err.message))
+  populateModal(trail);
+}
+
 const handleSaveTrail = async (e) => {
   const i = Number(e.target.id.substring(9));
   let trail = trailsArray[i];
@@ -76,8 +101,8 @@ const createTrailCard = (trail, i) => {
   const divImg = document.createElement('div');
   divImg.classList.add('trail-card__img');
   const img = document.createElement('img');
-  img.setAttribute("src", trail.image);
-  img.setAttribute("alt", `${trail.name} picture`);
+  img.setAttribute('src', trail.image);
+  img.setAttribute('alt', `${trail.name} picture`);
   divImg.appendChild(img);
   trailCard.appendChild(divImg);
 
@@ -105,6 +130,8 @@ const createTrailCard = (trail, i) => {
   learnMoreBtn.classList.add('button');
   learnMoreBtn.setAttribute('data-bs-toggle', 'modal');
   learnMoreBtn.setAttribute('data-bs-target', '#details');
+  learnMoreBtn.setAttribute('id', `more-btn-${i}`);
+  learnMoreBtn.addEventListener('click', getTrailDetails);
   learnMoreBtn.innerText = 'Learn more';
   divBtns.appendChild(learnMoreBtn);
   if (userId) {

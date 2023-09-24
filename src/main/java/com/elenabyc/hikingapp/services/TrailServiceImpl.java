@@ -83,8 +83,9 @@ public class TrailServiceImpl implements TrailService {
     }
 
     @Override
-    public JsonNode getTrailDetailsByName(String name) {
-        return googleAPIService.getTrailDetailsByName(name);
+    public TrailDto getTrailDetails(String yelpAlias, String googlePlaceId) {
+        // pictures, reviews, link on trail's Yelp page, link on trails' Google Map page, website
+        return null;
     }
 
     @Override

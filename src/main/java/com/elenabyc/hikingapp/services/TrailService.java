@@ -15,7 +15,6 @@ public interface TrailService {
     List<String> saveTrail(TrailDto trailDto, long userId);
     Optional<TrailDto> getTrailById(Long trailId);
     List<TrailDto> getTrailsByLocationName(String city, long userId);
-    JsonNode getTrailDetailsByName(String name);
-
-
+    TrailDto getTrailDetails(String yelpAlias, String googlePlaceId);
+    //    JsonNode getTrailByName(String name);
 }

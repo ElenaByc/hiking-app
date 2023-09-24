@@ -59,7 +59,7 @@ const getTrailDetails = async (e) => {
   let trail = trailsArray[i];
   console.log(trail);
   console.log(trail.yelpAlias);
-  // await fetch(`${baseUrl}/details/${trail.yelpAlias}`, {
+  // await fetch(`${baseUrl}/details/${trail.yelpAlias}/${tral.googlePlacesId}`, {
   //   method: "GET",
   //   headers: headers
   // })

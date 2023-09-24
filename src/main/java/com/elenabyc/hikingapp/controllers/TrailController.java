@@ -30,8 +30,8 @@ public class TrailController {
         return trailService.getTrailsByLocationName(city, userId);
     }
 
-    @GetMapping("/details/{name}")
-    public JsonNode getTrailDetailsByName(@PathVariable String name) {
-        return trailService.getTrailDetailsByName(name);
+    @GetMapping("/details/{yelpAlias}/{googlePlaceId}")
+    public TrailDto getTrailDetails(@PathVariable String yelpAlias, @PathVariable String googlePlaceId) {
+        return trailService.getTrailDetails(yelpAlias, googlePlaceId);
     }
 }

@@ -44,13 +44,44 @@ const handleFormSubmit = async (e) => {
   submitBtn.disabled = false;
 }
 
-const populateModal = (trail) => {
+const populateModalBasicData = (trail) => {
   console.log(trail.name);
   const title = document.querySelector('.modal-title');
   const img = document.querySelector('.modal-trail__img');
+  const yelpRating = document.querySelector('.yelp-rating__number');
+  const googleRating = document.querySelector('.google-rating__number');
+  const yelpReviews = document.querySelector('.yelp-rating__reviews');
+  const googleReviews = document.querySelector('.google-rating__reviews');
+  const yelpStars = document.querySelector('.yelp-rating__stars');
+  const googleStars = document.querySelector('.google-rating__stars');
   title.innerText = trail.name;
   img.setAttribute('src', trail.image);
   img.setAttribute('alt', `${trail.name} picture`);
+  yelpRating.innerText = trail.yelpRating;
+  googleRating.innerText = trail.googleRating;
+  yelpReviews.innerText = trail.yelpReviewCount;
+  googleReviews.innerText = trail.googleReviewCount;
+  if (trail.yelpRating < 1) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-0.png)';
+  } else if (trail.yelpRating < 1.5) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-1.png)';
+  } else if (trail.yelpRating < 2) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-1-half.png)';
+  } else if (trail.yelpRating < 2.5) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-2.png)';
+  } else if (trail.yelpRating < 3) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-2-half.png)';
+  } else if (trail.yelpRating < 3.5) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-3.png)';
+  } else if (trail.yelpRating < 4) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-3-half.png)';
+  } else if (trail.yelpRating < 4.5) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-4.png)';
+  } else if (trail.yelpRating < 5) {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-4-half.png)';
+  } else {
+    yelpStars.style.backgroundImage = 'url(../assets/images/yelp-5.png)';
+  }
 }
 
 const getTrailDetails = async (e) => {
@@ -59,6 +90,7 @@ const getTrailDetails = async (e) => {
   let trail = trailsArray[i];
   console.log(trail);
   console.log(trail.yelpAlias);
+  populateModalBasicData(trail);
   // await fetch(`${baseUrl}/details/${trail.yelpAlias}/${tral.googlePlacesId}`, {
   //   method: "GET",
   //   headers: headers
@@ -66,7 +98,6 @@ const getTrailDetails = async (e) => {
   //   .then(res => res.json())
   //   .then(data => populateModal(data))
   //   .catch(err => console.error(err.message))
-  populateModal(trail);
 }
 
 const handleSaveTrail = async (e) => {

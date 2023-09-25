@@ -45,7 +45,6 @@ const handleFormSubmit = async (e) => {
 }
 
 const populateModalBasicData = (trail) => {
-  console.log(trail.name);
   const title = document.querySelector('.modal-title');
   const img = document.querySelector('.modal-trail__img');
   const yelpRating = document.querySelector('.yelp-rating__number');
@@ -59,10 +58,9 @@ const populateModalBasicData = (trail) => {
   title.innerText = trail.name;
   img.setAttribute('src', trail.image);
   img.setAttribute('alt', `${trail.name} picture`);
+
   yelpRating.innerText = trail.yelpRating;
-  googleRating.innerText = trail.googleRating;
   yelpReviews.innerText = trail.yelpReviewCount;
-  googleReviews.innerText = trail.googleReviewCount;
   if (trail.yelpRating < 1) {
     yelpStars.style.backgroundImage = 'url(../assets/images/yelp-0.png)';
   } else if (trail.yelpRating < 1.5) {
@@ -89,6 +87,21 @@ const populateModalBasicData = (trail) => {
     googleRatingDiv.style.display = 'none';
   } else {
     googleRatingDiv.style.display = 'block';
+    googleRating.innerText = trail.googleRating;
+    googleReviews.innerText = trail.googleReviewCount;
+    googleStars.innerHTML = '';
+    let googleStarElement;
+    let i;
+    for (i = 1; i <= trail.googleRating; i++) {
+      googleStarElement = document.createElement('div');
+      googleStarElement.classList.add('google-star');
+      googleStars.appendChild(googleStarElement);
+    }
+    if (trail.googleRating - i + 1 > 0) {
+      googleStarElement = document.createElement('div');
+      googleStarElement.classList.add('google-star-half');
+      googleStars.appendChild(googleStarElement);
+    }
   }
 
 }

@@ -54,6 +54,8 @@ const populateModalBasicData = (trail) => {
   const googleReviews = document.querySelector('.google-rating__reviews');
   const yelpStars = document.querySelector('.yelp-rating__stars');
   const googleStars = document.querySelector('.google-rating__stars');
+  const googleRatingDiv = document.querySelector('.google-rating');
+
   title.innerText = trail.name;
   img.setAttribute('src', trail.image);
   img.setAttribute('alt', `${trail.name} picture`);
@@ -82,6 +84,13 @@ const populateModalBasicData = (trail) => {
   } else {
     yelpStars.style.backgroundImage = 'url(../assets/images/yelp-5.png)';
   }
+
+  if (trail.googleRating == 0) {
+    googleRatingDiv.style.display = 'none';
+  } else {
+    googleRatingDiv.style.display = 'block';
+  }
+
 }
 
 const getTrailDetails = async (e) => {

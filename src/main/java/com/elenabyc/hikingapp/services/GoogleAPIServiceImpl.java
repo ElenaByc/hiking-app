@@ -31,8 +31,8 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                 System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");
                 return;
             }
-            System.out.println(googlePlacesAPIResponse.get("candidates"));
-            System.out.println(googlePlacesAPIResponse.get("candidates").size());
+//            System.out.println(googlePlacesAPIResponse.get("candidates"));
+//            System.out.println(googlePlacesAPIResponse.get("candidates").size());
             double latitude;
             double longitude;
             for (JsonNode element : googlePlacesAPIResponse.get("candidates")) {
@@ -50,14 +50,13 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                     if (element.get("user_ratings_total") != null) {
                         trailDto.setGoogleReviewCount(element.get("user_ratings_total").asInt());
                     }
-                    if (element.get("formatted_address") != null) {
-                        trailDto.setAddress(element.get("formatted_address").asText());
-                    }
+//                    if (element.get("formatted_address") != null) {
+//                        trailDto.setAddress(element.get("formatted_address").asText());
+//                    }
 //                    if (trailDto.getImage() == null && element.get("photos") != null &&
                     if (element.get("photos") != null &&
                             element.get("photos").size() > 0) {
                         String imgRef = element.get("photos").get(0).get("photo_reference").asText();
-                        System.out.println("IMG REF " + imgRef);
                         trailDto.setImage(getImageByReference(imgRef));
                     }
                     return;
@@ -83,8 +82,6 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            System.out.println("IMAGE RESPONSE");
-            System.out.println(response);
             String imageUrl = response.request().url().toString();
             response.body().close();
             return imageUrl;
@@ -98,7 +95,14 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
         OkHttpClient client = new OkHttpClient();
         StringBuilder googleFindPlaceUrl = new StringBuilder();
         String input = "&input=" + trailName + "&inputtype=textquery";
-        String fields = "?fields=formatted_address%2Cname%2Crating%2Cuser_ratings_total%2Cgeometry%2Cphoto%2Cplace_id";
+        String fields = "?fields=" +
+                "formatted_address%2C" +
+                "name%2C" +
+                "rating%2C" +
+                "user_ratings_total%2C" +
+                "geometry%2C" +
+                "photo%2C" +
+                "place_id";
         String key = "&key=" + GOOGLE_DEV_KEY;
 
         googleFindPlaceUrl.append("https://maps.googleapis.com/maps/api/place/findplacefromtext/json");

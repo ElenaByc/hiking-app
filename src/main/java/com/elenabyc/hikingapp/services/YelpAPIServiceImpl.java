@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +22,23 @@ public class YelpAPIServiceImpl implements YelpAPIService {
 
     @Override
     public List<TrailDto> getTrailsByLocationName(String city) {
+        final int radius = 20000;  // The max value is 40,000 meters (about 25 miles)
+        final int limit = 50;      // max = 50
+        final String sortBy = "best_match"; // best_match, rating, review_count or distance
         OkHttpClient client = new OkHttpClient();
-        String yelpHikingUrl = String.format(
-//                "https://api.yelp.com/v3/businesses/search?location=%s&categories=hiking&sort_by=best_match&limit=50",
-                "https://api.yelp.com/v3/businesses/search?location=%s&categories=hiking&sort_by=best_match&limit=10",
-                city);
-        System.out.println(yelpHikingUrl);
+        String yelpHikingUrl = "https://api.yelp.com/v3/businesses/search?" +
+                "location=" + city +
+                "&radius=" + radius +
+                "&categories=hiking" +
+                "&sort_by=" + sortBy +
+                "&limit=" + limit;
+        System.out.println("YELP URL: " + yelpHikingUrl);
         Request request = new Request.Builder()
                 .url(yelpHikingUrl)
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer " + YELP_DEV_KEY)
                 .build();
-
         try {
             Response response = client.newCall(request).execute();
             System.out.println("response code: " + response.code());
@@ -41,8 +46,6 @@ public class YelpAPIServiceImpl implements YelpAPIService {
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(responseString);
-            System.out.println(jsonNode.get("businesses"));
-            System.out.println(jsonNode.get("businesses").size());
             List<TrailDto> list = new ArrayList<>();
             for (JsonNode element : jsonNode.get("businesses")) {
                 TrailDto trailDto = new TrailDto();
@@ -54,6 +57,18 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                         element.get("coordinates").get("latitude").asDouble(),
                         element.get("coordinates").get("longitude").asDouble()));
                 trailDto.setImage(element.get("image_url").asText());
+                if (element.get("location") != null) {
+                    if (element.get("location").get("display_address") != null) {
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < element.get("location").get("display_address").size(); i++) {
+                            sb.append(element.get("location").get("display_address").get(i).asText());
+                            if (i != element.get("location").get("display_address").size() - 1) {
+                                sb.append(", ");
+                            }
+                        }
+                        trailDto.setAddress(sb.toString());
+                    }
+                }
                 list.add(trailDto);
             }
             return list;

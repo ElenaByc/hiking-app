@@ -53,6 +53,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 trailDto.setYelpAlias(element.get("alias").asText());
                 trailDto.setYelpRating(element.get("rating").asDouble());
                 trailDto.setYelpReviewCount(element.get("review_count").asInt());
+                trailDto.setYelpLink(element.get("url").asText());
                 trailDto.setCoordinates(new Coordinates(
                         element.get("coordinates").get("latitude").asDouble(),
                         element.get("coordinates").get("longitude").asDouble()));

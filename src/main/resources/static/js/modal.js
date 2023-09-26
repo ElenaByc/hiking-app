@@ -8,6 +8,7 @@ const yelpStars = document.querySelector('.yelp-rating__stars');
 const googleStars = document.querySelector('.google-rating__stars');
 const googleRatingDiv = document.querySelector('.google-rating');
 const address = document.querySelector('.modal-address div:nth-child(2)');
+const yelpLink = document.querySelector('.yelp-link__link');
 
 const populateModalBasicData = (trail) => {
   title.innerText = trail.name;
@@ -16,6 +17,7 @@ const populateModalBasicData = (trail) => {
 
   yelpRating.innerText = trail.yelpRating;
   yelpReviews.innerText = trail.yelpReviewCount;
+  yelpLink.setAttribute('href', trail.yelpLink);
   if (trail.yelpRating < 1) {
     yelpStars.style.backgroundImage = 'url(../assets/images/yelp-0.png)';
   } else if (trail.yelpRating < 1.5) {

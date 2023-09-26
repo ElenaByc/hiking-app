@@ -74,7 +74,8 @@ public class TrailServiceImpl implements TrailService {
             }
             googleAPIService.getTrailGooglePlacesData(trailDto);
             // remove trails without Google Places data from search result
-            if (trailDto.getGooglePlaceId() != null) {
+            // remove -gym-
+            if (trailDto.getGooglePlaceId() != null && !trailDto.getYelpAlias().contains("-gym-")) {
                 searchResultListFinal.add(trailDto);
             }
 

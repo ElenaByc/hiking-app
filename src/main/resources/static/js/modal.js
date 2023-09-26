@@ -7,6 +7,7 @@ const googleReviews = document.querySelector('.google-rating__reviews');
 const yelpStars = document.querySelector('.yelp-rating__stars');
 const googleStars = document.querySelector('.google-rating__stars');
 const googleRatingDiv = document.querySelector('.google-rating');
+const address = document.querySelector('.modal-address div:nth-child(2)');
 
 const populateModalBasicData = (trail) => {
   title.innerText = trail.name;
@@ -56,5 +57,7 @@ const populateModalBasicData = (trail) => {
       googleStarElement.classList.add('google-star-half');
       googleStars.appendChild(googleStarElement);
     }
+
+    address.innerText = trail.address;
   }
 }

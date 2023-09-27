@@ -2,6 +2,7 @@ package com.elenabyc.hikingapp.services;
 
 import com.elenabyc.hikingapp.dtos.Coordinates;
 import com.elenabyc.hikingapp.dtos.TrailDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
@@ -11,8 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class GoogleAPIServiceImpl implements GoogleAPIService {
@@ -21,21 +20,19 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
 
     @Override
     public void getTrailGooglePlacesData(TrailDto trailDto) {
-        JsonNode googlePlacesAPIResponse;
+        JsonNode googlePlaceSearchResponse;
         if (trailDto.getGooglePlaceId() != null) {
             //TODO: get Google Data from Google Place Details API
-        } else { // get Google Data from Google Place Search Place API
-//            googlePlacesAPIResponse = getTrailDetailsByName(trailDto.getName());
-            googlePlacesAPIResponse = getTrailDetailsByName(trailDto.getYelpAlias());
-            if (googlePlacesAPIResponse == null) {
+        } else { // get Google Data from Google Place Search API
+//            googlePlacesAPIResponse = getTrailBasicDetails(trailDto.getName());
+            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
+            if (googlePlaceSearchResponse == null) {
                 System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");
                 return;
             }
-//            System.out.println(googlePlacesAPIResponse.get("candidates"));
-//            System.out.println(googlePlacesAPIResponse.get("candidates").size());
             double latitude;
             double longitude;
-            for (JsonNode element : googlePlacesAPIResponse.get("candidates")) {
+            for (JsonNode element : googlePlaceSearchResponse.get("candidates")) {
                 latitude = element.get("geometry").get("location").get("lat").asDouble();
                 longitude = element.get("geometry").get("location").get("lng").asDouble();
 
@@ -68,16 +65,15 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
     @Override
     public String getImageByReference(String imgRef) {
         OkHttpClient client = new OkHttpClient();
-        StringBuilder googlePlacePhotosUrl = new StringBuilder();
         String maxWidth = "?maxwidth=1600";
         String key = "&key=" + GOOGLE_DEV_KEY;
 
-        googlePlacePhotosUrl.append("https://maps.googleapis.com/maps/api/place/photo");
-        googlePlacePhotosUrl.append(maxWidth);
-        googlePlacePhotosUrl.append("&photo_reference=" + imgRef);
-        googlePlacePhotosUrl.append(key);
+        String googlePlacePhotosUrl = "https://maps.googleapis.com/maps/api/place/photo" +
+                maxWidth +
+                "&photo_reference=" + imgRef +
+                key;
         Request request = new Request.Builder()
-                .url(googlePlacePhotosUrl.toString())
+                .url(googlePlacePhotosUrl)
                 .get()
                 .build();
         try {
@@ -91,9 +87,8 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
     }
 
     @Override
-    public JsonNode getTrailDetailsByName(String trailName) {
+    public JsonNode getTrailBasicDetails(String trailName) {
         OkHttpClient client = new OkHttpClient();
-        StringBuilder googleFindPlaceUrl = new StringBuilder();
         String input = "&input=" + trailName + "&inputtype=textquery";
         String fields = "?fields=" +
                 "formatted_address%2C" +
@@ -105,24 +100,20 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                 "place_id";
         String key = "&key=" + GOOGLE_DEV_KEY;
 
-        googleFindPlaceUrl.append("https://maps.googleapis.com/maps/api/place/findplacefromtext/json");
-        googleFindPlaceUrl.append(fields);
-        googleFindPlaceUrl.append(input);
-        googleFindPlaceUrl.append(key);
+        String googleFindPlaceUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json" +
+                fields +
+                input +
+                key;
         Request request = new Request.Builder()
-                .url(googleFindPlaceUrl.toString())
+                .url(googleFindPlaceUrl)
                 .get()
                 .build();
 
         try {
             Response response = client.newCall(request).execute();
-            System.out.println("Trail name: " + trailName);
-            System.out.println("Google API response code: " + response.code());
             String responseString = response.body().string();
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(responseString);
-            System.out.println("Google API response status: " + jsonNode.get("status"));
-            return jsonNode;
+            return objectMapper.readTree(responseString);
         } catch (IOException e) {
             return null;
         }
@@ -131,5 +122,43 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
     @Override
     public JsonNode getTrailDetailsByPlaceId(String googlePlaceId) {
         return null;
+    }
+
+    @Override
+    public void getTrailDetails(TrailDto trailDto) {
+        OkHttpClient client = new OkHttpClient();
+        String fields = "?fields=" +
+                "website%2C" +
+                "url%2C" +
+                "photo%2C" +
+                "reviews";
+        String placeId = "&place_id=" + trailDto.getGooglePlaceId();
+        String key = "&key=" + GOOGLE_DEV_KEY;
+
+        String googlePlaceDetailsUrl = "https://maps.googleapis.com/maps/api/place/details/json" +
+                fields +
+                placeId +
+                key;
+        Request request = new Request.Builder()
+                .url(googlePlaceDetailsUrl)
+                .get()
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            String responseString = response.body().string();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode placeDetailsResponse = objectMapper.readTree(responseString);
+            if (placeDetailsResponse.get("result") != null) {
+                if (placeDetailsResponse.get("result").get("url") != null) {
+                    trailDto.setGoogleLink(placeDetailsResponse.get("result").get("url").asText());
+                }
+                if (placeDetailsResponse.get("result").get("website") != null) {
+                    trailDto.setWebsite(placeDetailsResponse.get("result").get("website").asText());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("getTrailDetails: " + e);
+        }
     }
 }

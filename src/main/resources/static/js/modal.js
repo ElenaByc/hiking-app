@@ -9,6 +9,10 @@ const googleStars = document.querySelector('.google-rating__stars');
 const googleRatingDiv = document.querySelector('.google-rating');
 const address = document.querySelector('.modal-address div:nth-child(2)');
 const yelpLink = document.querySelector('.yelp-link__link');
+const googleLink = document.querySelector('.google-link__link');
+const websiteDiv = document.querySelector('.modal-website');
+const website = document.querySelector('.modal-website a');
+
 
 const populateModalBasicData = (trail) => {
   title.innerText = trail.name;
@@ -61,5 +65,17 @@ const populateModalBasicData = (trail) => {
     }
 
     address.innerText = trail.address;
+  }
+}
+
+const populateModal = (trail) => {
+  googleLink.setAttribute('href', trail.googleLink);
+
+  if (trail.website == null) {
+    websiteDiv.style.display = 'none';
+  } else {
+    websiteDiv.style.display = 'flex';
+    website.setAttribute('href', trail.website);
+    website.innerText = trail.website;
   }
 }

@@ -49,15 +49,19 @@ const getTrailDetails = async (e) => {
   const i = Number(e.target.id.substring(9));
   let trail = trailsArray[i];
   console.log(trail);
-  console.log(trail.yelpAlias);
   populateModalBasicData(trail);
-  // await fetch(`${baseUrl}/details/${trail.yelpAlias}/${tral.googlePlacesId}`, {
-  //   method: "GET",
-  //   headers: headers
-  // })
-  //   .then(res => res.json())
-  //   .then(data => populateModal(data))
-  //   .catch(err => console.error(err.message))
+
+  await fetch(`${baseUrl}/details/${trail.yelpAlias}/${trail.googlePlaceId}`, {
+    method: "GET",
+    headers: headers
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log('data: ', data);
+      populateModal(data);
+    })
+    .catch(err => console.error(err.message));
+
 }
 
 const handleSaveTrail = async (e) => {

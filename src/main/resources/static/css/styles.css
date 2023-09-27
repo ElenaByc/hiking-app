@@ -457,7 +457,7 @@ button[disabled]#submit-button {
 }
 
 .modal-trail__img {
-    width: 50%;
+    width: 45%;
     height: auto;
     max-width: 600px;
     max-height: 500px;
@@ -468,7 +468,7 @@ button[disabled]#submit-button {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
-    width: 40%;
+    width: 45%;
 }
 
 .yelp-rating__stars {
@@ -535,11 +535,17 @@ button[disabled]#submit-button {
 }
 
 .yelp-link__link:hover,
-.google-link__link:hover {
+.google-link__link:hover,
+.modal-website a:hover {
     color: var(--color-blue);
 }
 
 .modal-address {
+    display: flex;
+    column-gap: 15px;
+}
+
+.modal-website {
     display: flex;
     column-gap: 15px;
 }

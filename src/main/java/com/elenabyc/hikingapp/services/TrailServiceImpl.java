@@ -5,6 +5,7 @@ import com.elenabyc.hikingapp.entities.Trail;
 import com.elenabyc.hikingapp.entities.User;
 import com.elenabyc.hikingapp.repositories.TrailRepository;
 import com.elenabyc.hikingapp.repositories.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,8 +86,21 @@ public class TrailServiceImpl implements TrailService {
 
     @Override
     public TrailDto getTrailDetails(String yelpAlias, String googlePlaceId) {
-        // pictures, reviews, link on trail's Yelp page, link on trails' Google Map page, website
-        return null;
+        Optional<Trail> trailOptional = trailRepository.findByYelpAlias(yelpAlias);
+        TrailDto trailDto;
+        if (trailOptional.isPresent()) {
+            trailDto = new TrailDto(trailOptional.get());
+        } else {
+            trailDto = new TrailDto();
+            trailDto.setYelpAlias(yelpAlias);
+            trailDto.setGooglePlaceId(googlePlaceId);
+        }
+
+        // get pictures, reviews, link on trails' Google Map page, website
+        googleAPIService.getTrailDetails(trailDto);
+
+
+        return trailDto;
     }
 
     @Override

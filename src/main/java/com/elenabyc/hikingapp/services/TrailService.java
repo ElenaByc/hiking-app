@@ -2,7 +2,6 @@ package com.elenabyc.hikingapp.services;
 
 import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.elenabyc.hikingapp.entities.Trail;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

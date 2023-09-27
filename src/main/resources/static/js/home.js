@@ -81,6 +81,7 @@ const handleSaveTrail = async (e) => {
     const saveBtn = document.querySelector(`#save-btn-${i}`);
     saveBtn.innerText = 'Saved';
     saveBtn.disabled = true;
+    trailsArray[i].saved = true;
   }
 }
 

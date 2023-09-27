@@ -12,6 +12,7 @@ const yelpLink = document.querySelector('.yelp-link__link');
 const googleLink = document.querySelector('.google-link__link');
 const websiteDiv = document.querySelector('.modal-website');
 const website = document.querySelector('.modal-website a');
+const saveBtn = document.querySelector(`#save-btn`);
 
 
 const populateModalBasicData = (trail) => {
@@ -63,8 +64,18 @@ const populateModalBasicData = (trail) => {
       googleStarElement.classList.add('google-star-half');
       googleStars.appendChild(googleStarElement);
     }
+  }
 
-    address.innerText = trail.address;
+  address.innerText = trail.address;
+
+  console.log("trail.saved = ", trail.saved);
+
+  if (trail.saved) {
+    saveBtn.innerText = 'Saved';
+    saveBtn.disabled = true;
+  } else {
+    saveBtn.innerText = 'Save this trail';
+    saveBtn.disabled = false;
   }
 }
 

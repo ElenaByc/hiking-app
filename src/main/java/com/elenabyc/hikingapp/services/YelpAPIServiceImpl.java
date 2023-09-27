@@ -23,7 +23,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
     @Override
     public List<TrailDto> getTrailsByLocationName(String city) {
         final int radius = 20000;  // The max value is 40,000 meters (about 25 miles)
-        final int limit = 50;      // max = 50
+        final int limit = 10;      // max = 50
         final String sortBy = "best_match"; // best_match, rating, review_count or distance
         OkHttpClient client = new OkHttpClient();
         String yelpHikingUrl = "https://api.yelp.com/v3/businesses/search?" +

@@ -549,3 +549,33 @@ button[disabled]#submit-button {
     display: flex;
     column-gap: 15px;
 }
+
+.modal-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
+}
+
+.modal-photos,
+.modal-reviews,
+.modal-weather {
+    height: 100px;
+    width: 100%;
+}
+
+.modal-photos p,
+.modal-reviews p,
+.modal-weather p {
+    width: 100%;
+    text-align: center;
+}
+
+.modal-photos,
+.modal-reviews {
+    border-bottom: 1px solid #dee2e6;
+}

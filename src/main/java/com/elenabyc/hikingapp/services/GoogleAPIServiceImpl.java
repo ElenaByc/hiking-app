@@ -2,7 +2,6 @@ package com.elenabyc.hikingapp.services;
 
 import com.elenabyc.hikingapp.dtos.Coordinates;
 import com.elenabyc.hikingapp.dtos.TrailDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
@@ -24,7 +23,7 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
         if (trailDto.getGooglePlaceId() != null) {
             //TODO: get Google Data from Google Place Details API
         } else { // get Google Data from Google Place Search API
-//            googlePlacesAPIResponse = getTrailBasicDetails(trailDto.getName());
+//            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getName());
             googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
             if (googlePlaceSearchResponse == null) {
                 System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");

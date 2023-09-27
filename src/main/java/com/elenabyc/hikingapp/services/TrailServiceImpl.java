@@ -5,8 +5,6 @@ import com.elenabyc.hikingapp.entities.Trail;
 import com.elenabyc.hikingapp.entities.User;
 import com.elenabyc.hikingapp.repositories.TrailRepository;
 import com.elenabyc.hikingapp.repositories.UserRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,7 +63,6 @@ public class TrailServiceImpl implements TrailService {
         Optional<User> userOptional = userRepository.findById(userId);
         for (TrailDto trailDto : searchResultList) {
             Optional<Trail> trailOptional = trailRepository.findByYelpAlias(trailDto.getYelpAlias());
-//            trailOptional.ifPresent(trail -> trailDto.setGooglePlaceId(trail.getGooglePlaceId()));
             if (userOptional.isPresent() && trailOptional.isPresent()) {
                 User user = userOptional.get();
                 Trail trail = trailOptional.get();
@@ -79,7 +76,6 @@ public class TrailServiceImpl implements TrailService {
             if (trailDto.getGooglePlaceId() != null && !trailDto.getYelpAlias().contains("-gym-")) {
                 searchResultListFinal.add(trailDto);
             }
-
         }
         return searchResultListFinal;
     }

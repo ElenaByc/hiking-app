@@ -2,7 +2,6 @@ package com.elenabyc.hikingapp.controllers;
 
 import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.elenabyc.hikingapp.services.TrailService;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

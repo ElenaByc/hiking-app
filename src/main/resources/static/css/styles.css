@@ -121,7 +121,9 @@ button[disabled] {
 }
 
 button:disabled#submit-button,
-button[disabled]#submit-button {
+button[disabled]#submit-button,
+button:disabled#review-btn,
+button[disabled]#review-btn {
     background-color: var(--color-gray-l);
     border: 2px solid var(--color-gray-l);
     color: var(--color-gray);
@@ -578,4 +580,8 @@ button[disabled]#submit-button {
 .modal-photos,
 .modal-reviews {
     border-bottom: 1px solid #dee2e6;
+}
+
+#review-form {
+    transition: all 0.5s ease-in-out;
 }

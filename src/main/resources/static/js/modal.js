@@ -12,7 +12,9 @@ const yelpLink = document.querySelector('.yelp-link__link');
 const googleLink = document.querySelector('.google-link__link');
 const websiteDiv = document.querySelector('.modal-website');
 const website = document.querySelector('.modal-website a');
-const saveBtn = document.querySelector(`#save-btn`);
+const saveBtn = document.querySelector('#save-btn');
+const reviewBtn = document.querySelector('#review-btn');
+const reviewForm = document.querySelector('#review-form');
 
 
 const populateModalBasicData = (trail) => {
@@ -77,6 +79,12 @@ const populateModalBasicData = (trail) => {
     saveBtn.innerText = 'Save this trail';
     saveBtn.disabled = false;
   }
+
+  reviewForm.style.opacity = 0;
+  reviewForm.style.visibility = 'hidden';
+  reviewForm.style.height = 0;
+  reviewForm.style.marginBottom = '-30px';
+  reviewBtn.disabled = false;
 }
 
 const populateModal = (trail) => {
@@ -90,3 +98,16 @@ const populateModal = (trail) => {
     website.innerText = trail.website;
   }
 }
+
+const showReviewForm = () => {
+  // reviewForm.style.display = 'block';
+  reviewForm.style.opacity = 1;
+  reviewForm.style.visibility = 'visible';
+  reviewForm.style.height = 'fit-content';
+  reviewForm.style.marginBottom = 0;
+
+  reviewBtn.disabled = true;
+}
+
+
+reviewBtn.addEventListener('click', showReviewForm);

@@ -12,13 +12,16 @@ const yelpLink = document.querySelector('.yelp-link__link');
 const googleLink = document.querySelector('.google-link__link');
 const websiteDiv = document.querySelector('.modal-website');
 const website = document.querySelector('.modal-website a');
+const modalBtnsDiv = document.querySelector('.modal-btns');
 const saveBtn = document.querySelector('#save-btn');
 const reviewBtn = document.querySelector('#review-btn');
 const reviewForm = document.querySelector('#review-form');
 
 
+
 const populateModalBasicData = (trail) => {
   title.innerText = trail.name;
+
   img.setAttribute('src', trail.image);
   img.setAttribute('alt', `${trail.name} picture`);
 
@@ -70,14 +73,17 @@ const populateModalBasicData = (trail) => {
 
   address.innerText = trail.address;
 
-  console.log("trail.saved = ", trail.saved);
-
-  if (trail.saved) {
-    saveBtn.innerText = 'Saved';
-    saveBtn.disabled = true;
+  if (userId) {
+    modalBtnsDiv.style.display = 'flex';
+    if (trail.saved) {
+      saveBtn.innerText = 'Saved';
+      saveBtn.disabled = true;
+    } else {
+      saveBtn.innerText = 'Save this trail';
+      saveBtn.disabled = false;
+    }
   } else {
-    saveBtn.innerText = 'Save this trail';
-    saveBtn.disabled = false;
+    modalBtnsDiv.style.display = 'none';
   }
 
   reviewForm.style.opacity = 0;
@@ -105,7 +111,6 @@ const showReviewForm = () => {
   reviewForm.style.visibility = 'visible';
   reviewForm.style.height = 'fit-content';
   reviewForm.style.marginBottom = 0;
-
   reviewBtn.disabled = true;
 }
 

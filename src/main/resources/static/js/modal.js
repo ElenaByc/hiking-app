@@ -17,9 +17,11 @@ const saveBtn = document.querySelector('#save-btn');
 const reviewBtn = document.querySelector('#review-btn');
 const reviewForm = document.querySelector('#review-form');
 
-
+let currentTrail;
 
 const populateModalBasicData = (trail) => {
+  currentTrail = trail;
+
   title.innerText = trail.name;
 
   img.setAttribute('src', trail.image);
@@ -82,15 +84,10 @@ const populateModalBasicData = (trail) => {
       saveBtn.innerText = 'Save this trail';
       saveBtn.disabled = false;
     }
+    hideReviewForm();
   } else {
     modalBtnsDiv.style.display = 'none';
   }
-
-  reviewForm.style.opacity = 0;
-  reviewForm.style.visibility = 'hidden';
-  reviewForm.style.height = 0;
-  reviewForm.style.marginBottom = '-30px';
-  reviewBtn.disabled = false;
 }
 
 const populateModal = (trail) => {
@@ -114,5 +111,31 @@ const showReviewForm = () => {
   reviewBtn.disabled = true;
 }
 
+const hideReviewForm = () => {
+  reviewForm.style.opacity = 0;
+  reviewForm.style.visibility = 'hidden';
+  reviewForm.style.height = 0;
+  reviewForm.style.marginBottom = '-30px';
+  reviewBtn.disabled = false;
+}
+
+const handleSubmitReview = async (e) => {
+  e.preventDefault();
+  const rating = document.querySelector('#rating').value;
+  const reviewBody = document.querySelector('#review-body').value;
+  console.log('submit review');
+  console.log('user id: ', userId);
+  console.log('trai yelp alias: ', currentTrail.yelpAlias);
+  console.log('rating: ', rating);
+  console.log('reviewBody: ', reviewBody);
+
+  // send trail and review data to backend
+
+  // close review form 
+  hideReviewForm();
+}
+
+
 
 reviewBtn.addEventListener('click', showReviewForm);
+reviewForm.addEventListener('submit', handleSubmitReview);

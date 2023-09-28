@@ -1,7 +1,7 @@
 console.log('Login page');
-let loginForm = document.querySelector('#login-form');
-let email = document.querySelector('#email');
-let password = document.querySelector('#password');
+const loginForm = document.querySelector('#login-form');
+const email = document.querySelector('#email');
+const password = document.querySelector('#password');
 
 const headers = {
   'Content-Type': 'application/json'

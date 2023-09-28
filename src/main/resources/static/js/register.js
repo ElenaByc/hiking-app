@@ -1,4 +1,3 @@
-console.log('REGISTER SCRIPT')
 const registerForm = document.querySelector('#register-form');
 const username = document.querySelector('#name');
 const email = document.querySelector('#email');

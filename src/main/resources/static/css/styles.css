@@ -585,3 +585,14 @@ button[disabled]#review-btn {
 #review-form {
     transition: all 0.5s ease-in-out;
 }
+
+#review-form textarea {
+    font-size: 18px !important;
+}
+
+/* select.decorated option:hover {
+    box-shadow: 0 0 10px 100px red inset;
+} */
+/* #review-form option {
+    background-color: yellow;
+} */

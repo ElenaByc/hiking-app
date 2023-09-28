@@ -24,6 +24,10 @@ public class Review {
     @Column(name = "date_created", nullable = false)
     private String date;
 
+    @Column(name = "rating", nullable = false)
+    private int rating;
+    
+
     @ManyToOne
     @JsonBackReference
     private User user;

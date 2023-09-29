@@ -25,24 +25,22 @@ public class ReviewServiceImpl implements ReviewService {
     private UserRepository userRepository;
     @Autowired
     private TrailRepository trailRepository;
+    @Autowired
+    private TrailService trailService;
 
     @Override
     @Transactional
-    public List<String> addReview(ReviewDto reviewDto, Long userId, Long trailId) {
+    public List<String> addReview(ReviewDto reviewDto, long userId) {
         List<String> response = new ArrayList<>();
         Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Trail> trailOptional = trailRepository.findById(trailId);
+        Trail trail = trailService.addTrail(reviewDto.getTrailDto());
         Review review = new Review(reviewDto);
         if (userOptional.isEmpty()) {
             response.add("Error: there is no user with id = " + userId);
             return response;
         }
-        if (trailOptional.isEmpty()) {
-            response.add("Error: there is no trail with id = " + trailId);
-            return response;
-        }
         userOptional.ifPresent(review::setUser);
-        trailOptional.ifPresent(review::setTrail);
+        review.setTrail(trail);
         reviewRepository.saveAndFlush(review);
         response.add("Review added successfully");
         return response;

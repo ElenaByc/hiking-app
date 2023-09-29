@@ -87,6 +87,9 @@ const populateModalBasicData = (trail) => {
       saveBtn.disabled = false;
     }
     hideReviewForm();
+    // if trail.reviewed = > 
+    reviewBtn.innerText = 'Write review';
+    reviewBtn.addEventListener('click', showReviewForm);
   } else {
     modalBtnsDiv.style.display = 'none';
   }
@@ -117,6 +120,20 @@ const hideReviewForm = () => {
   document.querySelector('#review-body').value = "";
 }
 
+const showReview = () => {
+  console.log('Show User\'s review')
+}
+
+const getCurrentDate = () => {
+  const today = new Date();
+
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+
+  return `${day}/${month}/${year}`;
+}
+
 const handleSubmitReview = async (e) => {
   e.preventDefault();
   const rating = document.querySelector('#rating').value;
@@ -127,13 +144,30 @@ const handleSubmitReview = async (e) => {
   console.log('rating: ', rating);
   console.log('reviewBody: ', reviewBody);
 
-  // send trail and review data to backend
+  const review = {
+    'body': reviewBody,
+    'rating': rating,
+    'date': getCurrentDate(),
+    'trailDto': currentTrail
+  };
 
+  const response = await fetch(`/api/reviews/save/${userId}`, {
+    method: 'POST',
+    body: JSON.stringify(review),
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .catch(err => console.error(err.message));
+  if (response.status == 200) {
+    console.log(response.status);
+    const responseArr = await response.json();
+    console.log(responseArr);
+    reviewBtn.innerText = 'Your review';
+    reviewBtn.removeEventListener('click', showReviewForm);
+    reviewBtn.addEventListener('click', showReview);
+  }
   hideReviewForm();
 }
 
 
-
-reviewBtn.addEventListener('click', showReviewForm);
 revewCancelBtn.addEventListener('click', hideReviewForm);
 reviewForm.addEventListener('submit', handleSubmitReview);

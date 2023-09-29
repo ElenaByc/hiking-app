@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class ReviewDto implements Serializable {
     private Long id;
     private String body;
+    private int rating;
     private String date;
     private UserDto userDto;
     private TrailDto trailDto;

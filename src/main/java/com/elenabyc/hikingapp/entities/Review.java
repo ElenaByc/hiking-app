@@ -40,6 +40,9 @@ public class Review {
         if (reviewDto.getBody() != null) {
             this.body = reviewDto.getBody();
         }
+        if (reviewDto.getRating() != 0) {
+            this.rating = reviewDto.getRating();
+        }
         if (reviewDto.getDate() != null) {
             this.date = reviewDto.getDate();
         }

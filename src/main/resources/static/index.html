@@ -67,7 +67,11 @@
                         <button class="button" id="save-btn">Save this trail</button>
                     </div>
                     <form id="review-form">
-                        <select class="form-select form-select-lg mb-3" name="rating" id="rating" required>
+                        <div class="mb-3">
+                            <textarea id="review-body" class="form-control" rows="7" cols="50"
+                                placeholder="Type your review here..." required></textarea>
+                        </div>
+                        <select class="form-select form-select-md mb-3" name="rating" id="rating" required>
                             <option value="" selected disabled>--Select your rating--</option>
                             <option value="1">1 - Not good</option>
                             <option value="2">2 - Could’ve been better</option>
@@ -75,10 +79,6 @@
                             <option value="4">4 - Good</option>
                             <option value="5">5 - Great</option>
                         </select>
-                        <div class="mb-3">
-                            <textarea id="review-body" class="form-control" rows="10" cols="50"
-                                placeholder="Type your review here..." required></textarea>
-                        </div>
                         <div class="mb-3 review-btns">
                             <input type="submit" class="button" value="Submit review">
                             <button class="button" id="revew-cancel-btn">Cancel</button>

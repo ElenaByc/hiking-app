@@ -107,6 +107,7 @@ const populateModal = (trail) => {
 const showReviewForm = () => {
   reviewForm.style.display = 'block';
   reviewBtn.disabled = true;
+  document.querySelector('#review-body').focus();
 }
 
 const hideReviewForm = () => {

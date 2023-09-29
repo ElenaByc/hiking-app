@@ -16,6 +16,8 @@ const modalBtnsDiv = document.querySelector('.modal-btns');
 const saveBtn = document.querySelector('#save-btn');
 const reviewBtn = document.querySelector('#review-btn');
 const reviewForm = document.querySelector('#review-form');
+const revewCancelBtn = document.querySelector('#revew-cancel-btn');
+
 
 let currentTrail;
 
@@ -103,20 +105,15 @@ const populateModal = (trail) => {
 }
 
 const showReviewForm = () => {
-  // reviewForm.style.display = 'block';
-  reviewForm.style.opacity = 1;
-  reviewForm.style.visibility = 'visible';
-  reviewForm.style.height = 'fit-content';
-  reviewForm.style.marginBottom = 0;
+  reviewForm.style.display = 'block';
   reviewBtn.disabled = true;
 }
 
 const hideReviewForm = () => {
-  reviewForm.style.opacity = 0;
-  reviewForm.style.visibility = 'hidden';
-  reviewForm.style.height = 0;
-  reviewForm.style.marginBottom = '-30px';
+  reviewForm.style.display = 'none';
   reviewBtn.disabled = false;
+  document.querySelector('#rating').value = "";
+  document.querySelector('#review-body').value = "";
 }
 
 const handleSubmitReview = async (e) => {
@@ -131,11 +128,11 @@ const handleSubmitReview = async (e) => {
 
   // send trail and review data to backend
 
-  // close review form 
   hideReviewForm();
 }
 
 
 
 reviewBtn.addEventListener('click', showReviewForm);
+revewCancelBtn.addEventListener('click', hideReviewForm);
 reviewForm.addEventListener('submit', handleSubmitReview);

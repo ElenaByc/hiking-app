@@ -590,6 +590,12 @@ button[disabled]#review-btn {
     font-size: 18px !important;
 }
 
+.review-btns {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 /* select.decorated option:hover {
     box-shadow: 0 0 10px 100px red inset;
 } */

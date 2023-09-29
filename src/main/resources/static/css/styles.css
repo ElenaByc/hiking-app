@@ -455,11 +455,11 @@ button[disabled]#review-btn {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    column-gap: 30px;
+    column-gap: 4%;
 }
 
 .modal-trail__img {
-    width: 45%;
+    width: 48%;
     height: auto;
     max-width: 600px;
     max-height: 500px;
@@ -470,7 +470,7 @@ button[disabled]#review-btn {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
-    width: 45%;
+    width: 48%;
 }
 
 .yelp-rating__stars {
@@ -550,6 +550,14 @@ button[disabled]#review-btn {
 .modal-website {
     display: flex;
     column-gap: 15px;
+}
+
+.modal-website a {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    width: fit-content;
+    white-space: nowrap;
 }
 
 .modal-btns {

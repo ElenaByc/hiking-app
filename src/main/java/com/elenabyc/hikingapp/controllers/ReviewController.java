@@ -17,4 +17,9 @@ public class ReviewController {
     public List<String> addReview(@RequestBody ReviewDto reviewDto, @PathVariable long userId) {
         return reviewService.addReview(reviewDto, userId);
     }
+
+    @GetMapping("/{userId}")
+    public List<ReviewDto> getAllReviewsByUserId(@PathVariable long userId) {
+        return reviewService.getAllReviewsByUserId(userId);
+    }
 }

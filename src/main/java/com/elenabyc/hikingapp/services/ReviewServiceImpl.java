@@ -58,7 +58,6 @@ public class ReviewServiceImpl implements ReviewService {
             reviewRepository.delete(review);
             response.add("Review with id = " + reviewId + " was deleted");
         });
-
         return response;
     }
 

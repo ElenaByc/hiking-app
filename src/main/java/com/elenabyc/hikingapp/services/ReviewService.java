@@ -11,11 +11,11 @@ public interface ReviewService {
     List<String> addReview(ReviewDto reviewDto, long userId);
 
     @Transactional
-    List<String> deleteReviewById(Long reviewId);
+    List<String> deleteReviewById(long reviewId);
 
     List<String> updateReview(ReviewDto reviewDto);
 
-    List<ReviewDto> getAllReviewsByUserId(Long userId);
+    List<ReviewDto> getAllReviewsByUserId(long userId);
 
     List<ReviewDto> getAllReviewsByTrailId(Long trailId);
 

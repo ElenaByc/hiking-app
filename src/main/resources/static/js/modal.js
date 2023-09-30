@@ -161,7 +161,7 @@ const handleSubmitReview = async (e) => {
     console.log(response.status);
     const responseArr = await response.json();
     console.log(responseArr);
-    reviewBtn.innerText = 'Your review';
+    reviewBtn.innerText = 'My review';
     reviewBtn.removeEventListener('click', showReviewForm);
     reviewBtn.addEventListener('click', showReview);
   }

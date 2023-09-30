@@ -48,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public List<String> deleteReviewById(Long reviewId) {
+    public List<String> deleteReviewById(long reviewId) {
         List<String> response = new ArrayList<>();
         Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
         if (reviewOptional.isEmpty()) {
@@ -78,7 +78,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewDto> getAllReviewsByUserId(Long userId) {
+    public List<ReviewDto> getAllReviewsByUserId(long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             List<Review> reviewList = reviewRepository.findAllByUserEquals(userOptional.get());

@@ -22,4 +22,9 @@ public class ReviewController {
     public List<ReviewDto> getAllReviewsByUserId(@PathVariable long userId) {
         return reviewService.getAllReviewsByUserId(userId);
     }
+
+    @PostMapping("/delete/{reviewId}")
+    public List<String> deleteReviewById(@PathVariable long reviewId) {
+        return reviewService.deleteReviewById(reviewId);
+    }
 }

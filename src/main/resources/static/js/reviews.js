@@ -55,8 +55,6 @@ const createReviewCard = (review) => {
   reviewRating.innerText = `Rating: ${review.rating}`;
   divInfo.appendChild(reviewRating);
 
-
-
   const reviewBody = document.createElement('p');
   reviewBody.classList.add('review-body');
   reviewBody.innerText = review.body;
@@ -73,29 +71,28 @@ const createReviewCard = (review) => {
   divBtns.appendChild(editReviewBtn);
   const deleteReviewBtn = document.createElement('button');
   deleteReviewBtn.classList.add('button');
-  // deleteReviewBtn.classList.add('delete-btn');
   deleteReviewBtn.innerText = 'Delete';
   deleteReviewBtn.setAttribute('id', `delete-btn-${review.id}`);
-  deleteReviewBtn.addEventListener('click', handleRemoveReview);
+  deleteReviewBtn.addEventListener('click', handleDeleteReview);
   divBtns.appendChild(deleteReviewBtn);
   divContent.appendChild(divBtns);
   reviewCard.appendChild(divContent);
   return reviewCard;
 }
 
-const handleRemoveReview = async (e) => {
-  // const trailCard = e.target.closest('.trail-card');
-  // const trailId = Number(e.target.id.substring(11));
-  // console.log(trailId);
-  // trailCard.style.display = 'none';
-  // const response = await fetch(`/api/users/trails/${userId}/remove/${trailId}`, {
-  //   method: 'POST',
-  //   headers: headers
-  // })
-  //   .catch(err => console.error(err.message));
-  // console.log(response.status);
-  // const responseArr = await response.json();
-  // console.log(responseArr);
+const handleDeleteReview = async (e) => {
+  const reviewCard = e.target.closest('.review-card');
+  const reviewId = Number(e.target.id.substring(11));
+  console.log(reviewId);
+  reviewCard.style.display = 'none';
+  const response = await fetch(`/api/reviews/delete/${reviewId}`, {
+    method: 'POST',
+    headers: headers
+  })
+    .catch(err => console.error(err.message));
+  console.log(response.status);
+  const responseArr = await response.json();
+  console.log(responseArr);
 }
 
 const handleEditReview = async (e) => {

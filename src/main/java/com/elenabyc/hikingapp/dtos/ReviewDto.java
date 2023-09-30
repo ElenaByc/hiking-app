@@ -26,7 +26,13 @@ public class ReviewDto implements Serializable {
             this.body = review.getBody();
         }
         if (review.getDate() != null) {
-            this.body = review.getDate();
+            this.date = review.getDate();
+        }
+        if (review.getRating() != 0) {
+            this.rating = review.getRating();
+        }
+        if(review.getTrail() != null) {
+            this.setTrailDto(new TrailDto(review.getTrail()));
         }
     }
 }

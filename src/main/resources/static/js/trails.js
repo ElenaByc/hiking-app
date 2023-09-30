@@ -55,7 +55,7 @@ const createSavedTrailCard = (trail) => {
   divBtns.appendChild(learnMoreBtn);
   const removeTrailBtn = document.createElement('button');
   removeTrailBtn.classList.add('button');
-  removeTrailBtn.classList.add('remove-btn');
+  // removeTrailBtn.classList.add('remove-btn');
   removeTrailBtn.innerText = 'Remove';
   removeTrailBtn.setAttribute('id', `remove-btn-${trail.id}`);
   removeTrailBtn.addEventListener('click', handleRemoveTrail);

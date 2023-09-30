@@ -218,6 +218,8 @@ button[disabled]#review-btn {
 
 /* ---------- Loading Spinner ---------- */
 
+/* .loading-header {} */
+
 .loading-spinner {
     width: 70px;
     height: 70px;
@@ -399,6 +401,7 @@ button[disabled]#review-btn {
 
 .trail-card__img {
     display: flex;
+    align-items: center;
 }
 
 .trail-card__img img {
@@ -610,3 +613,64 @@ button[disabled]#review-btn {
 /* #review-form option {
     background-color: yellow;
 } */
+
+
+/* ---------- Reviews Page ---------- */
+
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 40px;
+    width: 100%;
+}
+
+.review-card {
+    display: flex;
+    flex-direction: row;
+    column-gap: 30px;
+    width: 85%;
+    background-color: var(--color-white);
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 3px rgba(13, 96, 111, 0.16);
+}
+
+.review-card__img {
+    display: flex;
+    align-items: center;
+}
+
+.review-card__img img {
+    width: 400px;
+    height: auto;
+    border-radius: 16px;
+}
+
+.review-card__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.review-card__info {
+    width: 100%;
+    padding: 10px;
+}
+
+.review-card__info h3,
+.review-card__info h4 {
+    color: var(--color-blue);
+    text-align: center;
+}
+
+.review-card__buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.review-card__buttons .button {
+    margin: 0;
+}

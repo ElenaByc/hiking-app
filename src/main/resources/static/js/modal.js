@@ -124,26 +124,10 @@ const showReview = () => {
   console.log('Show User\'s review')
 }
 
-const getCurrentDate = () => {
-  const today = new Date();
-
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-
-  return `${day}/${month}/${year}`;
-}
-
 const handleSubmitReview = async (e) => {
   e.preventDefault();
   const rating = document.querySelector('#rating').value;
   const reviewBody = document.querySelector('#review-body').value;
-  console.log('submit review');
-  console.log('user id: ', userId);
-  console.log('trai yelp alias: ', currentTrail.yelpAlias);
-  console.log('rating: ', rating);
-  console.log('reviewBody: ', reviewBody);
-
   const review = {
     'body': reviewBody,
     'rating': rating,
@@ -158,7 +142,6 @@ const handleSubmitReview = async (e) => {
   })
     .catch(err => console.error(err.message));
   if (response.status == 200) {
-    console.log(response.status);
     const responseArr = await response.json();
     console.log(responseArr);
     reviewBtn.innerText = 'My review';

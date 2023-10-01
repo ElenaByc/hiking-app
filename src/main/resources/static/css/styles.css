@@ -114,22 +114,19 @@ a:hover {
 
 button:disabled,
 button[disabled] {
-    background-color: var(--color-green);
-    border: 2px solid var(--color-green);
-    color: var(--color-white);
-    cursor: auto;
-}
-
-button:disabled#submit-button,
-button[disabled]#submit-button,
-button:disabled#review-btn,
-button[disabled]#review-btn {
     background-color: var(--color-gray-l);
     border: 2px solid var(--color-gray-l);
     color: var(--color-gray);
     cursor: auto;
 }
 
+button:disabled.save-btn,
+button[disabled].save-btn {
+    background-color: var(--color-green);
+    border: 2px solid var(--color-green);
+    color: var(--color-white);
+    cursor: auto;
+}
 
 /* ---------- Icons ---------- */
 
@@ -628,6 +625,7 @@ button[disabled]#review-btn {
 .review-card {
     display: flex;
     flex-direction: row;
+    align-items: stretch;
     column-gap: 30px;
     width: 85%;
     background-color: var(--color-white);
@@ -655,6 +653,9 @@ button[disabled]#review-btn {
 }
 
 .review-card__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
     width: 100%;
     padding: 10px;
 }
@@ -674,3 +675,15 @@ button[disabled]#review-btn {
 .review-card__buttons .button {
     margin: 0;
 }
+
+.edit-review-from {
+    padding: 10px;
+    border: 1px solid var(--color-gray-l);
+    border-radius: 7px;
+}
+
+.edit-review-from h4 {
+    color: var(--color-gray);
+    margin-bottom: 5px;
+}
+

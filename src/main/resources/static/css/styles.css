@@ -676,14 +676,28 @@ button[disabled].save-btn {
     margin: 0;
 }
 
-.edit-review-from {
+.edit-review-form {
     padding: 10px;
     border: 1px solid var(--color-gray-l);
     border-radius: 7px;
 }
 
-.edit-review-from h4 {
+.edit-review-form h4 {
     color: var(--color-gray);
     margin-bottom: 5px;
+}
+
+.edit-form-rating {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.edit-form-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 20px;
 }
 

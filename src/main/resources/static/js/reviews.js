@@ -54,7 +54,7 @@ const createReviewCard = (review) => {
   const reviewRating = document.createElement('p');
   reviewRating.classList.add('review-rating');
   reviewRating.setAttribute('id', `review-rating-${review.id}`);
-  reviewRating.innerText = `Rating: ${review.rating}`;
+  reviewRating.innerHTML = `Rating: <span>${review.rating}</span>`;
   divInfo.appendChild(reviewRating);
 
   const reviewBody = document.createElement('p');
@@ -66,7 +66,7 @@ const createReviewCard = (review) => {
 
   const editReviewForm = document.createElement('form');
   editReviewForm.setAttribute('id', `edit-form-${review.id}`);
-  editReviewForm.classList.add('edit-review-from');
+  editReviewForm.classList.add('edit-review-form');
   editReviewForm.style.display = 'none';
   const editFormHeader = document.createElement('h4');
   editFormHeader.innerText = 'Edit review';
@@ -78,28 +78,79 @@ const createReviewCard = (review) => {
   textarea.setAttribute('id', `edit-review-body-${review.id}`);
   textarea.setAttribute('rows', '7');
   textarea.setAttribute('cols', '50');
-  textarea.innerText = `${review.body}`;
+  textarea.required = true;
+  textarea.value = `${review.body}`;
   div1.appendChild(textarea);
   editReviewForm.appendChild(div1);
+  const div2 = document.createElement('div');
+  div2.classList.add('mb-3');
+  div2.classList.add('edit-form-rating');
+  const p = document.createElement('div');
+  p.innerText = 'Rating:';
+  div2.appendChild(p);
+  const select = document.createElement('select');
+  select.required = true;
+  select.classList.add('form-select');
+  select.classList.add('form-select-md');
+  select.setAttribute('name', `edit-review-rating-${review.id}`);
+  select.setAttribute('id', `edit-review-rating-${review.id}`);
+  select.value = review.rating;
+  const option1 = document.createElement('option');
+  option1.setAttribute('value', '1');
+  // if (review.rating == 1) {
+  //   option1.selected = true;
+  // }
+  option1.innerText = '1 - Not good';
+  select.appendChild(option1);
+  const option2 = document.createElement('option');
+  option2.setAttribute('value', '2');
+  // if (review.rating == 2) {
+  //   option2.selected = true;
+  // }
+  option2.innerText = '2 - Could’ve been better';
+  select.appendChild(option2);
+  const option3 = document.createElement('option');
+  option3.setAttribute('value', '3');
+  // if (review.rating == 3) {
+  //   option3.selected = true;
+  // }
+  option3.innerText = '3 - OK';
+  select.appendChild(option3);
+  const option4 = document.createElement('option');
+  option4.setAttribute('value', '4');
+  // if (review.rating == 4) {
+  //   option4.selected = true;
+  // }
+  option4.innerText = '4 - Good';
+  select.appendChild(option4);
+  const option5 = document.createElement('option');
+  option5.setAttribute('value', '5');
+  // if (review.rating == 5) {
+  //   option5.selected = true;
+  // }
+  option5.innerText = '5 - Great!';
+  select.appendChild(option5);
+  select.value = review.rating;
+  div2.appendChild(select);
+  editReviewForm.appendChild(div2);
 
-  // reviewEditForm.innerHTML = `
-  //           <div class="mb-3">
-  //             <textarea id="review-body" class="form-control" rows="7" cols="50"
-  //               placeholder="Type your review here..." required></textarea>
-  //           </div>
-  //           <select class="form-select form-select-md mb-3" name="rating" id="rating" required>
-  //             <option value="" selected disabled>--Select your rating--</option>
-  //             <option value="1">1 - Not good</option>
-  //             <option value="2">2 - Could’ve been better</option>
-  //             <option value="3">3 - OK</option>
-  //             <option value="4">4 - Good</option>
-  //             <option value="5">5 - Great!</option>
-  //           </select>
-  //           <div class="mb-3 review-btns">
-  //             <input type="submit" class="button" value="Submit review">
-  //             <button class="button" id="revew-cancel-btn">Cancel</button>
-  //           </div>`;
-
+  const div3 = document.createElement('div');
+  div3.classList.add('mb-3');
+  div3.classList.add('edit-form-btns');
+  const inputBtn = document.createElement('input');
+  inputBtn.setAttribute('type', 'submit');
+  inputBtn.classList.add('button');
+  inputBtn.setAttribute('value', 'Submit review');
+  div3.appendChild(inputBtn);
+  const cancelBtn = document.createElement('button');
+  cancelBtn.setAttribute('type', 'button');
+  cancelBtn.classList.add('button');
+  cancelBtn.setAttribute('id', `edit-cancel-btn-${review.id}`);
+  cancelBtn.innerText = 'Cancel editing';
+  cancelBtn.addEventListener('click', handleCancelEditing);
+  div3.appendChild(cancelBtn);
+  editReviewForm.appendChild(div3);
+  editReviewForm.addEventListener('submit', handleUpdateReview);
   divInfo.appendChild(editReviewForm);
   divContent.appendChild(divInfo);
 
@@ -137,7 +188,7 @@ const handleDeleteReview = async (e) => {
   console.log(responseArr);
 }
 
-const handleEditReview = async (e) => {
+const handleEditReview = (e) => {
   const reviewId = Number(e.target.id.substring(9));
   console.log(reviewId);
   const reviewBody = document.querySelector(`#review-body-${reviewId}`);
@@ -146,27 +197,55 @@ const handleEditReview = async (e) => {
   const editReviewForm = document.querySelector(`#edit-form-${reviewId}`);
   editReviewForm.style.display = 'block';
   const textarea = document.querySelector(`#edit-review-body-${reviewId}`);
-  console.log(textarea);
   textarea.focus();
   textarea.setSelectionRange(textarea.value.length, textarea.value.length);
   reviewBody.style.display = 'none';
   reviewRating.style.display = 'none';
   reviewDate.style.display = 'none';
   document.querySelector(`#edit-btn-${reviewId}`).disabled = true;
-
-
-
-
-  // trailCard.style.display = 'none';
-  // const response = await fetch(`/api/users/trails/${userId}/remove/${trailId}`, {
-  //   method: 'POST',
-  //   headers: headers
-  // })
-  //   .catch(err => console.error(err.message));
-  // console.log(response.status);
-  // const responseArr = await response.json();
-  // console.log(responseArr);
 }
+
+const handleCancelEditing = (e) => {
+  const i = e.target.id.lastIndexOf('-');
+  const reviewId = Number(e.target.id.substring(i + 1));
+  console.log('Cancel editing, review Id = ', reviewId);
+  // restore review data
+  const reviewBody = document.querySelector(`#review-body-${reviewId}`);
+  const reviewRating = document.querySelector(`#review-rating-${reviewId}`);
+  const reviewRatingValue = document.querySelector(`#review-rating-${reviewId} span`);
+  const reviewDate = document.querySelector(`#review-date-${reviewId}`);
+  const textarea = document.querySelector(`#edit-review-body-${reviewId}`);
+  const selectRating = document.querySelector(`#edit-review-rating-${reviewId}`);
+  // textarea.value = '';
+  textarea.value = reviewBody.innerText;
+  selectRating.value = reviewRatingValue.innerText;
+  // hide editing form
+  const editReviewForm = document.querySelector(`#edit-form-${reviewId}`);
+  editReviewForm.style.display = 'none';
+  document.querySelector(`#edit-btn-${reviewId}`).disabled = false;
+  // show prev review vfields
+  reviewBody.style.display = 'block';
+  reviewRating.style.display = 'block';
+  reviewDate.style.display = 'block';
+
+}
+
+const handleUpdateReview = async (e) => {
+  e.preventDefault();
+  console.log('Update Review!!!!')
+}
+
+
+// trailCard.style.display = 'none';
+// const response = await fetch(`/api/users/trails/${userId}/remove/${trailId}`, {
+//   method: 'POST',
+//   headers: headers
+// })
+//   .catch(err => console.error(err.message));
+// console.log(response.status);
+// const responseArr = await response.json();
+// console.log(responseArr);
+
 
 const createReviewsCards = (reviews) => {
   reviewsContainer.innerHTML = '';

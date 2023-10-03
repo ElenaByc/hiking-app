@@ -126,6 +126,7 @@ const showReview = () => {
 
 const handleSubmitReview = async (e) => {
   e.preventDefault();
+  console.log('submit review!')
   const rating = document.querySelector('#rating').value;
   const reviewBody = document.querySelector('#review-body').value;
   const review = {

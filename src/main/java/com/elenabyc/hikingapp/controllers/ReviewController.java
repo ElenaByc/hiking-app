@@ -27,4 +27,9 @@ public class ReviewController {
     public List<String> deleteReviewById(@PathVariable long reviewId) {
         return reviewService.deleteReviewById(reviewId);
     }
+
+    @PostMapping("/update")
+    public List<String> updateReview(@RequestBody ReviewDto reviewDto) {
+        return reviewService.updateReview(reviewDto);
+    }
 }

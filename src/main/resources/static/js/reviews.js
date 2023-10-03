@@ -94,40 +94,24 @@ const createReviewCard = (review) => {
   select.classList.add('form-select-md');
   select.setAttribute('name', `edit-review-rating-${review.id}`);
   select.setAttribute('id', `edit-review-rating-${review.id}`);
-  select.value = review.rating;
   const option1 = document.createElement('option');
   option1.setAttribute('value', '1');
-  // if (review.rating == 1) {
-  //   option1.selected = true;
-  // }
   option1.innerText = '1 - Not good';
   select.appendChild(option1);
   const option2 = document.createElement('option');
   option2.setAttribute('value', '2');
-  // if (review.rating == 2) {
-  //   option2.selected = true;
-  // }
   option2.innerText = '2 - Could’ve been better';
   select.appendChild(option2);
   const option3 = document.createElement('option');
   option3.setAttribute('value', '3');
-  // if (review.rating == 3) {
-  //   option3.selected = true;
-  // }
   option3.innerText = '3 - OK';
   select.appendChild(option3);
   const option4 = document.createElement('option');
   option4.setAttribute('value', '4');
-  // if (review.rating == 4) {
-  //   option4.selected = true;
-  // }
   option4.innerText = '4 - Good';
   select.appendChild(option4);
   const option5 = document.createElement('option');
   option5.setAttribute('value', '5');
-  // if (review.rating == 5) {
-  //   option5.selected = true;
-  // }
   option5.innerText = '5 - Great!';
   select.appendChild(option5);
   select.value = review.rating;
@@ -209,43 +193,63 @@ const handleCancelEditing = (e) => {
   const i = e.target.id.lastIndexOf('-');
   const reviewId = Number(e.target.id.substring(i + 1));
   console.log('Cancel editing, review Id = ', reviewId);
-  // restore review data
   const reviewBody = document.querySelector(`#review-body-${reviewId}`);
   const reviewRating = document.querySelector(`#review-rating-${reviewId}`);
   const reviewRatingValue = document.querySelector(`#review-rating-${reviewId} span`);
   const reviewDate = document.querySelector(`#review-date-${reviewId}`);
   const textarea = document.querySelector(`#edit-review-body-${reviewId}`);
   const selectRating = document.querySelector(`#edit-review-rating-${reviewId}`);
-  // textarea.value = '';
+  // restore review data
   textarea.value = reviewBody.innerText;
   selectRating.value = reviewRatingValue.innerText;
   // hide editing form
   const editReviewForm = document.querySelector(`#edit-form-${reviewId}`);
   editReviewForm.style.display = 'none';
   document.querySelector(`#edit-btn-${reviewId}`).disabled = false;
-  // show prev review vfields
+  // show prev review fields
   reviewBody.style.display = 'block';
   reviewRating.style.display = 'block';
   reviewDate.style.display = 'block';
-
 }
 
 const handleUpdateReview = async (e) => {
   e.preventDefault();
-  console.log('Update Review!!!!')
+  const i = e.target.id.lastIndexOf('-');
+  const reviewId = Number(e.target.id.substring(i + 1));
+  console.log('Update Review with id = ', reviewId);
+  const reviewBody = document.querySelector(`#review-body-${reviewId}`);
+  const reviewRating = document.querySelector(`#review-rating-${reviewId}`);
+  const reviewRatingValue = document.querySelector(`#review-rating-${reviewId} span`);
+  const reviewDate = document.querySelector(`#review-date-${reviewId}`);
+  const textarea = document.querySelector(`#edit-review-body-${reviewId}`);
+  const selectRating = document.querySelector(`#edit-review-rating-${reviewId}`);
+  const review = {
+    'id': reviewId,
+    'body': textarea.value,
+    'rating': selectRating.value,
+    'date': getCurrentDate()
+  };
+  const response = await fetch(`/api/reviews/update`, {
+    method: 'POST',
+    body: JSON.stringify(review),
+    headers: headers
+  })
+    .catch(err => console.error(err.message));
+  console.log(response.status);
+  const responseArr = await response.json();
+  console.log(responseArr);
+  // hide editing form
+  const editReviewForm = document.querySelector(`#edit-form-${reviewId}`);
+  editReviewForm.style.display = 'none';
+  document.querySelector(`#edit-btn-${reviewId}`).disabled = false;
+  // update and show updated review fields
+  reviewDate.innerText = `Date: ${review.date}`;
+  reviewRating.innerHTML = `Rating: <span>${review.rating}</span>`;
+  reviewBody.innerText = review.body;
+  reviewBody.style.display = 'block';
+  reviewRating.style.display = 'block';
+  reviewDate.style.display = 'block';
 }
-
-
-// trailCard.style.display = 'none';
-// const response = await fetch(`/api/users/trails/${userId}/remove/${trailId}`, {
-//   method: 'POST',
-//   headers: headers
-// })
-//   .catch(err => console.error(err.message));
-// console.log(response.status);
-// const responseArr = await response.json();
-// console.log(responseArr);
-
 
 const createReviewsCards = (reviews) => {
   reviewsContainer.innerHTML = '';

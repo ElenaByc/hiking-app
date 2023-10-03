@@ -42,7 +42,7 @@ public class ReviewServiceImpl implements ReviewService {
         userOptional.ifPresent(review::setUser);
         review.setTrail(trail);
         reviewRepository.saveAndFlush(review);
-        response.add("Review added successfully");
+        response.add("Review with id = " + review.getId() + " added successfully");
         return response;
     }
 
@@ -70,6 +70,7 @@ public class ReviewServiceImpl implements ReviewService {
         }
         reviewOptional.ifPresent(review -> {
             review.setBody(reviewDto.getBody());
+            review.setRating(reviewDto.getRating());
             review.setDate(reviewDto.getDate());
             reviewRepository.saveAndFlush(review);
             response.add("Review with id = " + review.getId() + " was updated");

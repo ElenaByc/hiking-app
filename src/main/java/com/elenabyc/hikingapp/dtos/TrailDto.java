@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.dtos;
 
+import com.elenabyc.hikingapp.entities.Review;
 import com.elenabyc.hikingapp.entities.Trail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,11 +27,10 @@ public class TrailDto implements Serializable {
     private int yelpReviewCount;
     private int googleReviewCount;
     private boolean saved;
+    private boolean reviewed;
     private String yelpLink;
     private String googleLink;
     private String website;
-
-    private Set<ReviewDto> reviewsDto = new HashSet<>();
 
     public TrailDto(Trail trail) {
         if (trail.getId() != null) {

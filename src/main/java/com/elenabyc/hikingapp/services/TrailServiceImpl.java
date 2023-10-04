@@ -69,6 +69,9 @@ public class TrailServiceImpl implements TrailService {
                 if (user.getSavedTrails().contains(trail)) {
                     trailDto.setSaved(true);
                 }
+                if (user.getReviews().stream().anyMatch(review -> review.getTrail().getId() == trail.getId())) {
+                    trailDto.setReviewed((true));
+                }
             }
             googleAPIService.getTrailGooglePlacesData(trailDto);
             // remove trails without Google Places data from search result

@@ -18,7 +18,6 @@ public class UserDto implements Serializable {
     private String username;
     private String email;
     private String password;
-    private Set<ReviewDto> reviewsDto = new HashSet<>();
     private Set<TrailDto> savedTrailsDto = new HashSet<>();
 
     public UserDto(User user) {

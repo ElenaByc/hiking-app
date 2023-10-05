@@ -77,6 +77,7 @@ const populateModalBasicData = (trail) => {
 
   address.innerText = trail.address;
 
+  hideReviewForm();
   if (userId) {
     modalBtnsDiv.style.display = 'flex';
     if (trail.saved) {
@@ -86,10 +87,16 @@ const populateModalBasicData = (trail) => {
       saveBtn.innerText = 'Save this trail';
       saveBtn.disabled = false;
     }
-    hideReviewForm();
-    // if trail.reviewed = > 
-    reviewBtn.innerText = 'Write review';
-    reviewBtn.addEventListener('click', showReviewForm);
+    if (trail.reviewed) {
+      reviewBtn.innerText = 'My review';
+      reviewBtn.removeEventListener('click', showReviewForm);
+      reviewBtn.addEventListener('click', showReview);
+    } else {
+      reviewBtn.innerText = 'Write review';
+      reviewBtn.disabled = false;
+      reviewBtn.addEventListener('click', showReviewForm);
+    }
+
   } else {
     modalBtnsDiv.style.display = 'none';
   }

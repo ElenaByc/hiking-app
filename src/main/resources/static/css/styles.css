@@ -666,6 +666,18 @@ button[disabled].save-btn {
     text-align: center;
 }
 
+.review-body {
+    font-family: 'Exo2 Italic';
+    font-size: 20px;
+}
+
+.review-rating span,
+.review-date span {
+    margin: 0 3px;
+    font-size: 20px;
+    font-family: 'KaushanScript';
+}
+
 .review-card__buttons {
     display: flex;
     justify-content: space-between;
@@ -700,4 +712,3 @@ button[disabled].save-btn {
     justify-content: space-around;
     padding: 0 20px;
 }
-

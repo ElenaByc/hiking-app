@@ -48,7 +48,7 @@ const createReviewCard = (review) => {
   const reviewDate = document.createElement('p');
   reviewDate.classList.add('review-date');
   reviewDate.setAttribute('id', `review-date-${review.id}`);
-  reviewDate.innerText = `Date: ${review.date}`;
+  reviewDate.innerHTML = `Date: <span>${review.date}</span>`;
   divInfo.appendChild(reviewDate);
 
   const reviewRating = document.createElement('p');
@@ -219,7 +219,6 @@ const handleUpdateReview = async (e) => {
   console.log('Update Review with id = ', reviewId);
   const reviewBody = document.querySelector(`#review-body-${reviewId}`);
   const reviewRating = document.querySelector(`#review-rating-${reviewId}`);
-  const reviewRatingValue = document.querySelector(`#review-rating-${reviewId} span`);
   const reviewDate = document.querySelector(`#review-date-${reviewId}`);
   const textarea = document.querySelector(`#edit-review-body-${reviewId}`);
   const selectRating = document.querySelector(`#edit-review-rating-${reviewId}`);
@@ -243,7 +242,7 @@ const handleUpdateReview = async (e) => {
   editReviewForm.style.display = 'none';
   document.querySelector(`#edit-btn-${reviewId}`).disabled = false;
   // update and show updated review fields
-  reviewDate.innerText = `Date: ${review.date}`;
+  reviewDate.innerHTML = `Date: <span>${review.date}</span>`;
   reviewRating.innerHTML = `Rating: <span>${review.rating}</span>`;
   reviewBody.innerText = review.body;
   reviewBody.style.display = 'block';

@@ -21,7 +21,16 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
     public void getTrailGooglePlacesData(TrailDto trailDto) {
         JsonNode googlePlaceSearchResponse;
         if (trailDto.getGooglePlaceId() != null) {
-            //TODO: get Google Data from Google Place Details API
+            googlePlaceSearchResponse = getTrailDetailsByPlaceId(trailDto.getGooglePlaceId());
+            if (googlePlaceSearchResponse.get("result") != null) {
+                if (googlePlaceSearchResponse.get("result").get("rating") != null) {
+                    trailDto.setGoogleRating(googlePlaceSearchResponse.get("result").get("rating").asDouble());
+                }
+                if (googlePlaceSearchResponse.get("result").get("user_ratings_total") != null) {
+                    trailDto.setGoogleReviewCount(googlePlaceSearchResponse.get("result").get("user_ratings_total").asInt());
+                }
+            }
+
         } else { // get Google Data from Google Place Search API
 //            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getName());
             googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
@@ -90,7 +99,7 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
         OkHttpClient client = new OkHttpClient();
         String input = "&input=" + trailName + "&inputtype=textquery";
         String fields = "?fields=" +
-                "formatted_address%2C" +
+//                "formatted_address%2C" +
                 "name%2C" +
                 "rating%2C" +
                 "user_ratings_total%2C" +
@@ -120,7 +129,30 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
 
     @Override
     public JsonNode getTrailDetailsByPlaceId(String googlePlaceId) {
-        return null;
+        OkHttpClient client = new OkHttpClient();
+        String fields = "?fields=" +
+                "rating%2C" +
+                "user_ratings_total";
+        String placeId = "&place_id=" + googlePlaceId;
+        String key = "&key=" + GOOGLE_DEV_KEY;
+
+        String googlePlaceDetailsUrl = "https://maps.googleapis.com/maps/api/place/details/json" +
+                fields +
+                placeId +
+                key;
+        Request request = new Request.Builder()
+                .url(googlePlaceDetailsUrl)
+                .get()
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            String responseString = response.body().string();
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readTree(responseString);
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     @Override

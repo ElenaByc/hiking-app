@@ -19,10 +19,10 @@ public class TrailController {
         return trailService.saveTrail(trailDto, userId);
     }
 
-    @GetMapping("/{trailId}")
-    public Optional<TrailDto> getTrailById(@PathVariable Long trailId) {
-        return trailService.getTrailById(trailId);
-    }
+//    @GetMapping("/{trailId}")
+//    public Optional<TrailDto> getTrailById(@PathVariable Long trailId) {
+//        return trailService.getTrailById(trailId);
+//    }
 
     @GetMapping("/location/{city}/{userId}")
     public List<TrailDto> getTrailsByLocationName(@PathVariable String city, @PathVariable long userId ) {

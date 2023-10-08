@@ -63,6 +63,14 @@ public class TrailServiceImpl implements TrailService {
         Optional<User> userOptional = userRepository.findById(userId);
         for (TrailDto trailDto : searchResultList) {
             Optional<Trail> trailOptional = trailRepository.findByYelpAlias(trailDto.getYelpAlias());
+            if (trailOptional.isPresent()) {
+                Trail trail = trailOptional.get();
+                trailDto.setId(trail.getId());
+                trailDto.setGooglePlaceId(trail.getGooglePlaceId());
+                trailDto.setImage(trail.getImage());
+            }
+            googleAPIService.getTrailGooglePlacesData(trailDto);
+
             if (userOptional.isPresent() && trailOptional.isPresent()) {
                 User user = userOptional.get();
                 Trail trail = trailOptional.get();
@@ -73,7 +81,7 @@ public class TrailServiceImpl implements TrailService {
                     trailDto.setReviewed((true));
                 }
             }
-            googleAPIService.getTrailGooglePlacesData(trailDto);
+
             // remove trails without Google Places data from search result
             // remove -gym-
             if (trailDto.getGooglePlaceId() != null && !trailDto.getYelpAlias().contains("-gym-")) {

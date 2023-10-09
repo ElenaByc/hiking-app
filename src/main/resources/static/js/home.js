@@ -76,8 +76,6 @@ const getTrailDetails = async (e) => {
           const userReview = data.find(review => review.userDto.id = userId);
           populateUserReview(userReview);
         }
-        console.log("User Review: ", userReview);
-        // data.forEach(review => )
       })
       .catch(err => console.error(err.message));
   }

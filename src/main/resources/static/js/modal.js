@@ -130,7 +130,6 @@ const clearUserReview = () => {
 }
 
 const populateUserReview = (review) => {
-  userReview.style.display = 'none';
   const reviewBody = document.querySelector('#review p.review-body');
   const reviewDate = document.querySelector('#review p.review-date span');
   const reviewRating = document.querySelector('#review p.review-rating span');
@@ -153,12 +152,9 @@ const hideReviewForm = () => {
 }
 
 const toggleUserReview = () => {
-  console.log('toggleUserReview')
   if (userReview.style.display === 'block') {
-    console.log('Hide')
     userReview.style.display = 'none';
   } else {
-    console.log('show')
     userReview.style.display = 'block';
   }
 }
@@ -186,6 +182,7 @@ const handleSubmitReview = async (e) => {
     reviewBtn.innerText = 'My review';
     reviewBtn.removeEventListener('click', showReviewForm);
     reviewBtn.addEventListener('click', toggleUserReview);
+    populateUserReview(review);
   }
   hideReviewForm();
 }

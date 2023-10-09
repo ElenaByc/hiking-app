@@ -25,6 +25,7 @@ let currentTrail;
 
 const populateModalBasicData = (trail) => {
   currentTrail = trail;
+  clearUserReview();
 
   title.innerText = trail.name;
 
@@ -92,11 +93,12 @@ const populateModalBasicData = (trail) => {
     if (trail.reviewed) {
       reviewBtn.innerText = 'My review';
       reviewBtn.removeEventListener('click', showReviewForm);
-      reviewBtn.addEventListener('click', showReview);
+      reviewBtn.addEventListener('click', toggleUserReview);
     } else {
       reviewBtn.innerText = 'Write review';
       reviewBtn.disabled = false;
       reviewBtn.addEventListener('click', showReviewForm);
+      reviewBtn.removeEventListener('click', toggleUserReview);
     }
 
   } else {
@@ -116,7 +118,19 @@ const populateModal = (trail) => {
   }
 }
 
+
+const clearUserReview = () => {
+  userReview.style.display = 'none';
+  const reviewBody = document.querySelector('#review p.review-body');
+  const reviewDate = document.querySelector('#review p.review-date span');
+  const reviewRating = document.querySelector('#review p.review-rating span');
+  reviewDate.innerText = '';
+  reviewRating.innerText = '';
+  reviewBody.innerText = '';
+}
+
 const populateUserReview = (review) => {
+  userReview.style.display = 'none';
   const reviewBody = document.querySelector('#review p.review-body');
   const reviewDate = document.querySelector('#review p.review-date span');
   const reviewRating = document.querySelector('#review p.review-rating span');
@@ -138,15 +152,19 @@ const hideReviewForm = () => {
   document.querySelector('#review-body').value = "";
 }
 
-const showReview = () => {
-  console.log(userReview);
-  userReview.style.display = 'block';
-  console.log('Show User\'s review')
+const toggleUserReview = () => {
+  console.log('toggleUserReview')
+  if (userReview.style.display === 'block') {
+    console.log('Hide')
+    userReview.style.display = 'none';
+  } else {
+    console.log('show')
+    userReview.style.display = 'block';
+  }
 }
 
 const handleSubmitReview = async (e) => {
   e.preventDefault();
-  console.log('submit review!')
   const rating = document.querySelector('#rating').value;
   const reviewBody = document.querySelector('#review-body').value;
   const review = {
@@ -167,7 +185,7 @@ const handleSubmitReview = async (e) => {
     console.log(responseArr);
     reviewBtn.innerText = 'My review';
     reviewBtn.removeEventListener('click', showReviewForm);
-    reviewBtn.addEventListener('click', showReview);
+    reviewBtn.addEventListener('click', toggleUserReview);
   }
   hideReviewForm();
 }

@@ -72,8 +72,10 @@ const getTrailDetails = async (e) => {
       .then(res => res.json())
       .then(data => {
         console.log('reviewsData: ', data);
-        const userReview = data.find(review => review.userDto.id = userId);
-        populateUserReview(userReview);
+        if (trail.reviewed) {
+          const userReview = data.find(review => review.userDto.id = userId);
+          populateUserReview(userReview);
+        }
         console.log("User Review: ", userReview);
         // data.forEach(review => )
       })

@@ -611,6 +611,17 @@ button[disabled].save-btn {
     background-color: yellow;
 } */
 
+#review {
+    display: none;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+#review p {
+    margin: 0;
+}
+
 
 /* ---------- Reviews Page ---------- */
 
@@ -666,6 +677,10 @@ button[disabled].save-btn {
     text-align: center;
 }
 
+.review-card__info p {
+    margin: 0;
+}
+
 .review-body {
     font-family: 'Exo2 Italic';
     font-size: 20px;
@@ -712,3 +727,4 @@ button[disabled].save-btn {
     justify-content: space-around;
     padding: 0 20px;
 }
+

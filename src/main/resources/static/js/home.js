@@ -51,6 +51,7 @@ const getTrailDetails = async (e) => {
   console.log(trail);
   populateModalBasicData(trail);
 
+  // get website and google link
   await fetch(`${baseUrl}/details/${trail.yelpAlias}/${trail.googlePlaceId}`, {
     method: "GET",
     headers: headers
@@ -61,6 +62,23 @@ const getTrailDetails = async (e) => {
       populateModal(data);
     })
     .catch(err => console.error(err.message));
+
+  // get trail's reviews from DB
+  if (trail.id) {
+    await fetch(`/api/reviews/trail/${trail.id}`, {
+      method: "GET",
+      headers: headers
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('reviewsData: ', data);
+        const userReview = data.find(review => review.userDto.id = userId);
+        populateUserReview(userReview);
+        console.log("User Review: ", userReview);
+        // data.forEach(review => )
+      })
+      .catch(err => console.error(err.message));
+  }
 
 }
 

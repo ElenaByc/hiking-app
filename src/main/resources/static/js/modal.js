@@ -16,7 +16,9 @@ const modalBtnsDiv = document.querySelector('.modal-btns');
 const saveBtn = document.querySelector('#save-btn');
 const reviewBtn = document.querySelector('#review-btn');
 const reviewForm = document.querySelector('#review-form');
-const revewCancelBtn = document.querySelector('#revew-cancel-btn');
+const revewCancelBtn = document.querySelector('#review-cancel-btn');
+
+const userReview = document.querySelector('#review');
 
 
 let currentTrail;
@@ -114,6 +116,15 @@ const populateModal = (trail) => {
   }
 }
 
+const populateUserReview = (review) => {
+  const reviewBody = document.querySelector('#review p.review-body');
+  const reviewDate = document.querySelector('#review p.review-date span');
+  const reviewRating = document.querySelector('#review p.review-rating span');
+  reviewDate.innerText = review.date;
+  reviewRating.innerText = review.rating;
+  reviewBody.innerText = review.body;
+}
+
 const showReviewForm = () => {
   reviewForm.style.display = 'block';
   reviewBtn.disabled = true;
@@ -128,6 +139,8 @@ const hideReviewForm = () => {
 }
 
 const showReview = () => {
+  console.log(userReview);
+  userReview.style.display = 'block';
   console.log('Show User\'s review')
 }
 

@@ -23,6 +23,11 @@ public class ReviewController {
         return reviewService.getAllReviewsByUserId(userId);
     }
 
+    @GetMapping("/trail/{trailId}")
+    public List<ReviewDto> getAllReviewsByTrailId(@PathVariable long trailId) {
+        return reviewService.getAllReviewsByTrailId(trailId);
+    }
+
     @PostMapping("/delete/{reviewId}")
     public List<String> deleteReviewById(@PathVariable long reviewId) {
         return reviewService.deleteReviewById(reviewId);

@@ -1,7 +1,9 @@
 package com.elenabyc.hikingapp.services;
 
 import com.elenabyc.hikingapp.dtos.Coordinates;
+import com.elenabyc.hikingapp.dtos.ReviewDto;
 import com.elenabyc.hikingapp.dtos.TrailDto;
+import com.elenabyc.hikingapp.dtos.UserDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
@@ -30,7 +32,6 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                     trailDto.setGoogleReviewCount(googlePlaceSearchResponse.get("result").get("user_ratings_total").asInt());
                 }
             }
-
         } else { // get Google Data from Google Place Search API
 //            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getName());
             googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
@@ -166,12 +167,12 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
         String placeId = "&place_id=" + trailDto.getGooglePlaceId();
         String key = "&key=" + GOOGLE_DEV_KEY;
 
-        String googlePlaceDetailsUrl = "https://maps.googleapis.com/maps/api/place/details/json" +
+        String googlePlacesDetailsUrl = "https://maps.googleapis.com/maps/api/place/details/json" +
                 fields +
                 placeId +
                 key;
         Request request = new Request.Builder()
-                .url(googlePlaceDetailsUrl)
+                .url(googlePlacesDetailsUrl)
                 .get()
                 .build();
 
@@ -180,12 +181,24 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
             String responseString = response.body().string();
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode placeDetailsResponse = objectMapper.readTree(responseString);
-            if (placeDetailsResponse.get("result") != null) {
-                if (placeDetailsResponse.get("result").get("url") != null) {
-                    trailDto.setGoogleLink(placeDetailsResponse.get("result").get("url").asText());
+            JsonNode result = placeDetailsResponse.get("result");
+            if (result != null) {
+                if (result.get("url") != null) {
+                    trailDto.setGoogleLink(result.get("url").asText());
                 }
-                if (placeDetailsResponse.get("result").get("website") != null) {
-                    trailDto.setWebsite(placeDetailsResponse.get("result").get("website").asText());
+                if (result.get("website") != null) {
+                    trailDto.setWebsite(result.get("website").asText());
+                }
+                if(result.get("reviews") != null) {
+                    for (JsonNode review : result.get("reviews")) {
+                        ReviewDto reviewDto = new ReviewDto();
+                        UserDto userDto = new UserDto();
+                        userDto.setUsername(review.get("author_name").asText());
+                        reviewDto.setUserDto(userDto);
+                        reviewDto.setRating(review.get("rating").asInt());
+                        reviewDto.setBody(review.get("text").asText());
+                        trailDto.getGoogleReviews().add(reviewDto);
+                    }
                 }
             }
         } catch (IOException e) {

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +30,8 @@ public class TrailDto implements Serializable {
     private String yelpLink;
     private String googleLink;
     private String website;
+
+    private Set<ReviewDto> googleReviews = new HashSet<>();
 
     public TrailDto(Trail trail) {
         if (trail.getId() != null) {

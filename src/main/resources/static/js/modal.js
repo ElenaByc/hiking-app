@@ -19,6 +19,7 @@ const reviewForm = document.querySelector('#review-form');
 const revewCancelBtn = document.querySelector('#review-cancel-btn');
 
 const userReview = document.querySelector('#review');
+const reviewsContainer = document.querySelector('.reviews-container');
 
 
 let currentTrail;
@@ -26,6 +27,7 @@ let currentTrail;
 const populateModalBasicData = (trail) => {
   currentTrail = trail;
   clearUserReview();
+  reviewsContainer.innerHTML ='';
 
   title.innerText = trail.name;
 
@@ -136,6 +138,34 @@ const populateUserReview = (review) => {
   reviewDate.innerText = review.date;
   reviewRating.innerText = review.rating;
   reviewBody.innerText = review.body;
+}
+
+const populateTrailReviews = (allReviews) => {
+  allReviews.forEach(review => {
+    reviewsContainer.appendChild(createReviewCard(review));
+  });
+}
+
+const createReviewCard = (review) => {
+  const reviewCard = document.createElement('div');
+  reviewCard.classList.add('modal-review');
+  const reviewer = document.createElement('p');
+  reviewer.classList.add('review-reviewer');
+  reviewer.innerHTML = `Name: <span>${review.userDto.username}</span>`;
+  reviewCard.appendChild(reviewer);
+  const reviewDate = document.createElement('p');
+  reviewDate.classList.add('review-date');
+  reviewDate.innerHTML = `Date: <span>${review.date}</span>`;
+  reviewCard.appendChild(reviewDate);
+  const reviewRating = document.createElement('p');
+  reviewRating.classList.add('review-rating');
+  reviewRating.innerHTML = `Rating: <span>${review.rating}</span>`;
+  reviewCard.appendChild(reviewRating);
+  const reviewBody = document.createElement('p');
+  reviewBody.classList.add('review-body');
+  reviewBody.innerText = review.body;
+  reviewCard.appendChild(reviewBody);
+  return reviewCard;
 }
 
 const showReviewForm = () => {

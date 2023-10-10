@@ -24,7 +24,7 @@ const getReviews = async () => {
 }
 
 const createReviewCard = (review) => {
-  let reviewCard = document.createElement('div');
+  const reviewCard = document.createElement('div');
   reviewCard.classList.add('review-card');
 
   const divImg = document.createElement('div');
@@ -254,7 +254,7 @@ const createReviewsCards = (reviews) => {
   reviewsContainer.innerHTML = '';
   reviews.forEach(review => {
     const reviewCard = createReviewCard(review);
-    reviewsContainer.append(reviewCard);
+    reviewsContainer.appendChild(reviewCard);
   });
 }
 

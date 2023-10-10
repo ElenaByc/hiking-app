@@ -571,17 +571,19 @@ button[disabled].save-btn {
     padding: 10px 0;
 }
 
-.modal-photos,
+/* .modal-photos,
 .modal-reviews,
 .modal-weather {
-    height: 100px;
     width: 100%;
-}
+} */
 
-.modal-photos p,
-.modal-reviews p,
-.modal-weather p {
-    width: 100%;
+.modal-photos h3,
+.modal-reviews h3,
+.modal-weather h3 {
+    font-family: 'Exo2';
+    color: var(--color-blue);
+    text-transform: uppercase;
+    font-size: 22px;
     text-align: center;
 }
 
@@ -611,14 +613,18 @@ button[disabled].save-btn {
     background-color: yellow;
 } */
 
-#review {
-    display: none;
+.modal-review {
     border: 1px solid #dee2e6;
     border-radius: 5px;
     padding: 10px 20px;
+    max-width: 80%;
 }
 
-#review p {
+.reviews-container .modal-review {
+    width: 80%;
+}
+
+.modal-review p {
     margin: 0;
 }
 
@@ -630,6 +636,7 @@ button[disabled].save-btn {
     flex-direction: column;
     align-items: center;
     row-gap: 40px;
+    padding: 15px 0;
     width: 100%;
 }
 
@@ -686,6 +693,7 @@ button[disabled].save-btn {
     font-size: 20px;
 }
 
+.review-reviewer span,
 .review-rating span,
 .review-date span {
     margin: 0 3px;
@@ -727,4 +735,3 @@ button[disabled].save-btn {
     justify-content: space-around;
     padding: 0 20px;
 }
-

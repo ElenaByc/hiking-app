@@ -64,6 +64,7 @@ const getTrailDetails = async (e) => {
     .catch(err => console.error(err.message));
 
   // get trail's reviews from DB
+  const allReviews = [];
   if (trail.id) {
     await fetch(`/api/reviews/trail/${trail.id}`, {
       method: "GET",
@@ -72,12 +73,29 @@ const getTrailDetails = async (e) => {
       .then(res => res.json())
       .then(data => {
         console.log('reviewsData: ', data);
-        if (trail.reviewed) {
-          const userReview = data.find(review => review.userDto.id = userId);
+        if (data.length > 0 && trail.reviewed) {
+          const userReview = data.find(review => review.userDto.id == userId);
           populateUserReview(userReview);
+        }
+        if (data.length > 0) {
+          // allReviews.push(...data);
+          data.forEach(review => {
+            if (review.userDto.id != userId) {
+              allReviews.push(review);
+            }
+          });
+          console.log('all reviews: ', allReviews);
         }
       })
       .catch(err => console.error(err.message));
+  }
+
+  // get trails reviews from Yelp
+
+  // get trail's reviews from Google
+
+  if (allReviews.length > 0) {
+    populateTrailReviews(allReviews);
   }
 
 }

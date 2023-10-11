@@ -18,6 +18,7 @@ public class ReviewDto implements Serializable {
     private UserDto userDto;
     private TrailDto trailDto;
     private String source;
+    private String url;
 
     public ReviewDto(Review review) {
         if (review.getId() != null) {

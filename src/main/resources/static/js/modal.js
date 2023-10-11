@@ -163,7 +163,14 @@ const createReviewCard = (review) => {
   reviewCard.appendChild(reviewRating);
   const reviewBody = document.createElement('p');
   reviewBody.classList.add('review-body');
-  reviewBody.innerText = review.body;
+  if (review.source == "Yelp") {
+    reviewBody.innerHTML = `
+    ${review.body}
+    <a href="${review.url}" target="_blank" class="review-link">read more</a>`;
+  } else {
+    reviewBody.innerText = review.body;
+  }
+
   reviewCard.appendChild(reviewBody);
   const source = document.createElement('div');
   source.classList.add('review-source');

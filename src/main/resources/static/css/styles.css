@@ -634,6 +634,10 @@ button[disabled].save-btn {
     font-size: 14px;
 }
 
+.review-link:hover {
+    color: var(--color-blue);
+}
+
 
 /* ---------- Reviews Page ---------- */
 

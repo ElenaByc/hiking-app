@@ -104,6 +104,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 reviewDto.setUserDto(userDto);
                 reviewDto.setRating(review.get("rating").asInt());
                 reviewDto.setBody(review.get("text").asText());
+                reviewDto.setUrl(review.get("url").asText());
                 String timeCreated = review.get("time_created").asText();
                 reviewDto.setDate(timeCreated.substring(8, 10) + "/"
                         + timeCreated.substring(5, 7) + "/"

@@ -27,7 +27,7 @@ let currentTrail;
 const populateModalBasicData = (trail) => {
   currentTrail = trail;
   clearUserReview();
-  reviewsContainer.innerHTML ='';
+  reviewsContainer.innerHTML = '';
 
   title.innerText = trail.name;
 
@@ -165,6 +165,15 @@ const createReviewCard = (review) => {
   reviewBody.classList.add('review-body');
   reviewBody.innerText = review.body;
   reviewCard.appendChild(reviewBody);
+  const source = document.createElement('div');
+  source.classList.add('review-source');
+  if (review.source) {
+    source.innerText = `source: ${review.source}`;
+  } else {
+    source.innerText = 'source: Let\'s Go Hiking! App';
+  }
+
+  reviewCard.appendChild(source);
   return reviewCard;
 }
 

@@ -628,6 +628,12 @@ button[disabled].save-btn {
     margin: 0;
 }
 
+.review-source {
+    float: right;
+    color: var(--color-gray);
+    font-size: 14px;
+}
+
 
 /* ---------- Reviews Page ---------- */
 

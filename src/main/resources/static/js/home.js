@@ -88,6 +88,7 @@ const getTrailDetails = async (e) => {
     .then(data => {
       console.log('data: ', data);
       allReviews.push(...data.googleReviews);
+      allReviews.push(...data.yelpReviews);
       populateModal(data);
     })
     .catch(err => console.error(err.message));

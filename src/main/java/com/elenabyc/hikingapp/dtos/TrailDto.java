@@ -32,6 +32,7 @@ public class TrailDto implements Serializable {
     private String website;
 
     private Set<ReviewDto> googleReviews = new HashSet<>();
+    private Set<ReviewDto> yelpReviews = new HashSet<>();
 
     public TrailDto(Trail trail) {
         if (trail.getId() != null) {

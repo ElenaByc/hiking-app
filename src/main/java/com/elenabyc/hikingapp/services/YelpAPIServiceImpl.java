@@ -1,7 +1,9 @@
 package com.elenabyc.hikingapp.services;
 
 import com.elenabyc.hikingapp.dtos.Coordinates;
+import com.elenabyc.hikingapp.dtos.ReviewDto;
 import com.elenabyc.hikingapp.dtos.TrailDto;
+import com.elenabyc.hikingapp.dtos.UserDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
@@ -31,7 +33,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 "&categories=hiking" +
                 "&sort_by=" + sortBy +
                 "&limit=" + limit;
-        System.out.println("YELP URL: " + yelpHikingUrl);
+
         Request request = new Request.Builder()
                 .url(yelpHikingUrl)
                 .get()
@@ -40,9 +42,7 @@ public class YelpAPIServiceImpl implements YelpAPIService {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            System.out.println("response code: " + response.code());
             String responseString = response.body().string();
-
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(responseString);
             List<TrailDto> list = new ArrayList<>();
@@ -75,5 +75,47 @@ public class YelpAPIServiceImpl implements YelpAPIService {
         } catch (IOException e) {
             return null;
         }
+    }
+
+    @Override
+    public void getTrailReviews(TrailDto trailDto) {
+
+
+        OkHttpClient client = new OkHttpClient();
+        String yelpReviewsUrl = "https://api.yelp.com/v3/businesses/" +
+                trailDto.getYelpAlias() +
+                "/reviews?limit=20&sort_by=yelp_sort";
+
+        Request request = new Request.Builder()
+                .url(yelpReviewsUrl)
+                .get()
+                .addHeader("accept", "application/json")
+                .addHeader("Authorization", "Bearer " + YELP_DEV_KEY)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String responseString = response.body().string();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(responseString);
+            for (JsonNode review : jsonNode.get("reviews")) {
+                ReviewDto reviewDto = new ReviewDto();
+                UserDto userDto = new UserDto();
+                userDto.setUsername(review.get("user").get("name").asText());
+                reviewDto.setUserDto(userDto);
+                reviewDto.setRating(review.get("rating").asInt());
+                reviewDto.setBody(review.get("text").asText());
+                String timeCreated = review.get("time_created").asText();
+                reviewDto.setDate(timeCreated.substring(8, 10) + "/"
+                        + timeCreated.substring(5, 7) + "/"
+                        + timeCreated.substring(0, 4));
+                reviewDto.setSource("Yelp");
+
+                trailDto.getYelpReviews().add(reviewDto);
+            }
+
+        } catch (IOException e) {
+            return;
+        }
+
     }
 }

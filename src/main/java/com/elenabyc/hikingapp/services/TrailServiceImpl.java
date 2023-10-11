@@ -106,6 +106,10 @@ public class TrailServiceImpl implements TrailService {
         // get pictures, reviews, link on trails' Google Map page, website
         googleAPIService.getTrailDetails(trailDto);
 
+        // get reviews from Yelp
+        yelpAPIService.getTrailReviews(trailDto);
+
+
 
         return trailDto;
     }

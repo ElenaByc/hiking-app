@@ -200,6 +200,7 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
 
                         reviewDto.setDate(new java.text.SimpleDateFormat("MM/dd/yyyy")
                                 .format(new java.util.Date(review.get("time").asLong() * 1000)));
+                        reviewDto.setSource("Google Maps");
 
                         trailDto.getGoogleReviews().add(reviewDto);
                     }

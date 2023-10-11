@@ -87,13 +87,10 @@ const getTrailDetails = async (e) => {
     .then(res => res.json())
     .then(data => {
       console.log('data: ', data);
+      allReviews.push(...data.googleReviews);
       populateModal(data);
     })
     .catch(err => console.error(err.message));
-
-  // get trails reviews from Yelp
-
-  // get trail's reviews from Google
     
 
   if (allReviews.length > 0) {

@@ -189,7 +189,7 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                 if (result.get("website") != null) {
                     trailDto.setWebsite(result.get("website").asText());
                 }
-                if(result.get("reviews") != null) {
+                if (result.get("reviews") != null) {
                     for (JsonNode review : result.get("reviews")) {
                         ReviewDto reviewDto = new ReviewDto();
                         UserDto userDto = new UserDto();
@@ -197,6 +197,10 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                         reviewDto.setUserDto(userDto);
                         reviewDto.setRating(review.get("rating").asInt());
                         reviewDto.setBody(review.get("text").asText());
+
+                        reviewDto.setDate(new java.text.SimpleDateFormat("MM/dd/yyyy")
+                                .format(new java.util.Date(review.get("time").asLong() * 1000)));
+
                         trailDto.getGoogleReviews().add(reviewDto);
                     }
                 }

@@ -33,8 +33,8 @@
 
 
 ## <a name="model"></a>Data Model
-<p align="center">
-
+<p align="left">
+<img src="/src/main/resources/static/assets/images/data-model.jpg" alt="Data Model Diagram"/>
 </p>
 <p align="right"><a href="#top">back to top</a></p>
 

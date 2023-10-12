@@ -638,6 +638,17 @@ button[disabled].save-btn {
     color: var(--color-blue);
 }
 
+/*--- Add Picture Form ---*/
+#add-picture-form {
+    transition: all 0.5s ease-in-out;
+}
+
+#add-picture-form div {
+    display: flex;
+    align-items: center;
+    row-gap: 20px;
+}
+
 
 /* ---------- Reviews Page ---------- */
 

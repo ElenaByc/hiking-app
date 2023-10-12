@@ -63,10 +63,10 @@
                     </div>
                     <div class="modal-btns">
                         <button class="button" id="review-btn">Write review</button>
-                        <button class="button" id="photo-btn">Upload photo</button>
+                        <button class="button" id="picture-btn">Upload photo</button>
                         <button class="button save-btn" id="save-btn">Save this trail</button>
                     </div>
-                    <form id="review-form">
+                    <form id="review-form" enctype="multipart/form-data">
                         <div class="mb-3">
                             <textarea id="review-body" class="form-control" rows="7" cols="50"
                                 placeholder="Type your review here..." required></textarea>
@@ -89,6 +89,15 @@
                         <p class="review-rating">Rating: <span></span></p>
                         <p class="review-body"></p>
                     </div>
+                    <form id="add-picture-form">
+                        <div class="mb-3">
+                            <input id="file" type="file">
+                        </div>
+                        <div class="mb-3 add-picture-btns">
+                            <input type="submit" class="button" value="Upload">
+                            <button type="button" class="button" id="picture-cancel-btn">Cancel</button>
+                        </div>
+                    </form>
                     <div class="modal-photos">
                         <h3>PHOTOS</h3>
                     </div>

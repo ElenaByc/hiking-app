@@ -21,6 +21,10 @@ const revewCancelBtn = document.querySelector('#review-cancel-btn');
 const userReview = document.querySelector('#review');
 const reviewsContainer = document.querySelector('.reviews-container');
 
+const addPictureBtn = document.querySelector('#picture-btn');
+const addPictureForm = document.querySelector('#add-picture-form');
+const addPictureCancelBtn = document.querySelector('#picture-cancel-btn');
+
 
 let currentTrail;
 
@@ -83,6 +87,8 @@ const populateModalBasicData = (trail) => {
   address.innerText = trail.address;
 
   hideReviewForm();
+  hideAddPictureForm();
+
   if (userId) {
     modalBtnsDiv.style.display = 'flex';
     if (trail.saved) {
@@ -233,6 +239,44 @@ const handleSubmitReview = async (e) => {
   hideReviewForm();
 }
 
+const showAddPictureForm = () => {
+  addPictureForm.style.display = 'block';
+  addPictureBtn.disabled = true;
+}
+
+const hideAddPictureForm = () => {
+  addPictureForm.style.display = 'none';
+  addPictureBtn.disabled = false;
+  document.querySelector('#file').value = "";
+}
+
+const handleUploadPicture = async (e) => {
+  e.preventDefault();
+  console.log('Upload file!');
+
+  const file = document.querySelector('#file').files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+  // formData.append('trailDto', JSON.stringify(currentTrail));
+
+  console.log(formData);
+
+  const response = await fetch(`/api/pictures/upload/${userId}`, {
+    method: 'POST',
+    body: formData
+  })
+    .catch(err => console.error(err.message));
+  if (response.status == 200) {
+    const responseArr = await response.json();
+    console.log(responseArr);
+    hideAddPictureForm();
+  }
+}
+
 
 revewCancelBtn.addEventListener('click', hideReviewForm);
 reviewForm.addEventListener('submit', handleSubmitReview);
+
+addPictureBtn.addEventListener('click', showAddPictureForm);
+addPictureCancelBtn.addEventListener('click', hideAddPictureForm);
+addPictureForm.addEventListener('submit', handleUploadPicture);

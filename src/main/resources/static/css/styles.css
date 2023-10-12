@@ -641,12 +641,18 @@ button[disabled].save-btn {
 /*--- Add Picture Form ---*/
 #add-picture-form {
     transition: all 0.5s ease-in-out;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 #add-picture-form div {
     display: flex;
     align-items: center;
-    row-gap: 20px;
+}
+
+#add-picture-form div input[type=file] {
+    padding-left: 25px;
 }
 
 

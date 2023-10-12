@@ -1,5 +1,6 @@
 package com.elenabyc.hikingapp.entities;
 
+import com.elenabyc.hikingapp.dtos.PictureDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,4 +30,10 @@ public class Picture {
     @ManyToOne
     @JsonBackReference
     private Trail trail;
+
+    public Picture(PictureDto pictureDto) {
+        if (pictureDto.getUrl() != null) {
+            this.url = pictureDto.getUrl();
+        }
+    }
 }

@@ -3,10 +3,15 @@ package com.elenabyc.hikingapp.controllers;
 import com.elenabyc.hikingapp.dtos.PictureDto;
 import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.elenabyc.hikingapp.services.PictureService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -26,16 +31,22 @@ public class PictureController {
         return pictureService.getAllPicturesByTrailId(trailId);
     }
 
-    @PostMapping("/upload/{userId}")
-    // @RequestParam("TrailDto") TrailDto trailDto,
-    public List<String> addPicture(@RequestParam("TrailDto") TrailDto trailDto,
+    @PostMapping(value = "/upload/{userId}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+
+    public List<String> addPicture(@RequestPart("trail") String trailStr,
                                    @PathVariable long userId,
-                                   @RequestParam("file") MultipartFile file) {
-//        TrailDto trailDto = new TrailDto();
-//        trailDto.setName("Test Trail to add picture");
-//        trailDto.setYelpAlias("test_trail_yelp_alias");
-//        trailDto.setGooglePlaceId("test_trail_google_places_id");
-//        trailDto.setAddress("Test Trail address");
-        return pictureService.addPicture(trailDto, userId, file);
+                                   @RequestPart("file") MultipartFile file) {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            System.out.println("TrailStr: " + trailStr);
+            TrailDto trailDto = objectMapper.readValue(trailStr, TrailDto.class);
+            return pictureService.addPicture(trailDto, userId, file);
+        } catch (IOException e) {
+            List<String> result = new ArrayList<>();
+            result.add("Error: cannot convert trailStr to TrailDto");
+            return result;
+        }
     }
 }

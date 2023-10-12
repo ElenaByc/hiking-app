@@ -257,9 +257,7 @@ const handleUploadPicture = async (e) => {
   const file = document.querySelector('#file').files[0];
   const formData = new FormData();
   formData.append('file', file);
-  // formData.append('trailDto', JSON.stringify(currentTrail));
-
-  console.log(formData);
+  formData.append('trail', JSON.stringify(currentTrail));
 
   const response = await fetch(`/api/pictures/upload/${userId}`, {
     method: 'POST',

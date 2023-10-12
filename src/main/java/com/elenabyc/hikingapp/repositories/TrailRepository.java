@@ -10,6 +10,4 @@ import java.util.Optional;
 @Repository
 public interface TrailRepository extends JpaRepository<Trail, Long> {
     Optional<Trail> findByYelpAlias(String yelpAlias);
-
-    List<Trail> findTrailsByUsersId(Long userId);
 }

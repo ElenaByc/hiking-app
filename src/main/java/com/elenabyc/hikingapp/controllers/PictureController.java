@@ -1,7 +1,6 @@
 package com.elenabyc.hikingapp.controllers;
 
 import com.elenabyc.hikingapp.dtos.PictureDto;
-import com.elenabyc.hikingapp.dtos.ReviewDto;
 import com.elenabyc.hikingapp.services.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

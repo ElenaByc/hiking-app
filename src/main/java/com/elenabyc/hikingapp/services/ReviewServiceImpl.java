@@ -98,9 +98,4 @@ public class ReviewServiceImpl implements ReviewService {
         return Collections.emptyList();
     }
 
-    @Override
-    public Optional<ReviewDto> getReviewById(Long reviewId) {
-        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
-        return reviewOptional.map(ReviewDto::new);
-    }
 }

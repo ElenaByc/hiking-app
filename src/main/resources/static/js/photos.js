@@ -43,10 +43,30 @@ const createPhotoCard = (photo) => {
   trailName.innerText = photo.trailDto.name;
   photoCard.appendChild(trailName);
 
+  const deleteBtn = document.createElement('div');
+  deleteBtn.classList.add('photo-card__delete-btn');
+  deleteBtn.setAttribute('id', `remove-btn-${photo.id}`);
+  deleteBtn.addEventListener('click', handleDeletePhoto);
+  photoCard.appendChild(deleteBtn);
 
   return photoCard;
 }
 
-// userPhotosContainer.style.flexDirection = 'row';
+const handleDeletePhoto = async (e) => {
+  const photoCard = e.target.closest('.photo-card');
+  const i = e.target.id.lastIndexOf('-');
+  const photoId = Number(e.target.id.substring(i + 1));
+  console.log(photoId);
+  photoCard.style.display = 'none';
+  const response = await fetch(`/api/pictures/delete/${photoId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .catch(err => console.error(err.message));
+  console.log(response.status);
+  const responseArr = await response.json();
+  console.log(responseArr);
+}
+
 showLoadingSpinner(userPhotosContainer);
 getUserPhotos();

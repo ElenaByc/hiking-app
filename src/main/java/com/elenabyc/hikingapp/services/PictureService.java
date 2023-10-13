@@ -12,4 +12,6 @@ public interface PictureService {
     List<PictureDto> getAllPicturesByTrailId(long trailId);
 
     List<String> addPicture(TrailDto trailDto, long userId, MultipartFile file);
+
+    List<String> deletePictureById(long pictureId);
 }

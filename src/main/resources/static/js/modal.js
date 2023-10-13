@@ -259,6 +259,8 @@ const handleUploadPicture = async (e) => {
   formData.append('file', file);
   formData.append('trail', JSON.stringify(currentTrail));
 
+  hideAddPictureForm();
+
   const response = await fetch(`/api/pictures/upload/${userId}`, {
     method: 'POST',
     body: formData
@@ -267,8 +269,8 @@ const handleUploadPicture = async (e) => {
   if (response.status == 200) {
     const responseArr = await response.json();
     console.log(responseArr);
-    hideAddPictureForm();
   }
+
 }
 
 

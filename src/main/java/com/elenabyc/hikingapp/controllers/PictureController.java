@@ -49,4 +49,9 @@ public class PictureController {
             return result;
         }
     }
+
+    @PostMapping("/delete/{pictureId}")
+    public List<String> deletePictureById(@PathVariable long pictureId) {
+        return pictureService.deletePictureById(pictureId);
+    }
 }

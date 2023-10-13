@@ -3,6 +3,7 @@ package com.elenabyc.hikingapp.services;
 import com.elenabyc.hikingapp.dtos.PictureDto;
 import com.elenabyc.hikingapp.dtos.TrailDto;
 import com.elenabyc.hikingapp.entities.Picture;
+import com.elenabyc.hikingapp.entities.Review;
 import com.elenabyc.hikingapp.entities.Trail;
 import com.elenabyc.hikingapp.entities.User;
 import com.elenabyc.hikingapp.repositories.PictureRepository;
@@ -69,6 +70,20 @@ public class PictureServiceImpl implements PictureService {
         pictureRepository.saveAndFlush(picture);
         response.add("Picture with id = " + picture.getId() + " added successfully");
         response.add(pictureUrl);
+        return response;
+    }
+
+    @Override
+    public List<String> deletePictureById(long pictureId) {
+        List<String> response = new ArrayList<>();
+        Optional<Picture> pictureOptional = pictureRepository.findById(pictureId);
+        if (pictureOptional.isEmpty()) {
+            response.add("Error: there is no picture with id = " + pictureId);
+        }
+        pictureOptional.ifPresent(review -> {
+            pictureRepository.delete(review);
+            response.add("Picture with id = " + pictureId + " was deleted");
+        });
         return response;
     }
 }

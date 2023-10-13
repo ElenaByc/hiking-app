@@ -22,17 +22,17 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
     @Override
     public void getTrailGooglePlacesData(TrailDto trailDto) {
         JsonNode googlePlaceSearchResponse;
-        if (trailDto.getGooglePlaceId() != null) {
-            googlePlaceSearchResponse = getTrailDetailsByPlaceId(trailDto.getGooglePlaceId());
-            if (googlePlaceSearchResponse.get("result") != null) {
-                if (googlePlaceSearchResponse.get("result").get("rating") != null) {
-                    trailDto.setGoogleRating(googlePlaceSearchResponse.get("result").get("rating").asDouble());
-                }
-                if (googlePlaceSearchResponse.get("result").get("user_ratings_total") != null) {
-                    trailDto.setGoogleReviewCount(googlePlaceSearchResponse.get("result").get("user_ratings_total").asInt());
-                }
-            }
-        } else { // get Google Data from Google Place Search API
+//        if (trailDto.getGooglePlaceId() != null) {
+//            googlePlaceSearchResponse = getTrailDetailsByPlaceId(trailDto.getGooglePlaceId());
+//            if (googlePlaceSearchResponse.get("result") != null) {
+//                if (googlePlaceSearchResponse.get("result").get("rating") != null) {
+//                    trailDto.setGoogleRating(googlePlaceSearchResponse.get("result").get("rating").asDouble());
+//                }
+//                if (googlePlaceSearchResponse.get("result").get("user_ratings_total") != null) {
+//                    trailDto.setGoogleReviewCount(googlePlaceSearchResponse.get("result").get("user_ratings_total").asInt());
+//                }
+//            }
+//        } else { // get Google Data from Google Place Search API
 //            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getName());
             googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
             if (googlePlaceSearchResponse == null) {
@@ -68,7 +68,7 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                     return;
                 }
             }
-        }
+//        }
     }
 
     @Override

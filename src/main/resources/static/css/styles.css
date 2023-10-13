@@ -215,8 +215,6 @@ button[disabled].save-btn {
 
 /* ---------- Loading Spinner ---------- */
 
-/* .loading-header {} */
-
 .loading-spinner {
     width: 70px;
     height: 70px;
@@ -571,12 +569,6 @@ button[disabled].save-btn {
     padding: 10px 0;
 }
 
-/* .modal-photos,
-.modal-reviews,
-.modal-weather {
-    width: 100%;
-} */
-
 .modal-photos h3,
 .modal-reviews h3,
 .modal-weather h3 {
@@ -638,7 +630,8 @@ button[disabled].save-btn {
     color: var(--color-blue);
 }
 
-/*--- Add Picture Form ---*/
+/* ---------- Add Picture Porm ---------- */
+
 #add-picture-form {
     transition: all 0.5s ease-in-out;
     border: 1px solid #dee2e6;
@@ -761,4 +754,47 @@ button[disabled].save-btn {
     align-items: center;
     justify-content: space-around;
     padding: 0 20px;
+}
+
+/* ---------- User Photos Page ---------- */
+
+#user-photos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 40px;
+    column-gap: 40px;
+}
+
+.photo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+    width: 400px;
+    height: 400px;
+    background-color: var(--color-white);
+    padding: 30px 20px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 3px rgba(13, 96, 111, 0.16);
+}
+
+.photo-card:hover {
+    /* box-shadow: 0px 0px 20px 10px rgba(13, 13, 13, 0.1) */
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 2px 3px rgba(13, 96, 111, 0.16);
+}
+
+.photo-card__img {
+    max-width: 350px;
+    max-height: 350px;
+}
+
+.photo-card__trail {
+    color: var(--color-black);
+    font-family: 'Exo2 Italic';
+    font-size: 20px;
+    text-align: center;
 }

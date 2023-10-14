@@ -8,4 +8,6 @@ public interface YelpAPIService {
     List<TrailDto> getTrailsByLocationName(String city);
 
     void getTrailReviews(TrailDto trailDto);
+
+    void getTrailPictures(TrailDto trailDto);
 }

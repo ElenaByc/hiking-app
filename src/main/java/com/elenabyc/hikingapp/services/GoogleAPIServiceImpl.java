@@ -215,6 +215,7 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                         pictureDto.setUserDto(userDto);
                         String imgRef = photo.get("photo_reference").asText();
                         pictureDto.setUrl(getImageByReference(imgRef));
+                        pictureDto.setSource("Google Maps");
                         trailDto.getGooglePictures().add(pictureDto);
                     }
                 }

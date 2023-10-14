@@ -17,6 +17,7 @@ public class PictureDto implements Serializable {
     private String url;
     private UserDto userDto;
     private TrailDto trailDto;
+    private String source;
 
     public PictureDto(Picture picture) {
         if (picture.getId() != null) {

@@ -1,9 +1,6 @@
 package com.elenabyc.hikingapp.services;
 
-import com.elenabyc.hikingapp.dtos.Coordinates;
-import com.elenabyc.hikingapp.dtos.ReviewDto;
-import com.elenabyc.hikingapp.dtos.TrailDto;
-import com.elenabyc.hikingapp.dtos.UserDto;
+import com.elenabyc.hikingapp.dtos.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
@@ -79,8 +76,6 @@ public class YelpAPIServiceImpl implements YelpAPIService {
 
     @Override
     public void getTrailReviews(TrailDto trailDto) {
-
-
         OkHttpClient client = new OkHttpClient();
         String yelpReviewsUrl = "https://api.yelp.com/v3/businesses/" +
                 trailDto.getYelpAlias() +
@@ -118,5 +113,34 @@ public class YelpAPIServiceImpl implements YelpAPIService {
             return;
         }
 
+    }
+
+    @Override
+    public void getTrailPictures(TrailDto trailDto) {
+        OkHttpClient client = new OkHttpClient();
+        String yelpPhotosUrl = "https://api.yelp.com/v3/businesses/" +
+                trailDto.getYelpAlias();
+
+        Request request = new Request.Builder()
+                .url(yelpPhotosUrl)
+                .get()
+                .addHeader("accept", "application/json")
+                .addHeader("Authorization", "Bearer " + YELP_DEV_KEY)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String responseString = response.body().string();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(responseString);
+            for (JsonNode photo : jsonNode.get("photos")) {
+                PictureDto pictureDto = new PictureDto();
+                pictureDto.setUrl(photo.asText());
+                pictureDto.setSource("Yelp");
+                trailDto.getYelpPictures().add(pictureDto);
+            }
+
+        } catch (IOException e) {
+            return;
+        }
     }
 }

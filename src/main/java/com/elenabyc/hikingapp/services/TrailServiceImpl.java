@@ -109,7 +109,8 @@ public class TrailServiceImpl implements TrailService {
         // get reviews from Yelp
         yelpAPIService.getTrailReviews(trailDto);
 
-
+        // get pictures from Yelp
+        yelpAPIService.getTrailPictures(trailDto);
 
         return trailDto;
     }

@@ -1,9 +1,6 @@
 package com.elenabyc.hikingapp.services;
 
-import com.elenabyc.hikingapp.dtos.Coordinates;
-import com.elenabyc.hikingapp.dtos.ReviewDto;
-import com.elenabyc.hikingapp.dtos.TrailDto;
-import com.elenabyc.hikingapp.dtos.UserDto;
+import com.elenabyc.hikingapp.dtos.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
@@ -34,40 +31,40 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
 //            }
 //        } else { // get Google Data from Google Place Search API
 //            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getName());
-            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
-            if (googlePlaceSearchResponse == null) {
-                System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");
-                return;
-            }
-            double latitude;
-            double longitude;
-            for (JsonNode element : googlePlaceSearchResponse.get("candidates")) {
-                latitude = element.get("geometry").get("location").get("lat").asDouble();
-                longitude = element.get("geometry").get("location").get("lng").asDouble();
+        googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
+        if (googlePlaceSearchResponse == null) {
+            System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");
+            return;
+        }
+        double latitude;
+        double longitude;
+        for (JsonNode element : googlePlaceSearchResponse.get("candidates")) {
+            latitude = element.get("geometry").get("location").get("lat").asDouble();
+            longitude = element.get("geometry").get("location").get("lng").asDouble();
 
-                if (Math.abs(latitude - trailDto.getCoordinates().getLatitude()) < 1 &&
-                        Math.abs(longitude - trailDto.getCoordinates().getLongitude()) < 1) {
-                    // correct trail was found
-                    trailDto.setGooglePlaceId(element.get("place_id").asText());
-                    trailDto.setGoogleCoordinates(new Coordinates(latitude, longitude));
-                    if (element.get("rating") != null) {
-                        trailDto.setGoogleRating(element.get("rating").asDouble());
-                    }
-                    if (element.get("user_ratings_total") != null) {
-                        trailDto.setGoogleReviewCount(element.get("user_ratings_total").asInt());
-                    }
+            if (Math.abs(latitude - trailDto.getCoordinates().getLatitude()) < 1 &&
+                    Math.abs(longitude - trailDto.getCoordinates().getLongitude()) < 1) {
+                // correct trail was found
+                trailDto.setGooglePlaceId(element.get("place_id").asText());
+                trailDto.setGoogleCoordinates(new Coordinates(latitude, longitude));
+                if (element.get("rating") != null) {
+                    trailDto.setGoogleRating(element.get("rating").asDouble());
+                }
+                if (element.get("user_ratings_total") != null) {
+                    trailDto.setGoogleReviewCount(element.get("user_ratings_total").asInt());
+                }
 //                    if (element.get("formatted_address") != null) {
 //                        trailDto.setAddress(element.get("formatted_address").asText());
 //                    }
 //                    if (trailDto.getImage() == null && element.get("photos") != null &&
-                    if (element.get("photos") != null &&
-                            element.get("photos").size() > 0) {
-                        String imgRef = element.get("photos").get(0).get("photo_reference").asText();
-                        trailDto.setImage(getImageByReference(imgRef));
-                    }
-                    return;
+                if (element.get("photos") != null &&
+                        element.get("photos").size() > 0) {
+                    String imgRef = element.get("photos").get(0).get("photo_reference").asText();
+                    trailDto.setImage(getImageByReference(imgRef));
                 }
+                return;
             }
+        }
 //        }
     }
 
@@ -162,10 +159,12 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
         String fields = "?fields=" +
                 "website%2C" +
                 "url%2C" +
-                "photo%2C" +
+                "photos%2C" +
                 "reviews";
         String placeId = "&place_id=" + trailDto.getGooglePlaceId();
         String key = "&key=" + GOOGLE_DEV_KEY;
+        int beginIdx;
+        int endIdx;
 
         String googlePlacesDetailsUrl = "https://maps.googleapis.com/maps/api/place/details/json" +
                 fields +
@@ -203,6 +202,20 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                         reviewDto.setSource("Google Maps");
 
                         trailDto.getGoogleReviews().add(reviewDto);
+                    }
+                }
+                if (result.get("photos") != null) {
+                    for (JsonNode photo : result.get("photos")) {
+                        PictureDto pictureDto = new PictureDto();
+                        UserDto userDto = new UserDto();
+                        String contributor = photo.get("html_attributions").get(0).asText();
+                        beginIdx = contributor.indexOf(">");
+                        endIdx = contributor.indexOf("</a>");
+                        userDto.setUsername(contributor.substring(beginIdx + 1, endIdx));
+                        pictureDto.setUserDto(userDto);
+                        String imgRef = photo.get("photo_reference").asText();
+                        pictureDto.setUrl(getImageByReference(imgRef));
+                        trailDto.getGooglePictures().add(pictureDto);
                     }
                 }
             }

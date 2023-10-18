@@ -53,10 +53,6 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
                 if (element.get("user_ratings_total") != null) {
                     trailDto.setGoogleReviewCount(element.get("user_ratings_total").asInt());
                 }
-//                    if (element.get("formatted_address") != null) {
-//                        trailDto.setAddress(element.get("formatted_address").asText());
-//                    }
-//                    if (trailDto.getImage() == null && element.get("photos") != null &&
                 if (element.get("photos") != null &&
                         element.get("photos").size() > 0) {
                     String imgRef = element.get("photos").get(0).get("photo_reference").asText();

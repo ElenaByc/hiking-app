@@ -126,7 +126,6 @@ const populateModal = (trail) => {
   }
 }
 
-
 const clearUserReview = () => {
   userReview.style.display = 'none';
   const reviewBody = document.querySelector('#review p.review-body');

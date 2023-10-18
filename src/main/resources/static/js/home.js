@@ -66,7 +66,6 @@ const getTrailDetails = async (e) => {
           populateUserReview(userReview);
         }
         if (data.length > 0) {
-          // allReviews.push(...data);
           data.forEach(review => {
             if (review.userDto.id != userId) {
               allReviews.push(review);
@@ -78,8 +77,25 @@ const getTrailDetails = async (e) => {
       .catch(err => console.error(err.message));
   }
 
-  
-  // get website and google link
+  // get trail's pictures from DB
+  const allPictures = [];
+  if (trail.id) {
+    await fetch(`/api/pictures/trail/${trail.id}`, {
+      method: "GET",
+      headers: headers
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('picturesData: ', data);
+        if (data.length > 0) {
+          allPictures.push(...data);
+          console.log('all trail pictures: ', allPictures);
+        }
+      })
+      .catch(err => console.error(err.message));
+  }
+
+  // get website, google link, reviews and photos from Yelp and Google
   await fetch(`${baseUrl}/details/${trail.yelpAlias}/${trail.googlePlaceId}`, {
     method: "GET",
     headers: headers
@@ -89,10 +105,11 @@ const getTrailDetails = async (e) => {
       console.log('data: ', data);
       allReviews.push(...data.googleReviews);
       allReviews.push(...data.yelpReviews);
+      allPictures.push(...data.googlePictures);
+      allPictures.push(...data.yelpPictures);
       populateModal(data);
     })
     .catch(err => console.error(err.message));
-    
 
   if (allReviews.length > 0) {
     populateTrailReviews(allReviews);

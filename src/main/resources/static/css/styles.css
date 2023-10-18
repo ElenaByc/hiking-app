@@ -586,7 +586,8 @@ button[disabled].save-btn {
 
 .modal-photos,
 .modal-reviews {
-    border-bottom: 1px solid #dee2e6;
+    /* border-bottom: 1px solid #dee2e6; */
+    width: 100%;
 }
 
 #review-form {
@@ -609,6 +610,8 @@ button[disabled].save-btn {
 /* #review-form option {
     background-color: yellow;
 } */
+
+/* ---------- Modal - reviews section ---------- */
 
 .modal-review {
     border: 1px solid #dee2e6;

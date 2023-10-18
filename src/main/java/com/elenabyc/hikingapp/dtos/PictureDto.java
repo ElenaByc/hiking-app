@@ -1,12 +1,12 @@
 package com.elenabyc.hikingapp.dtos;
 
 import com.elenabyc.hikingapp.entities.Picture;
-import com.elenabyc.hikingapp.entities.Review;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
 
 @Data
 @AllArgsConstructor

@@ -27,9 +27,11 @@ const addPictureCancelBtn = document.querySelector('#picture-cancel-btn');
 
 
 let currentTrail;
+let trailIndex;
 
-const populateModalBasicData = (trail) => {
+const populateModalBasicData = (trail, idx) => {
   currentTrail = trail;
+  trailIndex = idx;
   clearUserReview();
   reviewsContainer.innerHTML = '';
 
@@ -97,6 +99,7 @@ const populateModalBasicData = (trail) => {
     } else {
       saveBtn.innerText = 'Save this trail';
       saveBtn.disabled = false;
+      saveBtn.addEventListener('click', saveTrail);
     }
     if (trail.reviewed) {
       reviewBtn.innerText = 'My review';
@@ -234,6 +237,8 @@ const handleSubmitReview = async (e) => {
     reviewBtn.removeEventListener('click', showReviewForm);
     reviewBtn.addEventListener('click', toggleUserReview);
     populateUserReview(review);
+    trailsArray[trailIndex].reviewed = true;
+    console.log(trailsArray);
   }
   hideReviewForm();
 }
@@ -280,6 +285,28 @@ const populateTrailPictures = (allPictures) => {
 
 const createPictureCard = (picture) => {
   console.log(picture);
+}
+
+const saveTrail = async (e) => {
+  console.log(currentTrail);
+  const response = await fetch(`/api/trails/save/${userId}`, {
+    method: 'POST',
+    body: JSON.stringify(currentTrail),
+    headers: headers
+  })
+    .catch(err => console.error(err.message));
+  if (response.status == 200) {
+    console.log(response.status);
+    const responseArr = await response.json();
+    console.log(responseArr);
+    const cardSaveBtn = document.querySelector(`#save-btn-${trailIndex}`);
+    cardSaveBtn.innerText = 'Saved';
+    cardSaveBtn.disabled = true;
+    trailsArray[trailIndex].saved = true;
+    saveBtn.innerText = 'Saved';
+    saveBtn.disabled = true;
+    console.log(trailsArray);
+  }
 }
 
 revewCancelBtn.addEventListener('click', hideReviewForm);

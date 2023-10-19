@@ -49,7 +49,7 @@ const getTrailDetails = async (e) => {
   const i = Number(e.target.id.substring(9));
   let trail = trailsArray[i];
   console.log(trail);
-  populateModalBasicData(trail);
+  populateModalBasicData(trail, i);
 
   // get trail's reviews from DB
   const allReviews = [];

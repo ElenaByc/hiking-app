@@ -111,10 +111,12 @@ const getTrailDetails = async (e) => {
     })
     .catch(err => console.error(err.message));
 
+  if (allPictures.length > 0) {
+    populateTrailPictures(allPictures);
+  }
   if (allReviews.length > 0) {
     populateTrailReviews(allReviews);
   }
-
 }
 
 const handleSaveTrail = async (e) => {

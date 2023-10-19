@@ -582,13 +582,14 @@ button[disabled].save-btn {
     text-transform: uppercase;
     font-size: 22px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-.modal-photos,
+/* .modal-photos,
 .modal-reviews {
-    /* border-bottom: 1px solid #dee2e6; */
+    border-bottom: 1px solid #dee2e6;
     width: 100%;
-}
+} */
 
 #review-form {
     transition: all 0.5s ease-in-out;
@@ -610,6 +611,41 @@ button[disabled].save-btn {
 /* #review-form option {
     background-color: yellow;
 } */
+
+/* ---------- Modal - Pictures Carousel ---------- */
+
+.modal-photos {
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.carousel-item img {
+    margin: 0 auto;
+    width: auto;
+    height: 500px;
+}
+
+.carousel-indicators {
+    bottom: -15px;
+}
+
+.carousel-caption {
+    bottom: 7px;
+}
+
+.carousel-caption h5 {
+    font-family: 'Exo2 Italic';
+    font-size: 16px;
+    text-align: right;
+}
+
+.carousel-control-next-icon {
+    margin-left: 90px;
+}
+
+.carousel-control-prev-icon {
+    margin-right: 90px;
+}
 
 /* ---------- Modal - reviews section ---------- */
 

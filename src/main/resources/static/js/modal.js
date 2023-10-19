@@ -269,9 +269,18 @@ const handleUploadPicture = async (e) => {
     const responseArr = await response.json();
     console.log(responseArr);
   }
-
 }
 
+const populateTrailPictures = (allPictures) => {
+  allPictures.forEach(picture => {
+    console.log(picture);
+    // picturesContainer.appendChild(createPictureCard(picture));
+  });
+}
+
+const createPictureCard = (picture) => {
+  console.log(picture);
+}
 
 revewCancelBtn.addEventListener('click', hideReviewForm);
 reviewForm.addEventListener('submit', handleSubmitReview);

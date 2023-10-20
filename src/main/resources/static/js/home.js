@@ -141,14 +141,9 @@ const handleSaveTrail = async (e) => {
 }
 
 const createTrailCard = (trail, i) => {
-  let trailCard = document.createElement('div');
+  const trailCard = document.createElement('div');
   trailCard.classList.add('trail-card');
-  let latitude = 0;
-  let longitude = 0;
-  if (trail.googleCoordinates) {
-    latitude = trail.googleCoordinates.latitude;
-    longitude = trail.coordinates.longitude;
-  }
+
   const divImg = document.createElement('div');
   divImg.classList.add('trail-card__img');
   const img = document.createElement('img');
@@ -161,20 +156,36 @@ const createTrailCard = (trail, i) => {
   divContent.classList.add('trail-card__content');
   const divInfo = document.createElement('div');
   divInfo.classList.add('trail-card__info');
-  // const trailName = document.createElement('h3');
-  // trailName.classList.add('trail-name');
-  // trailName.innerText = trail.name;
-  // divInfo.appendChild(trailName);
-  divInfo.innerHTML = `
-  <h3>${trail.name}</h3>
-  <div>Yelp Alias: ${trail.yelpAlias}</div>
-  <div>Yelp Rating: ${trail.yelpRating}&nbsp;&nbsp;Based on ${trail.yelpReviewCount} reviews</div>
-  <div>Google Places Rating: ${trail.googleRating}&nbsp;&nbsp;Based on ${trail.googleReviewCount} reviews</div>
-  <div>Yelp Coordinates: ${trail.coordinates.latitude}&nbsp;&nbsp;${trail.coordinates.longitude}</div>
-  <div>Google Coordinates: ${latitude}&nbsp;&nbsp;${longitude}</div>
-  <br>
-  <div>Address: ${trail.address}</div>`;
+  const trailName = document.createElement('h3');
+  trailName.classList.add('trail-name');
+  trailName.innerText = trail.name;
+  divInfo.appendChild(trailName);
+
+  const yelpRating = document.createElement('div');
+  yelpRating.innerHTML = `Yelp Rating: <span>${trail.yelpRating}</span>`;
+  divInfo.appendChild(yelpRating);
+  const yelpReviews = document.createElement('div');
+  yelpReviews.innerText = `Based on ${trail.yelpReviewCount} reviews`;
+  divInfo.appendChild(yelpReviews);
+
+  divInfo.appendChild(document.createElement('br'));
+
+  const googleRating = document.createElement('div');
+  googleRating.innerHTML = `Google Rating: <span>${trail.googleRating}</span>`;
+  divInfo.appendChild(googleRating);
+  const googleReviews = document.createElement('div');
+  googleReviews.innerText = `Based on ${trail.googleReviewCount} reviews`;
+  divInfo.appendChild(googleReviews);
+
+  divInfo.appendChild(document.createElement('br'));
+
+  const address = document.createElement('div');
+  address.classList.add('trail-address')
+  address.innerHTML = `<div>Address:</div><div>${trail.address}</div>`;
+  divInfo.appendChild(address);
+
   divContent.appendChild(divInfo);
+
   const divBtns = document.createElement('div');
   divBtns.classList.add('trail-card__buttons');
   const learnMoreBtn = document.createElement('button');

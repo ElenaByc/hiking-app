@@ -419,13 +419,19 @@ button[disabled].save-btn {
 
 .trail-card__info {
     width: 100%;
-    padding: 10px;
+    padding: 10px 10px 20px;
 }
 
 .trail-card__info h3,
 .trail-card__info h4 {
     color: var(--color-blue);
     text-align: center;
+}
+
+.trail-card__info span {
+    padding: 0 2px;
+    font-family: 'KaushanScript';
+    font-size: 20px;
 }
 
 .trail-card__buttons {
@@ -545,7 +551,7 @@ button[disabled].save-btn {
     color: var(--color-blue);
 }
 
-.modal-address {
+.trail-address {
     display: flex;
     column-gap: 15px;
 }

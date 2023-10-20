@@ -7,7 +7,7 @@ const getUserPhotos = async () => {
   }).catch(err => console.error(err.message));
   const responseArr = await response.json();
   if (responseArr.length === 0) {
-    savedTrailsContainer.innerHTML = '';
+    userPhotosContainer.innerHTML = '';
     const header = document.createElement('h3');
     header.classList.add('notfound-header');
     header.innerHTML = 'You haven\'t uploaded any photo so far';

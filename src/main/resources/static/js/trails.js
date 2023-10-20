@@ -19,11 +19,12 @@ const getSavedTrails = async () => {
     savedTrailsContainer.appendChild(header);
   } else {
     createSavedTrailsCards(responseArr);
+    console.log(responseArr);
   }
 }
 
 const createSavedTrailCard = (trail) => {
-  let trailCard = document.createElement('div');
+  const trailCard = document.createElement('div');
   trailCard.classList.add('trail-card');
 
   const divImg = document.createElement('div');
@@ -38,14 +39,35 @@ const createSavedTrailCard = (trail) => {
   divContent.classList.add('trail-card__content');
   const divInfo = document.createElement('div');
   divInfo.classList.add('trail-card__info');
-  // const trailName = document.createElement('h3');
-  // trailName.classList.add('trail-name');
-  // trailName.innerText = trail.name;
-  // divInfo.appendChild(trailName);
-  divInfo.innerHTML = `
-    <h3>${trail.name}</h3>
-    <h4>Trail Id: ${trail.id}</h4>
-    <div>Address: ${trail.address}</div>`;
+
+  const trailName = document.createElement('h3');
+  trailName.classList.add('trail-name');
+  trailName.innerText = trail.name;
+  divInfo.appendChild(trailName);
+
+  const yelpRating = document.createElement('div');
+  yelpRating.innerHTML = `Yelp Rating: <span>${trail.yelpRating}</span>`;
+  divInfo.appendChild(yelpRating);
+  const yelpReviews = document.createElement('div');
+  yelpReviews.innerText = `Based on ${trail.yelpReviewCount} reviews`;
+  divInfo.appendChild(yelpReviews);
+
+  divInfo.appendChild(document.createElement('br'));
+
+  const googleRating = document.createElement('div');
+  googleRating.innerHTML = `Google Rating: <span>${trail.googleRating}</span>`;
+  divInfo.appendChild(googleRating);
+  const googleReviews = document.createElement('div');
+  googleReviews.innerText = `Based on ${trail.googleReviewCount} reviews`;
+  divInfo.appendChild(googleReviews);
+
+  divInfo.appendChild(document.createElement('br'));
+
+  const address = document.createElement('div');
+  address.classList.add('trail-address')
+  address.innerHTML = `<div>Address:</div><div>${trail.address}</div>`;
+  divInfo.appendChild(address);
+
   divContent.appendChild(divInfo);
   const divBtns = document.createElement('div');
   divBtns.classList.add('trail-card__buttons');
@@ -55,7 +77,7 @@ const createSavedTrailCard = (trail) => {
   divBtns.appendChild(learnMoreBtn);
   const removeTrailBtn = document.createElement('button');
   removeTrailBtn.classList.add('button');
-  // removeTrailBtn.classList.add('remove-btn');
+  removeTrailBtn.classList.add('remove-btn');
   removeTrailBtn.innerText = 'Remove';
   removeTrailBtn.setAttribute('id', `remove-btn-${trail.id}`);
   removeTrailBtn.addEventListener('click', handleRemoveTrail);
@@ -77,7 +99,6 @@ const handleRemoveTrail = async (e) => {
     .catch(err => console.error(err.message));
   console.log(response.status);
   const responseArr = await response.json();
-  console.log(responseArr);
 }
 
 const createSavedTrailsCards = (trails) => {

@@ -10,10 +10,17 @@ import java.util.Optional;
 public interface TrailService {
     @Transactional
     Trail addTrail(TrailDto trailDto);
+
     @Transactional
     List<String> saveTrail(TrailDto trailDto, long userId);
+
     Optional<TrailDto> getTrailById(Long trailId);
+
     List<TrailDto> getTrailsByLocationName(String city, long userId);
+
     TrailDto getTrailDetails(String yelpAlias, String googlePlaceId);
+
+    void getTrailRatings(TrailDto trailDto);
+    
     //    JsonNode getTrailByName(String name);
 }

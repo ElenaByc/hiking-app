@@ -143,4 +143,28 @@ public class YelpAPIServiceImpl implements YelpAPIService {
             return;
         }
     }
+
+    @Override
+    public void getTrailRating(TrailDto trailDto) {
+        OkHttpClient client = new OkHttpClient();
+        String yelpBusinessDetailsUrl = "https://api.yelp.com/v3/businesses/" +
+                trailDto.getYelpAlias();
+
+        Request request = new Request.Builder()
+                .url(yelpBusinessDetailsUrl)
+                .get()
+                .addHeader("accept", "application/json")
+                .addHeader("Authorization", "Bearer " + YELP_DEV_KEY)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String responseString = response.body().string();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode business = objectMapper.readTree(responseString);
+            trailDto.setYelpRating(business.get("rating").asDouble());
+            trailDto.setYelpReviewCount(business.get("review_count").asInt());
+        } catch (IOException e) {
+            return;
+        }
+    }
 }

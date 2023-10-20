@@ -116,6 +116,11 @@ public class TrailServiceImpl implements TrailService {
     }
 
     @Override
+    public void getTrailRatings(TrailDto trailDto) {
+        yelpAPIService.getTrailRating(trailDto);
+    }
+
+    @Override
     public Optional<TrailDto> getTrailById(Long trailId) {
         Optional<Trail> trailOptional = trailRepository.findById(trailId);
         return trailOptional.map(TrailDto::new);

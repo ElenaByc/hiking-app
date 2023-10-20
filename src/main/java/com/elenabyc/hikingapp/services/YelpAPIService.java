@@ -10,4 +10,6 @@ public interface YelpAPIService {
     void getTrailReviews(TrailDto trailDto);
 
     void getTrailPictures(TrailDto trailDto);
+
+    void getTrailRating(TrailDto trailDto);
 }

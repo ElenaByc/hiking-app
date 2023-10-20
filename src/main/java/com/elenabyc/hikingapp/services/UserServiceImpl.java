@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private TrailService trailService;
 
     @Override
     @Transactional
@@ -61,7 +63,11 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             UserDto userDto = new UserDto(userOptional.get());
-            return userDto.getSavedTrailsDto();
+            Set<TrailDto> savedTrails = userDto.getSavedTrailsDto();
+            for (TrailDto trailDto : savedTrails) {
+                trailService.getTrailRatings(trailDto);
+            }
+            return savedTrails;
         }
         return null;
     }

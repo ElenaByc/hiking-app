@@ -1,5 +1,3 @@
-const title = document.querySelector('.modal-title');
-const img = document.querySelector('.modal-trail__img');
 const yelpRating = document.querySelector('.yelp-rating__number');
 const googleRating = document.querySelector('.google-rating__number');
 const yelpReviews = document.querySelector('.yelp-rating__reviews');
@@ -12,8 +10,10 @@ const yelpLink = document.querySelector('.yelp-link__link');
 const googleLink = document.querySelector('.google-link__link');
 const websiteDiv = document.querySelector('.modal-website');
 const website = document.querySelector('.modal-website a');
+
 const modalBtnsDiv = document.querySelector('.modal-btns');
 const saveBtn = document.querySelector('#save-btn');
+
 const reviewBtn = document.querySelector('#review-btn');
 const reviewForm = document.querySelector('#review-form');
 const revewCancelBtn = document.querySelector('#review-cancel-btn');
@@ -25,6 +25,9 @@ const addPictureBtn = document.querySelector('#picture-btn');
 const addPictureForm = document.querySelector('#add-picture-form');
 const addPictureCancelBtn = document.querySelector('#picture-cancel-btn');
 
+const picturesContainer = document.querySelector('.carousel-inner');
+const picturesIndicators = document.querySelector('.carousel-indicators');
+
 
 let currentTrail;
 let trailIndex;
@@ -34,11 +37,18 @@ const populateModalBasicData = (trail, idx) => {
   trailIndex = idx;
   clearUserReview();
   reviewsContainer.innerHTML = '';
+  picturesContainer.innerHTML = '';
+  picturesIndicators.innerHTML = '';
 
+  const title = document.querySelector('.modal-title');
   title.innerText = trail.name;
 
-  img.setAttribute('src', trail.image);
-  img.setAttribute('alt', `${trail.name} picture`);
+  const trailImg = document.querySelector('.modal-trail__img');
+  trailImg.setAttribute('src', trail.image);
+  trailImg.setAttribute('alt', `${trail.name} picture`);
+
+  picturesContainer.appendChild(createPictureCard({ url: trail.image }, -1));
+  picturesIndicators.appendChild(createPictureIndicator(0));
 
   yelpRating.innerText = trail.yelpRating;
   yelpReviews.innerText = trail.yelpReviewCount;
@@ -111,7 +121,6 @@ const populateModalBasicData = (trail, idx) => {
       reviewBtn.addEventListener('click', showReviewForm);
       reviewBtn.removeEventListener('click', toggleUserReview);
     }
-
   } else {
     modalBtnsDiv.style.display = 'none';
   }
@@ -277,14 +286,59 @@ const handleUploadPicture = async (e) => {
 }
 
 const populateTrailPictures = (allPictures) => {
-  allPictures.forEach(picture => {
-    console.log(picture);
-    // picturesContainer.appendChild(createPictureCard(picture));
+  picturesContainer.innerHTML = '';
+  picturesIndicators.innerHTML = '';
+  allPictures.forEach((picture, i) => {
+    picturesContainer.appendChild(createPictureCard(picture, i));
+    picturesIndicators.appendChild(createPictureIndicator(i));
   });
 }
 
-const createPictureCard = (picture) => {
-  console.log(picture);
+const createPictureCard = (picture, i) => {
+  const carouselItem = document.createElement('div');
+  carouselItem.classList.add('carousel-item');
+  if (i < 1) {
+    carouselItem.classList.add('active');
+  }
+  carouselItem.setAttribute('data-bs-interval', '10000');
+
+  const imgDiv = document.createElement('div');
+  imgDiv.classList.add('d-block');
+  const imgElement = document.createElement('img');
+  imgElement.setAttribute('src', picture.url);
+  imgElement.setAttribute('alt', `${currentTrail.name} photo ${i}`);
+  imgDiv.appendChild(imgElement);
+
+  if (i >= 0) {
+    const caption = document.createElement('div');
+    caption.classList.add('picture-author');
+    caption.classList.add('d-none');
+    caption.classList.add('d-md-block');
+    const captionHeader = document.createElement('h5');
+    if (picture.userDto) {
+      captionHeader.innerText = `by ${picture.userDto.username}`;
+    } else {
+      captionHeader.innerText = 'by Yelp user';
+    }
+    caption.appendChild(captionHeader);
+    imgDiv.appendChild(caption);
+  }
+
+  carouselItem.appendChild(imgDiv);
+  return carouselItem;
+}
+
+const createPictureIndicator = (i) => {
+  const indicator = document.createElement('button');
+  if (i === 0) {
+    indicator.classList.add('active');
+  }
+  indicator.setAttribute('type', 'button');
+  indicator.setAttribute('data-bs-target', '#modal-carousel');
+  indicator.setAttribute('data-bs-slide-to', i);
+  indicator.setAttribute('aria-current', 'true');
+  indicator.setAttribute('aria-label', `Slide ${i + 1}`);
+  return indicator;
 }
 
 const saveTrail = async (e) => {

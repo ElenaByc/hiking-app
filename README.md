@@ -61,7 +61,7 @@ Registered users can save a trail by clicking on the 'Save this trail' button
 
 On the trail details page, users can view all the trail information such as Yelp rating, Google Maps rating, address, and trail website if exists.  
 Trail pictures uploaded by this app users, up to ten pictures from Google Places API, and up to three pictures from Yelp Fusion API are also available on this page.
-Finally, there are reviews from this application users, up to five top reviews from Google Maps users, and extracts from up to three Yelp users' reviews.
+Finally, there are reviews from this application users, up to five top reviews from Google Maps users, and up to three Yelp users' review excerpts.
 <p align="center">
 <img src="/static/img/demo4.gif" alt="trails details demo"/>
 </p>

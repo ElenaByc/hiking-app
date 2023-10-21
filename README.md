@@ -29,6 +29,7 @@ Users can look for trails by their location or by name.
 - **APIs**
   - Yelp Fusion API
   - Google Places API
+  - Cloudinary API
 
 <p align="right"><a href="#top">back to top</a></p>
 

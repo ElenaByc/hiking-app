@@ -83,8 +83,14 @@ public class TrailServiceImpl implements TrailService {
             }
 
             // remove trails without Google Places data from search result
+            // remove if no Google ratings data
             // remove -gym-
-            if (trailDto.getGooglePlaceId() != null && !trailDto.getYelpAlias().contains("-gym-")) {
+            // remove school-
+            if (trailDto.getGooglePlaceId() != null
+                    && trailDto.getGoogleRating() != 0
+                    && !trailDto.getYelpAlias().contains("-gym-")
+                    && !trailDto.getYelpAlias().contains("school-")
+            ) {
                 searchResultListFinal.add(trailDto);
             }
         }
@@ -118,6 +124,7 @@ public class TrailServiceImpl implements TrailService {
     @Override
     public void getTrailRatings(TrailDto trailDto) {
         yelpAPIService.getTrailRating(trailDto);
+        googleAPIService.getTrailRating(trailDto);
     }
 
     @Override

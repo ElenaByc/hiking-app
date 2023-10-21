@@ -21,6 +21,6 @@ public interface TrailService {
     TrailDto getTrailDetails(String yelpAlias, String googlePlaceId);
 
     void getTrailRatings(TrailDto trailDto);
-    
+
     //    JsonNode getTrailByName(String name);
 }

@@ -13,4 +13,6 @@ public interface GoogleAPIService {
     JsonNode getTrailDetailsByPlaceId(String googlePlaceId);
 
     void getTrailDetails(TrailDto trailDto);
+
+    void getTrailRating(TrailDto trailDto);
 }

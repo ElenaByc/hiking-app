@@ -163,6 +163,9 @@ public class YelpAPIServiceImpl implements YelpAPIService {
             JsonNode business = objectMapper.readTree(responseString);
             trailDto.setYelpRating(business.get("rating").asDouble());
             trailDto.setYelpReviewCount(business.get("review_count").asInt());
+            trailDto.setCoordinates(new Coordinates(
+                    business.get("coordinates").get("latitude").asDouble(),
+                    business.get("coordinates").get("longitude").asDouble()));
         } catch (IOException e) {
             return;
         }

@@ -18,23 +18,49 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
 
     @Override
     public void getTrailGooglePlacesData(TrailDto trailDto) {
-        JsonNode googlePlaceSearchResponse;
-//        if (trailDto.getGooglePlaceId() != null) {
-//            googlePlaceSearchResponse = getTrailDetailsByPlaceId(trailDto.getGooglePlaceId());
-//            if (googlePlaceSearchResponse.get("result") != null) {
-//                if (googlePlaceSearchResponse.get("result").get("rating") != null) {
-//                    trailDto.setGoogleRating(googlePlaceSearchResponse.get("result").get("rating").asDouble());
-//                }
-//                if (googlePlaceSearchResponse.get("result").get("user_ratings_total") != null) {
-//                    trailDto.setGoogleReviewCount(googlePlaceSearchResponse.get("result").get("user_ratings_total").asInt());
-//                }
-//            }
-//        } else { // get Google Data from Google Place Search API
-//            googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getName());
-        googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
+        JsonNode googlePlaceResponse;
+        if (trailDto.getGooglePlaceId() != null) {
+            // get Google Data from Google Place Details API
+            googlePlaceResponse = getTrailDetailsByPlaceId(trailDto.getGooglePlaceId());
+            if (googlePlaceResponse.get("result") != null) {
+                if (googlePlaceResponse.get("result").get("rating") != null) {
+                    trailDto.setGoogleRating(googlePlaceResponse.get("result").get("rating").asDouble());
+                }
+                if (googlePlaceResponse.get("result").get("user_ratings_total") != null) {
+                    trailDto.setGoogleReviewCount(googlePlaceResponse.get("result").get("user_ratings_total").asInt());
+                }
+            }
+        }
+        if (trailDto.getGooglePlaceId() == null || trailDto.getGoogleRating() == 0) {
+            // get Google Data from Google Place Search API
+            // googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getName());
+            googlePlaceResponse = searchPlace(trailDto);
+            if (googlePlaceResponse != null) {
+                trailDto.setGooglePlaceId(googlePlaceResponse.get("place_id").asText());
+                double latitude = googlePlaceResponse.get("geometry").get("location").get("lat").asDouble();
+                double longitude = googlePlaceResponse.get("geometry").get("location").get("lng").asDouble();
+                trailDto.setGoogleCoordinates(new Coordinates(latitude, longitude));
+                if (googlePlaceResponse.get("rating") != null) {
+                    trailDto.setGoogleRating(googlePlaceResponse.get("rating").asDouble());
+                }
+                if (googlePlaceResponse.get("user_ratings_total") != null) {
+                    trailDto.setGoogleReviewCount(googlePlaceResponse.get("user_ratings_total").asInt());
+                }
+                if (googlePlaceResponse.get("photos") != null &&
+                        googlePlaceResponse.get("photos").size() > 0) {
+                    String imgRef = googlePlaceResponse.get("photos").get(0).get("photo_reference").asText();
+                    trailDto.setImage(getImageByReference(imgRef));
+                }
+            }
+        }
+    }
+
+
+    private JsonNode searchPlace(TrailDto trailDto) {
+        JsonNode googlePlaceSearchResponse = getTrailBasicDetails(trailDto.getYelpAlias());
         if (googlePlaceSearchResponse == null) {
             System.out.println("!!!!!!! NO RESPONSE FROM GOOGLE API");
-            return;
+            return null;
         }
         double latitude;
         double longitude;
@@ -45,23 +71,10 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
             if (Math.abs(latitude - trailDto.getCoordinates().getLatitude()) < 1 &&
                     Math.abs(longitude - trailDto.getCoordinates().getLongitude()) < 1) {
                 // correct trail was found
-                trailDto.setGooglePlaceId(element.get("place_id").asText());
-                trailDto.setGoogleCoordinates(new Coordinates(latitude, longitude));
-                if (element.get("rating") != null) {
-                    trailDto.setGoogleRating(element.get("rating").asDouble());
-                }
-                if (element.get("user_ratings_total") != null) {
-                    trailDto.setGoogleReviewCount(element.get("user_ratings_total").asInt());
-                }
-                if (element.get("photos") != null &&
-                        element.get("photos").size() > 0) {
-                    String imgRef = element.get("photos").get(0).get("photo_reference").asText();
-                    trailDto.setImage(getImageByReference(imgRef));
-                }
-                return;
+                return element;
             }
         }
-//        }
+        return null;
     }
 
     @Override
@@ -218,6 +231,32 @@ public class GoogleAPIServiceImpl implements GoogleAPIService {
             }
         } catch (IOException e) {
             System.out.println("getTrailDetails: " + e);
+        }
+    }
+
+    @Override
+    public void getTrailRating(TrailDto trailDto) {
+        JsonNode placeDetailsResponse = getTrailDetailsByPlaceId(trailDto.getGooglePlaceId());
+        if (placeDetailsResponse != null) {
+            if (placeDetailsResponse.get("result") != null) {
+                if (placeDetailsResponse.get("result").get("rating") != null) {
+                    trailDto.setGoogleRating(placeDetailsResponse.get("result").get("rating").asDouble());
+                }
+                if (placeDetailsResponse.get("result").get("user_ratings_total") != null) {
+                    trailDto.setGoogleReviewCount(placeDetailsResponse.get("result").get("user_ratings_total").asInt());
+                }
+            }
+        }
+        if (trailDto.getGoogleRating() == 0 && trailDto.getCoordinates() != null) {
+            JsonNode placeSearchResponse = searchPlace(trailDto);
+            if (placeSearchResponse != null) {
+                if (placeSearchResponse.get("rating") != null) {
+                    trailDto.setGoogleRating(placeSearchResponse.get("rating").asDouble());
+                }
+                if (placeSearchResponse.get("user_ratings_total") != null) {
+                    trailDto.setGoogleReviewCount(placeSearchResponse.get("user_ratings_total").asInt());
+                }
+            }
         }
     }
 }

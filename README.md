@@ -50,13 +50,13 @@ Users can search trails by trail location or by trail name
 
 Users can view trail details by clicking on the 'Learn more' button
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo2.gif" alt="learn more demo"/>
+<img src="/src/main/resources/static/assets/images/demo2.gif" alt="learn more demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can save a trail by clicking on the 'Save this trail' button
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo3.gif" alt="save trail demo"/>
+<img src="/src/main/resources/static/assets/images/demo3.gif" alt="save trail demo" width="600"/>
 </p>
 <br/><br/>
 
@@ -64,67 +64,67 @@ On the trail details page, users can view all the trail information such as Yelp
 Trail pictures uploaded by this app users, up to ten pictures from Google Places API, and up to three pictures from Yelp Fusion API are also available on this page.
 Finally, there are reviews from this application users, up to five top reviews from Google Maps users, and up to three Yelp users' review excerpts.
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo4.gif" alt="trails details demo"/>
+<img src="/src/main/resources/static/assets/images/demo4.gif" alt="trails details demo" width="600"/>
 </p>
 <br/><br/>
 
 On the trail details page, registered users can write a review or view their review if they already wrote a review for this trail.
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo5.gif" alt="write review demo"/>
+<img src="/src/main/resources/static/assets/images/demo5.gif" alt="write review demo" width="600"/>
 </p>
 <br/><br/>
 
 On the trail details page, registered users can upload a photo of the trail
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo6.gif" alt="upload photo demo"/>
+<img src="/src/main/resources/static/assets/images/demo6.gif" alt="upload photo demo" width="600"/>
 </p>
 <br/><br/>
 
 On the trail details page, registered users can also save the trail to their 'Saved Trails' list
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo7.gif" alt="save trail demo"/>
+<img src="/src/main/resources/static/assets/images/demo7.gif" alt="save trail demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can see all their saved trails on their 'Saved Trails' page
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo8.gif" alt="save trail demo"/>
+<img src="/src/main/resources/static/assets/images/demo8.gif" alt="save trail demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can remove a trail from their 'Saved Trails' page
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo9.gif" alt="remove saved trail demo"/>
+<img src="/src/main/resources/static/assets/images/demo9.gif" alt="remove saved trail demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can see all their reviews on their reviews page
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo10.gif" alt="user reviews demo"/>
+<img src="/src/main/resources/static/assets/images/demo10.gif" alt="user reviews demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can edit their reviews
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo11.gif" alt="edit review demo"/>
+<img src="/src/main/resources/static/assets/images/demo11.gif" alt="edit review demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can delete their reviews
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo12.gif" alt="delete review demo"/>
+<img src="/src/main/resources/static/assets/images/demo12.gif" alt="delete review demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can see all the photos they uploaded on their photos page
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo13.gif" alt="user photos demo"/>
+<img src="/src/main/resources/static/assets/images/demo13.gif" alt="user photos demo" width="600"/>
 </p>
 <br/><br/>
 
 Registered users can delete a photo they uploaded
 <p align="left">
-<img src="/src/main/resources/static/assets/images/demo14.gif" alt="delete photo demo"/>
+<img src="/src/main/resources/static/assets/images/demo14.gif" alt="delete photo demo" width="600"/>
 </p>
 <br/><br/>
 

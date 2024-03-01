@@ -4,7 +4,7 @@
 Users can look for trails by their location or by name.
 
 ## Demo Video
-
+https://youtu.be/LUIblh8EyCQ
 
 ## Contents
 * [Tech Stack](#technologies)
